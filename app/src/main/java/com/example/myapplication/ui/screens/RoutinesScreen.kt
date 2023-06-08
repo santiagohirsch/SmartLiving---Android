@@ -1,6 +1,14 @@
+package com.example.myapplication.ui.screens
+
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -10,21 +18,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.R
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
 
 @Composable
-fun DevicesScreen() {
+fun RoutinesScreen() {
     Surface(modifier = Modifier.fillMaxSize(), color = Color(android.graphics.Color.parseColor("#2f2f4d"))) {
         Column() {
             Text(
-                text = "Dispositivos",
+                text = "Rutinas",
                 fontSize = 25.sp,
                 color = Color.White,
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Left,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                    .padding(top = 16.dp)
+                    .padding(start = 25.dp)
             )
 
             LazyRow(
@@ -67,12 +76,8 @@ fun ClickableImage(
 @Composable
 fun getImageResourceId(index: Int): Int {
     return when (index % 3) {
-        0 -> R.drawable.ac
-        1 -> R.drawable.puerta
-        else -> R.drawable.lampara
+        0 -> R.drawable.rutina
+        1 -> R.drawable.banio
+        else -> R.drawable.unlock
     }
 }
-
-
-
-
