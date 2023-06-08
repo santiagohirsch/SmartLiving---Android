@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import DevicesScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
@@ -24,7 +25,7 @@ fun AppNavHost(
     {
 //          - = - = - App screens go here - = - = -
         composable(route = "landing") {
-            LandingScreen()
+            DevicesScreen()
         }
 
         /*

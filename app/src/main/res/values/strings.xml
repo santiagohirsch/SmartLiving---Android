@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="landing_msg">Get Started</string>
+    <string name="app_name">SmartLiving</string>
+    <string name="landing_msg">Empezar ya!</string>
+    <string name="supported_msg">Dispositivos soportados:</string>
+
 </resources>
