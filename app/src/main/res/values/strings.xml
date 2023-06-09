@@ -2,5 +2,6 @@
     <string name="app_name">SmartLiving</string>
     <string name="landing_msg">Empezar ya!</string>
     <string name="supported_msg">Dispositivos soportados:</string>
+    <string name="devicesTitle">Dispositivos</string>
 
 </resources>
