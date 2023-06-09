@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,12 +44,14 @@ fun Lamp(){
         Image(
             painter = painterResource(id = R.drawable.apagada), contentDescription = "lamp",
             modifier = Modifier
-                .size(100.dp)
+                .size(300.dp)
                 .padding(top = 40.dp)
         )
         Switch(checked = switchOn, onCheckedChange = {
                 switchOn_->switchOn=switchOn_
         },
+            modifier = Modifier
+                .scale(scale = 2.2f),
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.Green,
                 checkedTrackColor = Color.Gray
@@ -57,6 +60,8 @@ fun Lamp(){
         Text(text = if (switchOn) "On" else "Off")
         Slider(
             value = sliderValue,
+            modifier = Modifier
+                .scale(scale = 0.8f),
             onValueChange = {
                 sliderValue_ -> sliderValue = sliderValue_
             },

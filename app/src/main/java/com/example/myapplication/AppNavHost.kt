@@ -6,6 +6,8 @@ import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.components.devices.Ac
+import com.example.myapplication.ui.components.devices.Lamp
 import com.example.myapplication.ui.screens.LandingScreen
 
 @Composable
@@ -25,7 +27,7 @@ fun AppNavHost(
     {
 //          - = - = - App screens go here - = - = -
         composable(route = "landing") {
-            DevicesScreen()
+            Lamp()
         }
 
         /*
