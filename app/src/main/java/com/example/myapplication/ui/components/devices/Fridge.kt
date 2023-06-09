@@ -1,15 +1,22 @@
 package com.example.myapplication.ui.components.devices
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -19,32 +26,91 @@ import androidx.compose.ui.unit.dp
 @Preview
 @Composable
 fun Fridge(){
-    Column() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(top = 90.dp),
+        //verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Box(
             modifier = Modifier
-                .width(150.dp)
-                .height(200.dp)
-                .clip(shape = RoundedCornerShape(size = 22.dp))
-                .background(color = Color.Black)
-        )
-        Button(
-            onClick = {
-                /*TODO*/
-            }
+                .height(50.dp)
+                .width(350.dp)
+                .clip(shape = RoundedCornerShape(
+                    topStart = 22.dp,
+                    topEnd = 22.dp
+                ))
+                .background(color = Color.Gray)
         ) {
-            Text(text = "Cambiar modo")
+            Row() {
+                Text(text = "Modo:", modifier = Modifier.padding(start = 15.dp))
+            }
         }
+        Spacer(modifier = Modifier.height(5.dp))
         Row() {
-            Text(text = "Temp. freezer")
-            Text(text = "Temp. heladera")
+            Box(
+                modifier = Modifier
+                    .width(172.dp)
+                    .height(200.dp)
+                    .background(color = Color.Gray)
+            ) {
+                Text(text = "Temp. freezer", modifier = Modifier.padding(start = 15.dp))
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            Box(
+                modifier = Modifier
+                    .width(172.dp)
+                    .height(200.dp)
+                    .background(color = Color.Gray)
+            ) {
+                Text(text = "Temp. heladera", modifier = Modifier.padding(start = 15.dp))
+            }
         }
-        Text(text = "Modo:")
-        Row() {
-            Column() {
+        Spacer(modifier = Modifier.height(5.dp))
+        Box(
+            modifier = Modifier
+                .width(350.dp)
+                .height(50.dp)
+                .clip(shape = RoundedCornerShape(
+                    bottomStart = 22.dp,
+                    bottomEnd = 22.dp
+                ))
+                .background(color = Color.Gray)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Button(
                     onClick = {
                         /*TODO*/
-                    }
+                    },
+                    shape = RoundedCornerShape(
+                        size = 20.dp
+                    )
+                ) {
+                    Text(text = "Cambiar modo")
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(100.dp))
+        Row() {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(
+                    onClick = {
+                        /*TODO*/
+                    },
+                    shape = RoundedCornerShape(
+                        topStart = 20.dp,
+                        topEnd = 20.dp
+                    )
                 ) {
                     Text(text = "Subir")
                 }
@@ -52,16 +118,28 @@ fun Fridge(){
                 Button(
                     onClick = {
                         /*TODO*/
-                    }
+                    },
+                    shape = RoundedCornerShape(
+                        bottomStart = 20.dp,
+                        bottomEnd = 20.dp
+                    )
                 ) {
                     Text(text = "Bajar")
                 }
             }
-            Column() {
+            Spacer(modifier = Modifier.width(65.dp))
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Button(
                     onClick = {
                         /*TODO*/
-                    }
+                    },
+                    shape = RoundedCornerShape(
+                        topStart = 20.dp,
+                        topEnd = 20.dp
+                    )
                 ) {
                     Text(text = "Subir")
                 }
@@ -69,7 +147,11 @@ fun Fridge(){
                 Button(
                     onClick = {
                         /*TODO*/
-                    }
+                    },
+                    shape = RoundedCornerShape(
+                        bottomStart = 20.dp,
+                        bottomEnd = 20.dp
+                    )
                 ) {
                     Text(text = "Bajar")
                 }
