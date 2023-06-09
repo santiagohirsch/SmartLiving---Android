@@ -15,7 +15,7 @@ fun AppNavGraph(navController: NavHostController) {
         startDestination = Screen.FirstScreen.route
     ) {
         composable(Screen.FirstScreen.route) {
-            LandingScreen()
+            LandingScreen(navController)
         }
         composable(Screen.SecondScreen.route) {
             DevicesScreen()
