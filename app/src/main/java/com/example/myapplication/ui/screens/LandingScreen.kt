@@ -35,11 +35,12 @@ import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavHostController
 
 
-@Preview
+//@Preview
 @Composable
-fun LandingScreen() {
+fun LandingScreen(navController: NavHostController) {
     val openDialog = remember {
         mutableStateOf(false)
     }
@@ -102,7 +103,7 @@ fun LandingScreen() {
                     .padding(bottom = 70.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                NormalButton()
+                NormalButton(navController)
                 Button(onClick = {openDialog.value = true}) {
                     Text(text = "Dialog")
                 }
@@ -156,10 +157,20 @@ fun ShowToast(context: Context, message: String){
 }
 
 @Composable
-fun NormalButton(){
+fun NormalButton(navController: NavHostController){
     val context = LocalContext.current
     OutlinedButton(
-        onClick = { ShowToast(context, "Messi te amo loco") },
+        onClick = { navController.navigate("devices_screen")
+        {
+            navController.graph.startDestinationRoute?.let { screenRoute ->
+                popUpTo(screenRoute) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+                  },
         shape = RoundedCornerShape(30.dp),
         modifier = Modifier
             .width(180.dp)
