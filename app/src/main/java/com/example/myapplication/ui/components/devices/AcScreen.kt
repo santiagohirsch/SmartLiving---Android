@@ -23,11 +23,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.data.AcUiState
 
 
 @Preview
 @Composable
-fun Ac(){
+fun Ac(/*uiState: AcUiState*/){
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -75,12 +76,13 @@ fun Ac(){
                 ) {
                     Row() {
                         Text(
-                            text = "MODO:",
+                            text = "Modo: "/* + uiState.state.mode*/,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
                             //fontSize = 10.dp
                         )
+
                     }
                 }
                 Spacer(modifier = Modifier
@@ -96,7 +98,7 @@ fun Ac(){
                                 .height(95.dp)
                         ) {
                             Text(
-                                text = "ON",
+                                text = "ON" /*uiState.state.status*/,
                                 color = Color.Black,
                                 modifier = Modifier
                                     .padding(start = 10.dp),
@@ -114,7 +116,7 @@ fun Ac(){
                                 .clip(shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
                         )
                         {
-                        Text(text = "Temperature:",
+                        Text(text = "Temperature: "/* + uiState.state.temperature*/,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
@@ -132,7 +134,7 @@ fun Ac(){
                             .fillMaxWidth()
                             .background(color = Color.Gray)
                     ) {
-                        Text(text = "Velocidad:",
+                        Text(text = "Velocidad: "/* + uiState.state.fanSpeed*/,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),

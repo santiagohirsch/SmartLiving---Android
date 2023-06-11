@@ -21,10 +21,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.data.RefrigeratorUiState
 
 @Preview
 @Composable
-fun Fridge(){
+fun Fridge(/*uiState: RefrigeratorUiState*/){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,7 +45,7 @@ fun Fridge(){
                 .background(color = Color.Gray)
         ) {
             Row() {
-                Text(text = "Modo:", modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Modo: "/* + uiState.state.mode*/, modifier = Modifier.padding(start = 15.dp))
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -55,7 +56,7 @@ fun Fridge(){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. freezer", modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Temp. freezer "/* + uiState.state.freezerTemperature*/, modifier = Modifier.padding(start = 15.dp))
             }
             Spacer(modifier = Modifier.width(5.dp))
             Box(
@@ -64,7 +65,7 @@ fun Fridge(){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. heladera", modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Temp. heladera "/* + uiState.state.temperature*/, modifier = Modifier.padding(start = 15.dp))
             }
         }
         Spacer(modifier = Modifier.height(5.dp))

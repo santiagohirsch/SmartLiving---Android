@@ -25,10 +25,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.R
+import com.example.myapplication.data.LampUiState
 
 @Preview
 @Composable
-fun Lamp(){
+fun Lamp(/*uiState: LampUiState*/){
     var sliderValue by remember {
         mutableFloatStateOf(0f)
     }
@@ -58,11 +59,11 @@ fun Lamp(){
         )
         Text(text = if (switchOn) "On" else "Off")
         Slider(
-            value = sliderValue,
+            value = sliderValue /*uiState.state.brightness*/,
             modifier = Modifier
                 .scale(scale = 0.8f),
             onValueChange = {
-                sliderValue_ -> sliderValue = sliderValue_
+                sliderValue_ -> sliderValue /*uiState.state.brightness*/ = sliderValue_
             },
             /*onValueChangeFinished = {
                 Log.d("MainActivity", "sliderVale = $sliderValue")
