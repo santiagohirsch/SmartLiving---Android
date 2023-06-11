@@ -1,10 +1,13 @@
 package com.example.myapplication.data
 
+import com.example.myapplication.R
+
 data class VacuumUiState(
-    val id: String,
-    val name: String,
-    val type: VacuumType,
-    val state: VacuumState
+    val id: String = "",
+    val name: String = "",
+    val type: VacuumType = VacuumType(),
+    val state: VacuumState = VacuumState(),
+    val img: Int = R.drawable.aspiradora
 )
 
 data class VacuumType(
@@ -14,8 +17,8 @@ data class VacuumType(
 )
 
 data class VacuumState(
-    val status: String,
-    val mode: String,
-    val batteryLevel: Int,
-    val location: String,
+    val status: String = "inactive",
+    val mode: String = "vacuum",
+    val batteryLevel: Int = 4,
+    val location: String = "",
 )

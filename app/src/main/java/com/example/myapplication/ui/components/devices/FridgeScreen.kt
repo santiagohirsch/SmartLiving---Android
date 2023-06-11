@@ -21,11 +21,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.RefrigeratorUiState
+import com.example.myapplication.util.DoorViewModel
 
 @Preview
 @Composable
-fun Fridge(/*uiState: RefrigeratorUiState*/){
+fun Fridge(fridgeViewModel: DoorViewModel = viewModel()){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,10 +40,12 @@ fun Fridge(/*uiState: RefrigeratorUiState*/){
             modifier = Modifier
                 .height(50.dp)
                 .width(350.dp)
-                .clip(shape = RoundedCornerShape(
-                    topStart = 22.dp,
-                    topEnd = 22.dp
-                ))
+                .clip(
+                    shape = RoundedCornerShape(
+                        topStart = 22.dp,
+                        topEnd = 22.dp
+                    )
+                )
                 .background(color = Color.Gray)
         ) {
             Row() {
@@ -73,10 +77,12 @@ fun Fridge(/*uiState: RefrigeratorUiState*/){
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp)
-                .clip(shape = RoundedCornerShape(
-                    bottomStart = 22.dp,
-                    bottomEnd = 22.dp
-                ))
+                .clip(
+                    shape = RoundedCornerShape(
+                        bottomStart = 22.dp,
+                        bottomEnd = 22.dp
+                    )
+                )
                 .background(color = Color.Gray)
         ) {
             Column(

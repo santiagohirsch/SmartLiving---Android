@@ -1,10 +1,13 @@
 package com.example.myapplication.data
 
+import com.example.myapplication.R
+
 data class RefrigeratorUiState(
-    val id: String,
-    val name: String,
-    val type: RefrigeratorType,
-    val state: RefrigeratorState
+    val id: String = "",
+    val name: String = "",
+    val type: RefrigeratorType = RefrigeratorType(),
+    val state: RefrigeratorState = RefrigeratorState(),
+    val img: Int = R.drawable.heladera
 )
 
 data class RefrigeratorType(
@@ -14,8 +17,7 @@ data class RefrigeratorType(
 )
 
 data class RefrigeratorState(
-    val status: String,
-    val mode: String,
-    val freezerTemperature: Int,
-    val temperature: Int
+    val mode: String = "default",
+    val freezerTemperature: Int = -8,
+    val temperature: Int = 2
 )

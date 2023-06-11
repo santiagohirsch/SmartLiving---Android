@@ -14,12 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.data.LampUiState
+import com.example.myapplication.util.VacuumViewModel
 
 @Preview
 @Composable
-fun Vacuum(/*uiState: LampUiState*/){
+fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

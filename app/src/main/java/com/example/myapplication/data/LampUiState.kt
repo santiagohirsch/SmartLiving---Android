@@ -1,10 +1,13 @@
 package com.example.myapplication.data
 
+import com.example.myapplication.R
+
 data class LampUiState(
-    val id: String,
-    val name: String,
-    val type: LampType,
-    val state: LampState
+    val id: String = "",
+    val name: String = "",
+    val type: LampType = LampType(),
+    val state: LampState = LampState(),
+    val img: Int = R.drawable.lampara
 )
 
 data class LampType(
@@ -14,7 +17,7 @@ data class LampType(
 )
 
 data class LampState(
-    val status: String,
-    val color: String,
-    val brightness: Double
+    val status: String = "off",
+    val color: String = "FFFFFF",
+    val brightness: Double = 100.0
 )

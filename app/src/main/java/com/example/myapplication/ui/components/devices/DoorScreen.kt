@@ -22,11 +22,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.DoorUiState
+import com.example.myapplication.util.AcViewModel
+import com.example.myapplication.util.DoorViewModel
 
 @Preview
 @Composable
-fun Door(/*uiState: DoorUiState*/){
+fun Door(doorViewModel: DoorViewModel = viewModel()){
     var switchOpen by remember {
         mutableStateOf(false)
     }

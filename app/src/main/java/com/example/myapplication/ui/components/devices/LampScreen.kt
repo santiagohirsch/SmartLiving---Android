@@ -24,12 +24,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.data.LampUiState
+import com.example.myapplication.util.LampViewModel
 
 @Preview
 @Composable
-fun Lamp(/*uiState: LampUiState*/){
+fun Lamp(lampViewModel: LampViewModel = viewModel()){
     var sliderValue by remember {
         mutableFloatStateOf(0f)
     }

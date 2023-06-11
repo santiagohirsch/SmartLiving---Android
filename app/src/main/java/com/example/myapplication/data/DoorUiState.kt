@@ -1,10 +1,13 @@
 package com.example.myapplication.data
 
+import com.example.myapplication.R
+
 data class DoorUiState(
-    val id: String,
-    val name: String,
-    val type: DoorType,
-    val state: DoorState
+    val id: String = "",
+    val name: String = "",
+    val type: DoorType = DoorType(),
+    val state: DoorState = DoorState(),
+    val img: Int = R.drawable.puerta
 )
 
 data class DoorType(
@@ -14,6 +17,6 @@ data class DoorType(
 )
 
 data class DoorState(
-    val status: String,
-    val lock: String
+    val status: String = "closed",
+    val lock: String = "unlocked"
 )

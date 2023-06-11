@@ -1,10 +1,15 @@
 package com.example.myapplication.data
 
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import com.example.myapplication.R
+
 data class AcUiState(
-    val id: String,
-    val name: String,
-    val type: AcType,
-    val state: AcState
+    val id: String = "",
+    val name: String = "",
+    val type: AcType = AcType(),
+    val state: AcState = AcState(),
+    val img: Int = R.drawable.ac
 )
 
 data class AcType(
@@ -14,10 +19,10 @@ data class AcType(
 )
 
 data class AcState(
-    val status: String,
-    val temperature: Int,
-    val mode: String,
-    val verticalSwing: String,
-    val horizontalSwing: String,
-    val fanSpeed: String,
+    val status: String = "",
+    val temperature: Int = 24,
+    val mode: String = "cool",
+    val verticalSwing: String = "auto",
+    val horizontalSwing: String = "auto",
+    val fanSpeed: String = "auto",
 )
