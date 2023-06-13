@@ -52,7 +52,7 @@ fun DevicesScreen() {
     var value by remember {
         mutableStateOf("")
     }
-    val listItems = arrayOf("Santiago", "Bruno", "Mauro", "Santiago")
+    val listItems = arrayOf("Horno", "Lampara", "Heladera", "Puerta", "Aspiradora")
     val contextForToast = LocalContext.current.applicationContext
     var expaned by remember {
         mutableStateOf(false)
@@ -78,27 +78,15 @@ fun DevicesScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp)
-                    .padding(start = 25.dp)
+                    .padding(start = 5.dp)
+                    .padding(bottom = 20.dp)
             )
-
-            LazyRow(
-                contentPadding = PaddingValues(16.dp)
-            ) {
-                items(10) { index ->
-                    ClickableImage(
-                        resourceId = getImageResourceId(index),
-                        contentDescription = "Image $index"
-                    ) {
-                        // Lógica de manejo de clics aquí
-                    }
-                }
-            }
             Button(
                 onClick = {
                     openDialog.value = true
                 }
             ) {
-               Text(text = "Agregar dispositivo")
+                Text(text = "Agregar dispositivo")
             }
             if (openDialog.value){
                 Dialog(
@@ -151,14 +139,14 @@ fun DevicesScreen() {
                                         onDismissRequest = { expaned = false }
                                     ) {
                                         listItems.forEach {
-                                            selectedOption ->
+                                                selectedOption ->
                                             DropdownMenuItem(onClick = {
                                                 selected = selectedOption
                                                 Toast.makeText(contextForToast, selectedOption, Toast.LENGTH_SHORT).show()
                                                 expaned = false
                                                 dropDownEnabled = true
                                             }) {
-                                            Text(text = selectedOption)
+                                                Text(text = selectedOption)
                                             }
                                         }
                                     }
@@ -196,6 +184,19 @@ fun DevicesScreen() {
                     }
                 }
             }
+            LazyRow(
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                items(10) { index ->
+                    ClickableImage(
+                        resourceId = getImageResourceId(index),
+                        contentDescription = "Image $index"
+                    ) {
+                        // Lógica de manejo de clics aquí
+                    }
+                }
+            }
+
         }
     }
 }
