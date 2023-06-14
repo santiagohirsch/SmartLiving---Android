@@ -3,5 +3,6 @@
     <string name="landing_msg">Empezar ya!</string>
     <string name="supported_msg">Dispositivos soportados:</string>
     <string name="devicesTitle">Dispositivos</string>
+    <string name="image_name">image_%1$s</string>
 
 </resources>
