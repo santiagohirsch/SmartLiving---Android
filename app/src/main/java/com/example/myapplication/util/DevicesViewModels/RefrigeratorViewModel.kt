@@ -1,13 +1,14 @@
-package com.example.myapplication.util
+package com.example.myapplication.util.DevicesViewModels
 
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.R
 import com.example.myapplication.data.DoorUiState
 import com.example.myapplication.data.RefrigeratorUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class RefrigeratorViewModel : ViewModel() {
+class RefrigeratorViewModel( name: String) : DeviceViewModel("refrigerator", R.drawable.heladera, name){
     private val _uiState = MutableStateFlow(RefrigeratorUiState())
     val uiState: StateFlow<RefrigeratorUiState> = _uiState.asStateFlow()
 

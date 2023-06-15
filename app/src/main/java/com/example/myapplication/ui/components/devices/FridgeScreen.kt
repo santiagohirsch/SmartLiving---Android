@@ -22,8 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.data.RefrigeratorUiState
-import com.example.myapplication.util.DoorViewModel
+import com.example.myapplication.util.DevicesViewModels.DoorViewModel
 
 @Preview
 @Composable

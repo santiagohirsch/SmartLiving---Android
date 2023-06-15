@@ -23,9 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.data.DoorUiState
-import com.example.myapplication.util.AcViewModel
-import com.example.myapplication.util.DoorViewModel
+import com.example.myapplication.util.DevicesViewModels.DoorViewModel
 
 @Preview
 @Composable

@@ -26,8 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
-import com.example.myapplication.data.LampUiState
-import com.example.myapplication.util.LampViewModel
+import com.example.myapplication.util.DevicesViewModels.LampViewModel
 
 @Preview
 @Composable
