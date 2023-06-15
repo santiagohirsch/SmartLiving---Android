@@ -42,11 +42,13 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.myapplication.R
 import com.example.myapplication.ui.components.DeviceCard
+import com.example.myapplication.util.devicesrep.CurrentDevices
 import com.example.myapplication.util.devicesvm.LampViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DevicesScreen(navController: NavHostController) {
+    val currentDevices: CurrentDevices = CurrentDevices()
     val openDialog = remember {
         mutableStateOf(false)
     }
@@ -188,14 +190,11 @@ fun DevicesScreen(navController: NavHostController) {
             LazyRow(
                 contentPadding = PaddingValues(16.dp)
             ) {
-                items(10) { index ->
-                    ClickableImage(
-                        resourceId = getImageResourceId(index),
-                        contentDescription = "Image $index"
-                    ) {
-                        // Lógica de manejo de clics aquí
-                    }
+                items(1) {
+                    for(device in currentDevices.devices)
+                        DeviceCard(device = device, navController = navController)
                 }
+
             }
             DeviceCard(device = LampViewModel("el pepe"), navController = navController)
         }

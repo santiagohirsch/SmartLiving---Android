@@ -30,7 +30,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.components.devices.Ac
 import com.example.myapplication.ui.components.devices.Door
 import com.example.myapplication.ui.components.devices.Lamp
@@ -83,26 +87,28 @@ fun DeviceCard(
     }
 
     if (showDialog) {
-        FullscreenDialog(device = device, navController = navController)
+        FullscreenDialog(device = device, onDismiss = {showDialog = false})
     }
 }
 
 @Composable
-fun FullscreenDialog(device: DeviceViewModel, navController: NavHostController) {
-    var back by remember { mutableStateOf(false) }
+fun FullscreenDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
     val currentDevices: CurrentDevices = CurrentDevices()
-    IconButton(
-        onClick = {
-            back = true
-        }
-    ) {
-        Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
-    }
-    //navController.navigate("d_screen")
-    currentDevices.ViewDevice(device)
-    if(back) {
-        DevicesScreen(navController = navController)
-        navController.navigate("devices_screen")
-    }
+    Dialog(
+        onDismissRequest = { onDismiss()},
+        content = {
+            Box( modifier = Modifier.background(Color.White)) {
+                IconButton(
+                    onClick = {
+                        onDismiss()
+                    }
+                ) {
+                    Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
+                }
+                currentDevices.ViewDevice(device)
+            }
+    })
+
+
 }
 

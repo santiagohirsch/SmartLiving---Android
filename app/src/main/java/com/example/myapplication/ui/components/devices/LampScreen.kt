@@ -29,18 +29,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
+import com.example.myapplication.util.devicesvm.DeviceViewModel
 import com.example.myapplication.util.devicesvm.LampViewModel
 
 @Preview
 @Composable
-fun Lamp(lampViewModel: LampViewModel = viewModel()){
+fun Lamp(lampViewModel: DeviceViewModel = viewModel()){
     var sliderValue by remember {
         mutableFloatStateOf(0f)
     }
     var switchOn by remember {
         mutableStateOf(false)
     }
-    Surface(modifier = Modifier.fillMaxSize().zIndex(1f), color = Color.White) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -88,5 +88,4 @@ fun Lamp(lampViewModel: LampViewModel = viewModel()){
             Text(text = "Confirmar brillo")
         }*/
         }
-    }
 }

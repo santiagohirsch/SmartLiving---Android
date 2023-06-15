@@ -20,6 +20,13 @@ import com.example.myapplication.util.devicesvm.RefrigeratorViewModel
 import com.example.myapplication.util.devicesvm.VacuumViewModel
 
 class CurrentDevices {
+    var devices: List<DeviceViewModel> = listOf(
+        LampViewModel("el pepe"),
+        AcViewModel("AC Device"),
+        RefrigeratorViewModel( "Refrigerator Device")
+        // Agrega más elementos de DeviceViewModel según tus necesidades
+    )
+
 
     @Composable
     fun ViewDevice(device: DeviceViewModel) {
