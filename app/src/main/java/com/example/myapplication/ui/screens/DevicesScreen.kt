@@ -36,14 +36,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.myapplication.R
 import com.example.myapplication.ui.components.DeviceCard
-import com.example.myapplication.util.DevicesViewModels.LampViewModel
+import com.example.myapplication.util.devicesvm.LampViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -198,7 +197,7 @@ fun DevicesScreen(navController: NavHostController) {
                     }
                 }
             }
-            DeviceCard(device = LampViewModel("el wey"), navController = navController)
+            DeviceCard(device = LampViewModel("el pepe"), navController = navController)
         }
     }
 }

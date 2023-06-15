@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,15 +30,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
-import com.example.myapplication.Screen
 import com.example.myapplication.ui.components.devices.Ac
 import com.example.myapplication.ui.components.devices.Door
-import com.example.myapplication.ui.components.devices.Fridge
 import com.example.myapplication.ui.components.devices.Lamp
 import com.example.myapplication.ui.components.devices.Vacuum
-import com.example.myapplication.util.DevicesViewModels.DeviceViewModel
+import com.example.myapplication.util.devicesrep.CurrentDevices
+import com.example.myapplication.util.devicesvm.DeviceViewModel
+import com.example.myapplication.util.devicesvm.LampViewModel
+
 @Composable
 fun DeviceCard(
     device: DeviceViewModel,
@@ -84,13 +83,14 @@ fun DeviceCard(
     }
 
     if (showDialog) {
-        FullscreenDialog(type = device.type, navController = navController)
+        FullscreenDialog(device = device, navController = navController)
     }
 }
 
 @Composable
-fun FullscreenDialog(type: String, navController: NavHostController) {
+fun FullscreenDialog(device: DeviceViewModel, navController: NavHostController) {
     var back by remember { mutableStateOf(false) }
+    val currentDevices: CurrentDevices = CurrentDevices()
     IconButton(
         onClick = {
             back = true
@@ -98,33 +98,9 @@ fun FullscreenDialog(type: String, navController: NavHostController) {
     ) {
         Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
     }
-    if(type == "lamp")
-        navController.navigate("d_screen"){
-            navController.graph.startDestinationRoute?.let { screenRoute ->
-                popUpTo(screenRoute) {
-                    saveState = true
-                }
-                launchSingleTop = true
-                restoreState = true
-            }
-        }
-    else if ( type == "ac")
-        Ac()
-    else if ( type == "refrigerator")
-        navController.navigate("d_screen"){
-            navController.graph.startDestinationRoute?.let { screenRoute ->
-                popUpTo(screenRoute) {
-                    saveState = true
-                }
-                launchSingleTop = true
-                restoreState = true
-            }
-        }
-    else if (type == "vacuum")
-        Vacuum()
-    else if (type == "door")
-        Door()
-    if(back){
+    //navController.navigate("d_screen")
+    currentDevices.ViewDevice(device)
+    if(back) {
         DevicesScreen(navController = navController)
         navController.navigate("devices_screen")
     }

@@ -26,7 +26,7 @@ fun AppNavGraph(navController: NavHostController) {
             RoutinesScreen()
         }
         composable(Screen.DeviceScreen.route){
-            Lamp()
+
         }
     }
 }

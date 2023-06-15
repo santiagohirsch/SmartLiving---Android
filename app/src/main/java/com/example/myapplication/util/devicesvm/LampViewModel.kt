@@ -1,8 +1,6 @@
-package com.example.myapplication.util.DevicesViewModels
+package com.example.myapplication.util.devicesvm
 
-import androidx.lifecycle.ViewModel
 import com.example.myapplication.R
-import com.example.myapplication.data.DoorUiState
 import com.example.myapplication.data.LampUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
