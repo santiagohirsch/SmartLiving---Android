@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.components
 
+import DevicesScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +13,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.KeyboardArrowLeft
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,27 +32,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavHostController
+import com.example.myapplication.Screen
 import com.example.myapplication.ui.components.devices.Ac
 import com.example.myapplication.ui.components.devices.Door
 import com.example.myapplication.ui.components.devices.Fridge
 import com.example.myapplication.ui.components.devices.Lamp
 import com.example.myapplication.ui.components.devices.Vacuum
-import com.example.myapplication.util.AcViewModel
-import com.example.myapplication.util.DoorViewModel
-import com.example.myapplication.util.LampViewModel
-import com.example.myapplication.util.RefrigeratorViewModel
-import com.example.myapplication.util.VacuumViewModel
-
+import com.example.myapplication.util.DevicesViewModels.DeviceViewModel
 @Composable
 fun DeviceCard(
-    lampViewModel: LampViewModel? = null,
-    acViewModel: AcViewModel? = null,
-    doorViewModel: DoorViewModel? = null,
-    vacuumViewModel: VacuumViewModel? = null,
-    fridgeViewModel: RefrigeratorViewModel? = null,
-    deviceName: String,
-    imageRes: Int,
-    type: String,
+    device: DeviceViewModel,
+    navController: NavHostController
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
@@ -58,7 +54,7 @@ fun DeviceCard(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
                 Image(
-                    painter = painterResource(imageRes),
+                    painter = painterResource(device.img),
                     contentDescription = null,
                     modifier = Modifier
                         .clickable { showDialog = true }
@@ -78,7 +74,7 @@ fun DeviceCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = deviceName,
+                        text = device.name,
                         fontSize = 18.sp,
                         modifier = Modifier.weight(1f)
                     )
@@ -88,37 +84,49 @@ fun DeviceCard(
     }
 
     if (showDialog) {
-        FullscreenDialog(type = type,onDismiss = { showDialog = false })
+        FullscreenDialog(type = device.type, navController = navController)
     }
 }
 
 @Composable
-fun FullscreenDialog(type: String, onDismiss: () -> Unit) {
-    Box(
-        modifier = Modifier.fillMaxSize()
+fun FullscreenDialog(type: String, navController: NavHostController) {
+    var back by remember { mutableStateOf(false) }
+    IconButton(
+        onClick = {
+            back = true
+        }
     ) {
-    Dialog(
-        onDismissRequest = { onDismiss() },
-        content = {
-            // Contenido del diálogo de pantalla completa
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White)
-            ) {
-                if(type == "lamp")
-                    Lamp()// Contenido del diálogo
-                else if ( type == "ac")
-                    Ac()
-                else if ( type == "refrigerator")
-                    Fridge()
-                else if (type == "vacuum")
-                    Vacuum()
-                else if (type == "door")
-                    Door()
+        Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
+    }
+    if(type == "lamp")
+        navController.navigate("d_screen"){
+            navController.graph.startDestinationRoute?.let { screenRoute ->
+                popUpTo(screenRoute) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
             }
         }
-    )
+    else if ( type == "ac")
+        Ac()
+    else if ( type == "refrigerator")
+        navController.navigate("d_screen"){
+            navController.graph.startDestinationRoute?.let { screenRoute ->
+                popUpTo(screenRoute) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    else if (type == "vacuum")
+        Vacuum()
+    else if (type == "door")
+        Door()
+    if(back){
+        DevicesScreen(navController = navController)
+        navController.navigate("devices_screen")
     }
 }
 

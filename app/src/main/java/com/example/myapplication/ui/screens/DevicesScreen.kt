@@ -40,12 +40,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavHostController
 import com.example.myapplication.R
+import com.example.myapplication.ui.components.DeviceCard
+import com.example.myapplication.util.DevicesViewModels.LampViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
-@Preview
 @Composable
-fun DevicesScreen() {
+fun DevicesScreen(navController: NavHostController) {
     val openDialog = remember {
         mutableStateOf(false)
     }
@@ -196,7 +198,7 @@ fun DevicesScreen() {
                     }
                 }
             }
-
+            DeviceCard(device = LampViewModel("el wey"), navController = navController)
         }
     }
 }

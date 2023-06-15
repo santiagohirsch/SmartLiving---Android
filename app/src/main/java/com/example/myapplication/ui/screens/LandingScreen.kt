@@ -152,10 +152,6 @@ fun LandingScreen(navController: NavHostController) {
     }
 }
 
-fun ShowToast(context: Context, message: String){
-    Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
-}
-
 @Composable
 fun NormalButton(navController: NavHostController){
     val context = LocalContext.current
