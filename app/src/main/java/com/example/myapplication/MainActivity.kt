@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.PendingIntent
+import android.bluetooth.BluetoothClass.Device
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -15,10 +16,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.util.devicesvm.DevicesViewModel
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -29,12 +32,13 @@ class MainActivity : ComponentActivity() {
         val deviceId = intent.getIntExtra("deviceid",-1)
 
         setContent {
+            val devicesViewModel: DevicesViewModel = viewModel()
             MyApplicationTheme {
                 val navController = rememberNavController()
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController)}
                 ) {
-                    AppNavGraph(navController = navController)
+                    AppNavGraph(navController = navController, devicesViewModel)
                 }
             }
         }
