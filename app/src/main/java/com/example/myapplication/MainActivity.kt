@@ -1,20 +1,12 @@
 package com.example.myapplication
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.PendingIntent
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.stringResource
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -26,13 +18,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val deviceId = intent.getIntExtra("deviceid",-1)
+        val deviceId = intent.getIntExtra("deviceid", -1)
 
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
                 Scaffold(
-                    bottomBar = { BottomBar(navController = navController)}
+                    bottomBar = { BottomBar(navController = navController) }
                 ) {
                     AppNavGraph(navController = navController)
                 }
@@ -81,7 +73,8 @@ class MainActivity : ComponentActivity() {
                 text = stringResource(R.string.show_notification)
             )
         }
-}*/
+        */
+}
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -115,5 +108,3 @@ fun BottomBar(navController: NavController) {
         }
     }
 }
-}
-
