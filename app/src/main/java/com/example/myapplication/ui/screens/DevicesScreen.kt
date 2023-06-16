@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -22,10 +23,16 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.ExposedDropdownMenuDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,6 +49,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.zIndex
 import com.example.myapplication.R
 import com.example.myapplication.ui.components.DeviceCard
 import com.example.myapplication.util.devicesrep.CurrentDevices
@@ -67,9 +75,24 @@ fun DevicesScreen() {
     }
     var nameEnabled = false
     var dropDownEnabled = false
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(android.graphics.Color.parseColor("#2f2f4d"))) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colors.background)
+    ) {
+        FloatingActionButton(
+            modifier = Modifier
+                .zIndex(2f)
+                .padding(all = 16.dp)
+                .padding(bottom = 65.dp)
+                .align(alignment = Alignment.BottomEnd),
+            onClick = { openDialog.value = true },
+            containerColor = MaterialTheme.colors.secondary
+        ) {
+            Icon(imageVector = Icons.Filled/*Default.Rounded*/.Add, contentDescription = "Add")
+        }
         Column(
             modifier = Modifier
+                .zIndex(1f)
                 .fillMaxWidth()
                 .fillMaxHeight(),
             //verticalArrangement = Arrangement.Center,
@@ -78,22 +101,12 @@ fun DevicesScreen() {
             Text(
                 text = stringResource(R.string.devicesTitle),
                 fontSize = 25.sp,
-                color = Color.White,
+                color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 5.dp, top = 16.dp, bottom = 20.dp)
             )
-            Button(
-                onClick = {
-                    openDialog.value = true
-                }
-            ) {
-                Text(
-                    text = "Agregar dispositivo",
-                    color = colorResource(id = R.color.text)
-                )
-            }
             if (openDialog.value){
                 Dialog(
                     onDismissRequest = {
@@ -195,8 +208,9 @@ fun DevicesScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
+                    .padding(bottom = 65.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(colorResource(R.color.secondary_button)),
+                    .background(MaterialTheme.colors.primary),
                 columns = GridCells.Adaptive(140.dp),//Fixed(2),
                 contentPadding = PaddingValues(12.dp),
             ) {
