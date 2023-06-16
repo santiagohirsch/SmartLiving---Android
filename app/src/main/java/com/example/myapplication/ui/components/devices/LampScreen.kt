@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.components.devices
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.Slider
-import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
@@ -26,15 +24,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.util.devicesvm.DeviceViewModel
-import com.example.myapplication.util.devicesvm.LampViewModel
 
 @Preview
 @Composable
-fun Lamp(lampViewModel: DeviceViewModel = viewModel()){
+fun Lamp(
+    modifier: Modifier = Modifier,
+    lampViewModel: DeviceViewModel = viewModel()
+){
     var sliderValue by remember {
         mutableFloatStateOf(0f)
     }
