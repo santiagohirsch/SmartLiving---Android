@@ -4,5 +4,9 @@
     <string name="supported_msg">Dispositivos soportados:</string>
     <string name="devicesTitle">Dispositivos</string>
     <string name="image_name">image_%1$s</string>
+    <string name="channel_name">Devices</string>
+    <string name="channel_description">Canal de notificaciones, donde recibiras los avisos mas importantes sobre tus dispositivos</string>
+    <string name="show_notification">Probando notificaciones!</string>
+    <string name="notification_text">Prueba</string>
 
 </resources>

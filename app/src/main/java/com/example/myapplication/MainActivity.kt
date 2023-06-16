@@ -1,12 +1,20 @@
 package com.example.myapplication
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -17,6 +25,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val deviceId = intent.getIntExtra("deviceid",-1)
+
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
@@ -28,7 +39,49 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
+    /*fun showNotification() {
+        val intent = Intent(this,MainActivity::class.java).apply{
+            putExtra( "messi chiquito",21424214)
+        }
+        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
+
+        val builder = NotificationCompat.Builder(this,SmartLiving.CHANNEL_ID)
+            .setSmallIcon(R.drawable.aspiradora)
+            .setContentTitle(getString (R.string.notification_text))
+            .setContentText(getString(R.string.notification_text))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(getString(R.string.notification_text))
+            )
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+        val notificationId = 1
+        val notificationManagerCompat = NotificationManagerCompat.from(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        notificationManagerCompat.notify(1,builder.build())
+    }
+
+    @Composable
+    fun notif() {
+        Button(onClick = {showNotification()}) {
+            Text(
+                text = stringResource(R.string.show_notification)
+            )
+        }
+}*/
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -62,3 +115,5 @@ fun BottomBar(navController: NavController) {
         }
     }
 }
+}
+
