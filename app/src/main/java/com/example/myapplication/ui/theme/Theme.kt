@@ -15,18 +15,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-
-//    ¡¡¡ HACER CON https://realtimecolors.com/ !!!!
-
-/*
-    Primary: #082770
-    Secondary: #5b82dc
-    Primary Button: #304678
-    Secondary Button: #0c3aa7
-    Accent: #222834
- */
-
-
 private val DarkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
