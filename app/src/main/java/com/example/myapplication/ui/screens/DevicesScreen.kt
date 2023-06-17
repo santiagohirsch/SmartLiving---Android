@@ -60,7 +60,7 @@ fun DevicesScreen() {
     var value by remember {
         mutableStateOf("")
     }
-    val listItems = arrayOf("Horno", "Lampara", "Heladera", "Puerta", "Aspiradora")
+    val listItems = arrayOf(stringResource(R.string.ac_name), stringResource(R.string.door_name), stringResource(R.string.fridge_name), stringResource(R.string.lamp_name), stringResource(R.string.vacuum_name))
     val contextForToast = LocalContext.current.applicationContext
     var expanded by remember {
         mutableStateOf(false)
@@ -93,7 +93,7 @@ fun DevicesScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.devicesTitle),
+                text = stringResource(R.string.devices_title),
                 fontSize = 25.sp,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
@@ -129,8 +129,8 @@ fun DevicesScreen() {
                                         value = newText
                                         nameEnabled = true
                                     },
-                                    label = { Text(text = "Nombre del dispositivo") },
-                                    placeholder = { Text(text = "Escriba el nombre del dispositivo") }
+                                    label = { Text(text = stringResource(R.string.device_name_msg)) },
+                                    placeholder = { Text(text = stringResource(R.string.device_name_msg_2)) }
                                 )
                                 Spacer(modifier = Modifier.height(20.dp))
                                 ExposedDropdownMenuBox(
@@ -143,7 +143,7 @@ fun DevicesScreen() {
                                         value = selected,
                                         onValueChange = {},
                                         readOnly = true,
-                                        label = { Text(text = "Tipo de dispositivo")},
+                                        label = { Text(text = stringResource(R.string.device_type))},
                                         trailingIcon = {
                                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                                         }
@@ -176,7 +176,7 @@ fun DevicesScreen() {
                                             nameEnabled = false
                                         }
                                     ) {
-                                        Text(text = "Cancelar")
+                                        Text(text = stringResource(R.string.cancel))
                                     }
                                     Spacer(modifier = Modifier.width(15.dp))
                                     Button(
@@ -189,7 +189,7 @@ fun DevicesScreen() {
                                         },
                                         enabled = dropDownEnabled && nameEnabled
                                     ) {
-                                        Text(text = "Confirmar")
+                                        Text(text = stringResource(R.string.confirm))
                                     }
                                 }
                             }

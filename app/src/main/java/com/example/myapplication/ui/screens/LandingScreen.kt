@@ -187,5 +187,5 @@ fun NormalButton(navController: NavHostController){
             .width(180.dp)
             .height(50.dp),
         border = BorderStroke(5.dp, MaterialTheme.colors.secondary)
-    ){ Text(text = "Empieza ya!")}
+    ){ Text(text = stringResource(R.string.landing_msg))}
 }

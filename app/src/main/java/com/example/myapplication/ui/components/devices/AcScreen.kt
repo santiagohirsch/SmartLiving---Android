@@ -21,9 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.R
 import com.example.myapplication.util.devicesvm.AcViewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
 
@@ -47,7 +49,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                 backgroundColor = Color.Red,
             ),
         ) {
-            Text( text = "Encender/\n  Apagar",
+            Text( text = stringResource(R.string.turn_on_or_off),
             color = Color.White)
         }
         Box(
@@ -78,7 +80,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                 ) {
                     Row() {
                         Text(
-                            text = "Modo: "/* + uiState.state.mode*/,
+                            text = stringResource(R.string.mode)/* + uiState.state.mode*/,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
@@ -100,7 +102,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                                 .height(95.dp)
                         ) {
                             Text(
-                                text = "ON" /*uiState.state.status*/,
+                                text = stringResource(R.string.on) /*uiState.state.status*/,
                                 color = Color.Black,
                                 modifier = Modifier
                                     .padding(start = 10.dp),
@@ -123,7 +125,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                                 )
                         )
                         {
-                        Text(text = "Temperature: "/* + uiState.state.temperature*/,
+                        Text(text = stringResource(R.string.temperature_msg)/* + uiState.state.temperature*/,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
@@ -141,7 +143,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                             .fillMaxWidth()
                             .background(color = Color.Gray)
                     ) {
-                        Text(text = "Velocidad: "/* + uiState.state.fanSpeed*/,
+                        Text(text = stringResource(R.string.speed_msg)/* + uiState.state.fanSpeed*/,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
@@ -165,7 +167,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                     .padding(start = 5.dp)
 
             ) {
-                Text(text = "Seleccionar modo")
+                Text(text = stringResource(R.string.select_mode_msg))
             }
 
             Button(
@@ -175,7 +177,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                 modifier = Modifier
                     .padding(start = 15.dp)
             ) {
-                Text(text = "Elegir velocidad")
+                Text(text = stringResource(R.string.choose_speed))
             }
         }
 
@@ -186,7 +188,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                 /*TODO*/
             }
         ) {
-            Text(text = "Desplazamiento de aspas")
+            Text(text = stringResource(R.string.blade_swing_msg))
         }
         Button(
             shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
@@ -196,9 +198,9 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                 /*TODO*/
             }
         ) {
-            Text(text = "Subir")
+            Text(text = stringResource(R.string.increase))
         }
-        Text(text = "Temp")
+        Text(text = stringResource(R.string.temp))
         Button(
             shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),
             modifier = Modifier
@@ -207,7 +209,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                 /*TODO*/
             }
         ) {
-            Text(text = "Bajar")
+            Text(text = stringResource(R.string.decrease))
         }
     }
 }

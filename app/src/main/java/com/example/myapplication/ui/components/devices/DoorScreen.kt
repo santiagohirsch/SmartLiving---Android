@@ -62,7 +62,7 @@ fun Door(doorViewModel: DeviceViewModel = viewModel()){
             )
             Spacer(modifier = Modifier.width(23.dp))
             Text(
-                text = if (switchOpen) "Open" else "Close",
+                text = if (switchOpen) "Open" else "Closed",
                 fontSize = 30.sp
             )
         }

@@ -19,9 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.R
 import com.example.myapplication.util.devicesvm.DeviceViewModel
 
 @Preview
@@ -48,7 +50,7 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                 .background(color = Color.Gray)
         ) {
             Row() {
-                Text(text = "Modo: "/* + uiState.state.mode*/, modifier = Modifier.padding(start = 15.dp))
+                Text(text = stringResource(R.string.mode)/* + uiState.state.mode*/, modifier = Modifier.padding(start = 15.dp))
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -59,7 +61,7 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. freezer "/* + uiState.state.freezerTemperature*/, modifier = Modifier.padding(start = 15.dp))
+                Text(text = stringResource(R.string.temp_freezer)/* + uiState.state.freezerTemperature*/, modifier = Modifier.padding(start = 15.dp))
             }
             Spacer(modifier = Modifier.width(5.dp))
             Box(
@@ -68,7 +70,7 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. heladera "/* + uiState.state.temperature*/, modifier = Modifier.padding(start = 15.dp))
+                Text(text = stringResource(R.string.temp_fridge)/* + uiState.state.temperature*/, modifier = Modifier.padding(start = 15.dp))
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -98,7 +100,7 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                         size = 20.dp
                     )
                 ) {
-                    Text(text = "Cambiar modo")
+                    Text(text = stringResource(R.string.change_mode_msg))
                 }
             }
         }
@@ -117,9 +119,9 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                         topEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Subir")
+                    Text(text = stringResource(R.string.increase))
                 }
-                Text(text = "Temp freezer")
+                Text(text = stringResource(R.string.temp_freezer))
                 Button(
                     onClick = {
                         /*TODO*/
@@ -129,7 +131,7 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                         bottomEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Bajar")
+                    Text(text = stringResource(R.string.decrease))
                 }
             }
             Spacer(modifier = Modifier.width(65.dp))
@@ -146,9 +148,9 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                         topEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Subir")
+                    Text(text = stringResource(R.string.increase))
                 }
-                Text(text = "Temp heladera")
+                Text(text = stringResource(R.string.temp_fridge))
                 Button(
                     onClick = {
                         /*TODO*/
@@ -158,7 +160,7 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
                         bottomEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Bajar")
+                    Text(text = stringResource(R.string.decrease))
                 }
             }
         }

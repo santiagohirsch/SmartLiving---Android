@@ -1,8 +1,35 @@
 <resources>
-    <string name="app_name">SmartLiving</string>
+    <string name="app_name" translatable="false">SmartLiving</string>
     <string name="landing_msg">Empezar ya!</string>
     <string name="supported_msg">Dispositivos soportados:</string>
-    <string name="devicesTitle">Dispositivos</string>
-    <string name="image_name">image_%1$s</string>
-
+    <string name="devices_title">Dispositivos</string>
+    <string name="image_name" translatable="false">image_%1$s</string>
+    <string name="ac_name">Aire Acondicionado</string>
+    <string name="door_name">Puerta</string>
+    <string name="lamp_name">Lampara</string>
+    <string name="fridge_name">Heladera</string>
+    <string name="vacuum_name">Aspiradora</string>
+    <string name="device_name_msg">Nombre del dispositivo</string>
+    <string name="device_name_msg_2">Escriba el nombre del dispositivo</string>
+    <string name="device_type">Tipo de dispositivo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="routines_title">Rutinas</string>
+    <string name="select_mode_msg">Seleccionar modo</string>
+    <string name="change_location_msg">Cambiar ubicacion de base de carga</string>
+    <string name="return_base_msg">Regresar a base de carga</string>
+    <string name="choose_color">Seleccionar color</string>
+    <string name="mode">Modo: </string>
+    <string name="temp_freezer">Temp. freezer </string>
+    <string name="temp_fridge">Temp. heladera </string>
+    <string name="increase">Subir</string>
+    <string name="decrease">Bajar</string>
+    <string name="change_mode_msg">Cambiar modo</string>
+    <string name="turn_on_or_off">Encender/\\n Apagar</string>
+    <string name="on">Encendido</string>
+    <string name="temperature_msg">Temperatura: </string>
+    <string name="speed_msg">Velocidad: </string>
+    <string name="choose_speed">Elegir velocidad</string>
+    <string name="blade_swing_msg">Desplazamiento de las aspas</string>
+    <string name="temp" translatable="false">Temp</string>
 </resources>
