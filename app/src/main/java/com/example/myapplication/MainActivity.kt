@@ -1,21 +1,13 @@
 package com.example.myapplication
 
-import android.Manifest
+
 import android.annotation.SuppressLint
-import android.app.PendingIntent
-import android.bluetooth.BluetoothClass.Device
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.stringResource
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -30,7 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val deviceId = intent.getIntExtra("deviceid",-1)
+        val deviceId = intent.getIntExtra("deviceid", -1)
 
         setContent {
             val devicesViewModel: DevicesViewModel = viewModel()
@@ -38,13 +30,14 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
                 val navController = rememberNavController()
                 Scaffold(
-                    bottomBar = { BottomBar(navController = navController)}
+                    bottomBar = { BottomBar(navController = navController) }
                 ) {
                     AppNavGraph(navController = navController, devicesViewModel, routinesViewModel)
                 }
             }
         }
     }
+}
     /*fun showNotification() {
         val intent = Intent(this,MainActivity::class.java).apply{
             putExtra( "messi chiquito",21424214)
@@ -121,5 +114,5 @@ fun BottomBar(navController: NavController) {
         }
     }
 }
-}
+
 
