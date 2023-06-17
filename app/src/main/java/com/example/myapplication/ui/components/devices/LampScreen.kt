@@ -27,12 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.util.devicesvm.DeviceViewModel
+import com.example.myapplication.util.devicesvm.LampViewModel
 
 @Preview
 @Composable
 fun Lamp(
     modifier: Modifier = Modifier,
-    lampViewModel: DeviceViewModel = viewModel()
+    lampViewModel: LampViewModel = viewModel()
 ){
     var sliderValue by remember {
         mutableFloatStateOf(0f)
@@ -62,7 +63,11 @@ fun Lamp(
                     checkedTrackColor = Color.Gray
                 )
             )
-            Text(text = if (switchOn) "On" else "Off")
+            if (switchOn) {
+                lampViewModel.turnOn("9e59f5dc451ac130")
+            } else {
+                lampViewModel.turnOff("9e59f5dc451ac130")
+            }
             Slider(
                 value = sliderValue /*uiState.state.brightness*/,
                 modifier = Modifier
@@ -78,7 +83,7 @@ fun Lamp(
             Text(text = sliderValue.toString())
             Button(
                 onClick = {
-                    /*TODO*/
+                    lampViewModel.setColor("9e59f5dc451ac130","FEFEFE")
                 }
             ) {
                 Text(text = "Elegir color")

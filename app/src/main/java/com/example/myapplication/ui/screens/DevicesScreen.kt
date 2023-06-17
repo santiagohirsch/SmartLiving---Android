@@ -48,6 +48,8 @@ import com.example.myapplication.ui.components.DeviceCard
 import com.example.myapplication.util.devicesrep.CurrentDevices
 import com.example.myapplication.util.devicesvm.DeviceViewModel
 import com.example.myapplication.util.devicesvm.DevicesViewModel
+import com.example.myapplication.util.devicesvm.DoorViewModel
+import com.example.myapplication.util.devicesvm.LampViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 
@@ -201,19 +203,5 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
             }
             Spacer(modifier = Modifier.height(10.dp))
         }
-
     }
-}
-
-@DrawableRes
-fun getImageResourceId(index: Int): Int {
-    return when (index % 3) {
-        0 -> R.drawable.ac
-        1 -> R.drawable.puerta
-        else -> R.drawable.lampara
-    }
-}
-
-fun getTotalDevices(): Int{
-    return 10
 }

@@ -28,7 +28,7 @@ import com.example.myapplication.util.devicesvm.DoorViewModel
 
 @Preview
 @Composable
-fun Door(doorViewModel: DeviceViewModel = viewModel()){
+fun Door(doorViewModel: DoorViewModel = viewModel()){
     var switchOpen by remember {
         mutableStateOf(false)
     }
@@ -61,10 +61,11 @@ fun Door(doorViewModel: DeviceViewModel = viewModel()){
                 modifier = Modifier.scale(2.2f)
             )
             Spacer(modifier = Modifier.width(23.dp))
-            Text(
-                text = if (switchOpen) "Open" else "Close",
-                fontSize = 30.sp
-            )
+            if (switchOpen ) {
+                doorViewModel.open("a1d9bc25c900ed90")
+            } else {
+                   doorViewModel.close("a1d9bc25c900ed90")
+            }
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row() {
@@ -82,10 +83,11 @@ fun Door(doorViewModel: DeviceViewModel = viewModel()){
                 modifier = Modifier.scale(2.2f)
             )
             Spacer(modifier = Modifier.width(23.dp))
-            Text(
-                text = if (switchLock) "Locked" else "Unlocked",
-                fontSize = 30.sp
-            )
+            if (switchLock ) {
+                doorViewModel.lock("a1d9bc25c900ed90")
+            } else {
+                doorViewModel.unlock("a1d9bc25c900ed90")
+            }
         }
 
     }
