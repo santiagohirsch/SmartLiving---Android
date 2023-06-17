@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="landing_msg">Get Started!</string>
+    <string name="supported_msg">Supported devices:</string>
+    <string name="devices_title">Devices</string>
+    <string name="ac_name">Air Conditioner</string>
+    <string name="door_name">Door</string>
+    <string name="lamp_name">Lamp</string>
+    <string name="fridge_name">Refrigerator</string>
+    <string name="vacuum_name">Vacuum</string>
+    <string name="device_name_msg">Device name</string>
+    <string name="device_name_msg_2">Enter the device\'s name</string>
+    <string name="device_type">Device type</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="routines_title">Routines</string>
+    <string name="select_mode_msg">Select mode</string>
+    <string name="change_location_msg">Change docking station location</string>
+    <string name="return_base_msg">Return to docking station</string>
+    <string name="choose_color">Choose color</string>
+    <string name="mode">Mode: </string>
+    <string name="temp_freezer">Freezer temp. </string>
+    <string name="temp_fridge">Refrigerator temp. </string>
+    <string name="increase">Increase</string>
+    <string name="decrease">Decrease</string>
+    <string name="change_mode_msg">Change mode</string>
+    <string name="turn_on_or_off">Turn On/\\n Off</string>
+    <string name="on">On</string>
+    <string name="temperature_msg">Temperature: </string>
+    <string name="speed_msg">Speed: </string>
+    <string name="choose_speed">Choose speed</string>
+    <string name="blade_swing_msg">Blade swing</string>
+</resources>

@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -82,7 +83,7 @@ fun Lamp(
                 /*TODO*/
             }
         ) {
-            Text(text = "Elegir color")
+            Text(text = stringResource(R.string.choose_color))
         }
         /*Button(onClick = { /*TODO*/ }) {
         Text(text = "Confirmar brillo")
