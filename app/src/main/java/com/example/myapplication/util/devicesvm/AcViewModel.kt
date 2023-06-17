@@ -57,7 +57,7 @@ class AcViewModel(name: String) : DeviceViewModel("ac", R.drawable.ac, name) {
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setTemperature", arrayOf(Params(temperature = temp)))
+                apiService.executePI( deviceId, "setTemperature", listOf(temp))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -74,7 +74,7 @@ class AcViewModel(name: String) : DeviceViewModel("ac", R.drawable.ac, name) {
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setMode", arrayOf(Params(mode = mode)))
+                apiService.executePS( deviceId, "setMode", listOf(mode))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -91,7 +91,7 @@ class AcViewModel(name: String) : DeviceViewModel("ac", R.drawable.ac, name) {
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setVerticalSwing", arrayOf(Params(verticalSwing = swing)))
+                apiService.executePS( deviceId, "setVerticalSwing", listOf(swing))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -108,7 +108,7 @@ class AcViewModel(name: String) : DeviceViewModel("ac", R.drawable.ac, name) {
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setHorizontal", arrayOf(Params(horizontalSwing = swing)))
+                apiService.executePS( deviceId, "setHorizontal", listOf(swing))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -125,7 +125,7 @@ class AcViewModel(name: String) : DeviceViewModel("ac", R.drawable.ac, name) {
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setFanSpeed", arrayOf(Params(fanSpeed = speed)))
+                apiService.executePS( deviceId, "setFanSpeed", listOf(speed))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(

@@ -23,7 +23,7 @@ class RefrigeratorViewModel( name: String) : DeviceViewModel("refrigerator", R.d
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setFreezerTemperature", arrayOf(Params(temperature = temp)))
+                apiService.executePI( deviceId, "setFreezerTemperature", listOf(temp))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -40,7 +40,7 @@ class RefrigeratorViewModel( name: String) : DeviceViewModel("refrigerator", R.d
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setTemperature", arrayOf(Params(temperature = temp)))
+                apiService.executePI( deviceId, "setTemperature", listOf(temp))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -57,7 +57,7 @@ class RefrigeratorViewModel( name: String) : DeviceViewModel("refrigerator", R.d
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setMode", arrayOf(Params(mode = mode)))
+                apiService.executePS( deviceId, "setMode", listOf(mode))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(

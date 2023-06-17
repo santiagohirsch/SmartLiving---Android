@@ -74,7 +74,7 @@ class VacuumViewModel(name: String) : DeviceViewModel("vacuum", R.drawable.aspir
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setMode", arrayOf(Params(mode = mode)))
+                apiService.executePS( deviceId, "setMode", listOf(mode))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(

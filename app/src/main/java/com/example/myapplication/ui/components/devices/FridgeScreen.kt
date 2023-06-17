@@ -93,7 +93,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
             ) {
                 Button(
                     onClick = {
-                        fridgeViewModel.setMode("6a4ae423c43a209a", "vacation")
+                        fridgeViewModel.setMode("05ecc27266f711fe", "vacation")
                     },
                     shape = RoundedCornerShape(
                         size = 20.dp

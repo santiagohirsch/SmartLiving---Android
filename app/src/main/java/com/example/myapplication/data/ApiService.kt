@@ -32,7 +32,14 @@ interface ApiService {
     suspend fun getRoutines() : Response<RoutineList>
 
     @PUT("/api/devices/{deviceId}/{actionName}")
-    suspend fun executeP(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String, @Body params: Array<Params>? =  arrayOf(Params()) )
+    suspend fun executePS(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String, @Body params: List<String> )
+
+    @PUT("/api/devices/{deviceId}/{actionName}")
+    suspend fun executePI(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String, @Body params: List<Int> )
+
+    @PUT("/api/devices/{deviceId}/{actionName}")
+    suspend fun executePD(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String, @Body params: List<Double> )
+
 
     @PUT("/api/devices/{deviceId}/{actionName}")
     suspend fun execute(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String )

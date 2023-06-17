@@ -57,7 +57,7 @@ class LampViewModel(name: String) : DeviceViewModel("lamp", R.drawable.lampara, 
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setColor", arrayOf(Params(color = color)))
+                apiService.executePS( deviceId, "setColor", listOf(color))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -74,7 +74,7 @@ class LampViewModel(name: String) : DeviceViewModel("lamp", R.drawable.lampara, 
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executeP( deviceId, "setColor", arrayOf(Params(brightness = bright)))
+                apiService.executePD( deviceId, "setColor", listOf(bright))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
