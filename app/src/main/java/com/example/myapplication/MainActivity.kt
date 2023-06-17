@@ -43,8 +43,8 @@ fun BottomBar(navController: NavController) {
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
             BottomNavigationItem(
-                unselectedContentColor = MaterialTheme.colors.primaryVariant,
-                selectedContentColor = MaterialTheme.colors.onPrimary,
+                //unselectedContentColor = MaterialTheme.colors.onPrimary,
+                //selectedContentColor = MaterialTheme.colors.onPrimary,
                 icon = { Icon(imageVector = item.icon, contentDescription = item.title) },
                 label = { Text(text = item.title) },
                 alwaysShowLabel = true,
