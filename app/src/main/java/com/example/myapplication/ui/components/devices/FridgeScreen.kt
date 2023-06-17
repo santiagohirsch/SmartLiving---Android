@@ -23,10 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
+import com.example.myapplication.util.devicesvm.RefrigeratorViewModel
 
 @Preview
 @Composable
-fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
+fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -92,7 +93,7 @@ fun Fridge(fridgeViewModel: DeviceViewModel = viewModel()){
             ) {
                 Button(
                     onClick = {
-                        /*TODO*/
+                        fridgeViewModel.setMode("6a4ae423c43a209a", "vacation")
                     },
                     shape = RoundedCornerShape(
                         size = 20.dp

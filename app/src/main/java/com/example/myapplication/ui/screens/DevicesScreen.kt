@@ -50,6 +50,8 @@ import com.example.myapplication.util.devicesvm.DeviceViewModel
 import com.example.myapplication.util.devicesvm.DevicesViewModel
 import com.example.myapplication.util.devicesvm.DoorViewModel
 import com.example.myapplication.util.devicesvm.LampViewModel
+import com.example.myapplication.util.devicesvm.RefrigeratorViewModel
+import com.example.myapplication.util.devicesvm.VacuumViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 
@@ -80,6 +82,9 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
             //verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            DeviceCard(device = VacuumViewModel("aspiradorita"))
+            DeviceCard(device = RefrigeratorViewModel("hola"))
+            DeviceCard(device = LampViewModel("hola"))
             Text(
                 text = stringResource(R.string.devicesTitle),
                 fontSize = 25.sp,
