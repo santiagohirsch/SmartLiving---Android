@@ -50,7 +50,7 @@ fun DeviceCard(
 
     Card(
         modifier = modifier
-            .padding(8.dp)
+            .padding(5.dp)
             .width(140.dp)
             .height(200.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
