@@ -83,7 +83,7 @@ fun Lamp(
             Text(text = sliderValue.toString())
             Button(
                 onClick = {
-                    lampViewModel.setColor("9e59f5dc451ac130","FEFEFE")
+                    lampViewModel.setColor("0c6779350419f5e1","FEFEFE")
                 }
             ) {
                 Text(text = "Elegir color")

@@ -21,7 +21,7 @@ import com.example.myapplication.util.devicesvm.VacuumViewModel
 
 @Preview
 @Composable
-fun Vacuum(vacuumViewModel: DeviceViewModel = viewModel()){
+fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -35,7 +35,7 @@ fun Vacuum(vacuumViewModel: DeviceViewModel = viewModel()){
         )
         Button(
             onClick = {
-                /*TODO*/
+                vacuumViewModel.dock("f85d46c66ac17b54")
             }
         ) {
             Text(text = "Seleccionar modo")
