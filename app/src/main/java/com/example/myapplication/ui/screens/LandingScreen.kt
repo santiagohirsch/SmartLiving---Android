@@ -82,12 +82,12 @@ fun LandingScreen(
                         )
                     }
                     Spacer(modifier = Modifier.padding(end = 16.dp))
-                    NormalButton(navController)
+                    NormalButton(navController, factor = 1)
                 }
                 Spacer(modifier = Modifier.height(3.dp))
                 //Spacer(modifier = Modifier.height(3.dp))
                 Text(
-                    text = stringResource(R.string.supported_msg),
+                    text = stringResource(R.string.supported_msg_phone),
                     fontSize = 15.sp
                 )
                 Spacer(modifier = Modifier.height(3.dp))
@@ -171,21 +171,126 @@ fun LandingScreen(
             }
         }
         else {
-            Image(
-                painter = painterResource(id = R.drawable.puerta),
-                contentDescription = "door",
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(top = 12.dp, bottom = 6.dp)
-                    .clip(RoundedCornerShape(5.dp))
-                    .size(112.dp),
-                contentScale = ContentScale.Crop
-            )
+                    .fillMaxSize()
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 40.dp)
+                        .height(200.dp)
+                ) {
+                    Surface(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .clip(RoundedCornerShape(24.dp)),
+                        color = MaterialTheme.colors.primary
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.logo),
+                            contentDescription = "Logo",
+                            modifier = Modifier
+                                .size(200.dp)
+                                .padding(top = 0.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.padding(end = 32.dp))
+                    NormalButton(navController, factor = 2)
+                }
+                Spacer(modifier = Modifier.height(3.dp))
+                //Spacer(modifier = Modifier.height(3.dp))
+                Text(
+                    text = stringResource(R.string.supported_msg_tablet),
+                    fontSize = 35.sp
+                )
+                Spacer(modifier = Modifier.height(3.dp))
+                Box(
+                    modifier = Modifier
+                        .weight(1f) // Allow the LazyVerticalGrid to occupy any available height
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                ) {
+                    LazyVerticalGrid(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            //.defaultMinSize(minHeight = 200.dp)
+                            .padding(horizontal = 12.dp)
+                            .padding(bottom = 65.dp)
+                            .clip(RoundedCornerShape(12.dp)),
+                        //verticalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        reverseLayout = true,
+                        columns = GridCells.Adaptive(100.dp),
+                        contentPadding = PaddingValues(3.dp),
+                    ) {
+                        item {
+                            Image(
+                                painter = painterResource(id = R.drawable.ac),
+                                contentDescription = "ac",
+                                modifier = Modifier
+                                    .padding(top = 12.dp, bottom = 6.dp)
+                                    .clip(RoundedCornerShape(5.dp))
+                                    .size(112.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        item {
+                            Image(
+                                painter = painterResource(id = R.drawable.puerta),
+                                contentDescription = "door",
+                                modifier = Modifier
+                                    .padding(top = 12.dp, bottom = 6.dp)
+                                    .clip(RoundedCornerShape(5.dp))
+                                    .size(112.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        item {
+                            Image(
+                                painter = painterResource(id = R.drawable.aspiradora),
+                                contentDescription = "vacuum",
+                                modifier = Modifier
+                                    .padding(top = 12.dp, bottom = 6.dp)
+                                    .clip(RoundedCornerShape(5.dp))
+                                    .size(112.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        item {
+                            Image(
+                                painter = painterResource(id = R.drawable.lampara),
+                                contentDescription = "lamp",
+                                modifier = Modifier
+                                    .padding(top = 12.dp, bottom = 6.dp)
+                                    .clip(RoundedCornerShape(5.dp))
+                                    .size(112.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        item {
+                            Image(
+                                painter = painterResource(id = R.drawable.heladera),
+                                contentDescription = "fridge",
+                                modifier = Modifier
+                                    .padding(top = 12.dp, bottom = 6.dp)
+                                    .clip(RoundedCornerShape(5.dp))
+                                    .size(112.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
 @Composable
-fun NormalButton(navController: NavHostController){
+fun NormalButton(navController: NavHostController, factor: Int){
     val context = LocalContext.current
     OutlinedButton(
         onClick = {
@@ -201,8 +306,11 @@ fun NormalButton(navController: NavHostController){
         },
         shape = RoundedCornerShape(30.dp),
         modifier = Modifier
-            .width(180.dp)
-            .height(50.dp),
-        border = BorderStroke(5.dp, MaterialTheme.colors.secondary)
-    ){ Text(text = stringResource(R.string.landing_msg))}
+            .width((180*factor).dp)
+            .height((50*factor).dp),
+        border = BorderStroke((5*factor).dp, MaterialTheme.colors.secondary)
+    ){ Text(
+        text = stringResource(R.string.landing_msg),
+        fontSize = (15*factor).sp)
+    }
 }

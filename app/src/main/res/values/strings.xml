@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">SmartLiving</string>
     <string name="landing_msg">Empezar ya!</string>
-    <string name="supported_msg">Dispositivos soportados:</string>
+    <string name="supported_msg_phone">Dispositivos soportados en tu teléfono:</string>
+    <string name="supported_msg_tablet">Dispositivos soportados en tu tablet:</string>
     <string name="devices_title">Dispositivos</string>
     <string name="image_name" translatable="false">image_%1$s</string>
     <string name="ac_name">Aire Acondicionado</string>

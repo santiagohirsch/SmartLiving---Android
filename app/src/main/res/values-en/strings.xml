@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="landing_msg">Get Started!</string>
-    <string name="supported_msg">Supported devices:</string>
+    <string name="supported_msg_phone">Supported devices in your phone:</string>
+    <string name="supported_msg_tablet">Supported devices in your tablet:</string>
     <string name="devices_title">Devices</string>
     <string name="ac_name">Air Conditioner</string>
     <string name="door_name">Door</string>

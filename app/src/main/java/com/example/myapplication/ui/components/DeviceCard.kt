@@ -52,6 +52,7 @@ fun DeviceCard(
         modifier = modifier
             .padding(5.dp)
             .width(140.dp)
+            .clickable { showDialog = true }
             .height(200.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
@@ -67,7 +68,6 @@ fun DeviceCard(
                 modifier = Modifier
                     .padding(top = 12.dp, bottom = 6.dp)
                     .clip(RoundedCornerShape(5.dp))
-                    .clickable { showDialog = true }
                     .size(112.dp),
                 contentScale = ContentScale.Crop
             )

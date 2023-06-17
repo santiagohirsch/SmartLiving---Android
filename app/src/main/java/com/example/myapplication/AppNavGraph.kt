@@ -1,9 +1,11 @@
 package com.example.myapplication
 
 import DevicesScreen
+import android.content.res.Configuration
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,21 +21,21 @@ fun AppNavGraph(
         navController = navController,
         startDestination = Screen.FirstScreen.route
     ) {
-        val isPhone =
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                true
-            }
-            else -> {
-                false
+        @Composable
+        fun isTablet(): Boolean {
+            val configuration = LocalConfiguration.current
+            return if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                configuration.screenWidthDp > 900
+            } else {
+                configuration.screenWidthDp > 600
             }
         }
 
         composable(Screen.FirstScreen.route) {
-            LandingScreen(navController, isPhone = isPhone)
+            LandingScreen(navController, isPhone = !isTablet())
         }
         composable(Screen.SecondScreen.route) {
-            DevicesScreen()
+            DevicesScreen(isPhone = !isTablet())
         }
         composable(Screen.ThirdScreen.route) {
             RoutinesScreen()

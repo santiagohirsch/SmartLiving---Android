@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.DropdownMenuItem
@@ -52,7 +54,9 @@ import com.example.myapplication.util.devicesrep.CurrentDevices
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
-fun DevicesScreen() {
+fun DevicesScreen(
+    isPhone: Boolean = true
+) {
     val currentDevices: CurrentDevices = CurrentDevices()
     val openDialog = remember {
         mutableStateOf(false)
@@ -79,11 +83,16 @@ fun DevicesScreen() {
                 .zIndex(2f)
                 .padding(all = 16.dp)
                 .padding(bottom = 65.dp)
-                .align(alignment = Alignment.BottomEnd),
+                .align(alignment = Alignment.BottomEnd)
+                .size(if(!isPhone) (100.dp) else(50.dp))
+            ,
             onClick = { openDialog.value = true },
             containerColor = MaterialTheme.colors.secondary
         ) {
-            Icon(imageVector = Icons.Filled/*Default.Rounded*/.Add, contentDescription = "Add")
+            Icon(
+                imageVector = Icons.Default/*Default.Rounded*/.Add,
+                contentDescription = "Add"
+            )
         }
         Column(
             modifier = Modifier
@@ -94,7 +103,7 @@ fun DevicesScreen() {
         ) {
             Text(
                 text = stringResource(R.string.devices_title),
-                fontSize = 25.sp,
+                fontSize = if(isPhone) 25.sp else 70.sp,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -232,5 +241,5 @@ fun getImageResourceId(index: Int): Int {
 }
 
 fun getTotalDevices(): Int{
-    return 10
+    return 20
 }
