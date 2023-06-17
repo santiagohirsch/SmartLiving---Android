@@ -186,6 +186,7 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
                                             selected=""
                                             dropDownEnabled = false
                                             nameEnabled = false
+                                            viewModel.addNewDevice("elwey","go46xmbqeomjrsjr" )
                                         },
                                         enabled = dropDownEnabled && nameEnabled
                                     ) {
