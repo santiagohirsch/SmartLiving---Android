@@ -5,6 +5,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
@@ -13,17 +16,21 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.SmartLivingTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SmartLivingTheme (darkTheme = false){
+            val windowSizeClass = calculateWindowSizeClass(this)
+            SmartLivingTheme (
+                windowSizeClass = windowSizeClass
+            ){
                 val navController = rememberNavController()
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController)}
                 ) {
-                    AppNavGraph(navController = navController)
+                    AppNavGraph(windowSizeClass = windowSizeClass, navController = navController)
                 }
             }
         }

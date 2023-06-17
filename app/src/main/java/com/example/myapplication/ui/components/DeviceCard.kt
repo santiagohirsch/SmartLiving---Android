@@ -94,14 +94,15 @@ fun DeviceCard(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 fun DeviceCardPreview() {
-    SmartLivingTheme {
+    val windowSizeClass = Material3WindowAmbient.windowSizeClass
+    SmartLivingTheme(windowSizeClass = windowSizeClass) {
         DeviceCard(device = LampViewModel("el pepe"))
     }
 }
-
+*/
 @Composable
 fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
     val currentDevices: CurrentDevices = CurrentDevices()
