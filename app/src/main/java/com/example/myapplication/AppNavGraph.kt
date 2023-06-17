@@ -9,9 +9,10 @@ import androidx.navigation.compose.composable
 import com.example.myapplication.ui.screens.LandingScreen
 import com.example.myapplication.ui.screens.RoutinesScreen
 import com.example.myapplication.util.devicesvm.DevicesViewModel
+import com.example.myapplication.util.devicesvm.RoutinesViewModel
 
 @Composable
-fun AppNavGraph(navController: NavHostController, devicesViewModel: DevicesViewModel) {
+fun AppNavGraph(navController: NavHostController, devicesViewModel: DevicesViewModel, routinesViewModel: RoutinesViewModel) {
     NavHost(
         navController = navController,
         startDestination = Screen.FirstScreen.route
@@ -23,7 +24,7 @@ fun AppNavGraph(navController: NavHostController, devicesViewModel: DevicesViewM
             DevicesScreen(devicesViewModel)
         }
         composable(Screen.ThirdScreen.route) {
-            RoutinesScreen()
+            RoutinesScreen(routinesViewModel)
         }
     }
 }

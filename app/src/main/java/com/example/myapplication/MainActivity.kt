@@ -22,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.util.devicesvm.DevicesViewModel
+import com.example.myapplication.util.devicesvm.RoutinesViewModel
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -33,12 +34,13 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val devicesViewModel: DevicesViewModel = viewModel()
+            val routinesViewModel: RoutinesViewModel = viewModel()
             MyApplicationTheme {
                 val navController = rememberNavController()
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController)}
                 ) {
-                    AppNavGraph(navController = navController, devicesViewModel)
+                    AppNavGraph(navController = navController, devicesViewModel, routinesViewModel)
                 }
             }
         }

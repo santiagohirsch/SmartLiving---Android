@@ -25,13 +25,19 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationCompat
 import com.example.myapplication.R
 import com.example.myapplication.SmartLiving
+import com.example.myapplication.util.devicesvm.RoutinesViewModel
 
-@Preview
+
 @Composable
-fun RoutinesScreen() {
+fun RoutinesScreen(viewModel: RoutinesViewModel) {
     Surface(modifier = Modifier.fillMaxSize(), color = Color(android.graphics.Color.parseColor("#2f2f4d"))) {
 
         Column() {
+            Button(
+                onClick = { viewModel.getAllRoutines() }
+            ){
+
+            }
             Text(
                 text = "Rutinas",
                 fontSize = 25.sp,
