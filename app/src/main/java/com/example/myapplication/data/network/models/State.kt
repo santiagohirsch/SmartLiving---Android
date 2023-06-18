@@ -13,8 +13,12 @@ data class State (
     @SerializedName("lock"               ) var lock               : String? = null,
     @SerializedName("mode"               ) var mode               : String? = null,
     @SerializedName("batteryLevel"       ) var batteryLevel       : Int?    = null,
-    @SerializedName("location"           ) var location           : String? = null,
+    @SerializedName("location"           ) var location           : Location? = null,
     @SerializedName("color"              ) var color              : String? = null,
-    @SerializedName("brightness"         ) var brightness         : Int?    = null
+    @SerializedName("brightness"         ) var brightness         : Int?    = null,
+)
 
+data class Location(
+    @SerializedName("id"                 ) var id                 : String? = null,
+    @SerializedName("name"               ) var name               : String? = null
 )
