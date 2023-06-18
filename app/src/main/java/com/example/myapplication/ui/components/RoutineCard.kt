@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,6 +39,7 @@ import com.example.myapplication.R
 import com.example.myapplication.util.devicesrep.CurrentDevices
 import com.example.myapplication.util.devicesvm.RoutineViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun RoutineCard(routine : RoutineViewModel){
     var showDialog by remember { mutableStateOf(false) }
@@ -72,7 +74,7 @@ fun RoutineCard(routine : RoutineViewModel){
                     .weight(1f) // Allocate remaining space to the second element
             ) {
                 Text(
-                    text = routine.name.toString(),
+                    text = routine.uiState.value.name.toString(),
                     textAlign = TextAlign.Center,
                     fontSize = 20.sp,
                     modifier = Modifier
@@ -99,7 +101,7 @@ fun RoutineCard(routine : RoutineViewModel){
                     ) {
                         Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
                     }
-                    RoutineScreen(routine = routine)
+                    RoutineScreen(routineViewModel = routine)
                 }
             }
         )

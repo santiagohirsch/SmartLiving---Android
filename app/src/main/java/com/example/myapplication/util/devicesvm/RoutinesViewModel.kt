@@ -2,10 +2,8 @@ package com.example.myapplication.util.devicesvm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.data.DevicesUiState
 import com.example.myapplication.data.network.RetrofitClient
-import com.example.myapplication.data.network.RoutinesUiState
-import com.example.myapplication.data.network.models.Device
+import com.example.myapplication.data.RoutinesUiState
 import com.example.myapplication.data.network.models.Routine
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

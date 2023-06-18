@@ -71,7 +71,7 @@ fun RoutinesScreen(viewModel: RoutinesViewModel) {
                 items(viewModel.getCurrentRoutines().size) { index ->
                     val routine = viewModel.getCurrentRoutines()[index]
                     //println(device.type?.name)
-                    RoutineCard(RoutineViewModel(routine.name.toString(), routine.id))
+                    RoutineCard(RoutineViewModel(routine))
                 }
             }
         }
