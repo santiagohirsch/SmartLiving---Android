@@ -2,8 +2,12 @@ package com.example.myapplication.util.devicesvm
 
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.R
+import com.example.myapplication.data.VacuumState
+import com.example.myapplication.data.VacuumType
 import com.example.myapplication.data.VacuumUiState
 import com.example.myapplication.data.network.RetrofitClient
+import com.example.myapplication.data.network.models.Device
+import com.example.myapplication.data.network.models.Location
 import com.example.myapplication.data.network.models.Params
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,11 +16,36 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class VacuumViewModel(name: String?, id: String?) : DeviceViewModel("vacuum", R.drawable.aspiradora, name,id){
+class VacuumViewModel(device: Device) : DeviceViewModel("vacuum", R.drawable.aspiradora, device.name,device.id){
     private val _uiState = MutableStateFlow(VacuumUiState())
     val uiState: StateFlow<VacuumUiState> = _uiState.asStateFlow()
 
+
+
+
     private var fetchJob: Job? = null
+
+    init {
+        _uiState.value = VacuumUiState(
+            id = device.id ?: "",
+            name = device.name ?: "",
+            type = VacuumType(
+                id = device.type?.id ?: "ofglvd9gqx8yfl3l",
+                name = device.type?.name ?: "vacuum",
+                powerUsage = device.type?.powerUsage ?: 300
+            ),
+            state = VacuumState(
+                status = device.state?.status ?: "inactive",
+                mode = device.state?.mode ?: "vacuum",
+                batteryLevel = device.state?.batteryLevel ?: 4,
+                location = Location(
+                    id = device.state?.location?.id ?: "",
+                    name = device.state?.location?.name ?: ""
+                ),
+            ),
+            img = R.drawable.aspiradora
+        )
+    }
 
     fun start(deviceId: String) {
         fetchJob?.cancel()

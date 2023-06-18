@@ -205,11 +205,11 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
                     val device = viewModel.getCurrentDevices()[index]
                     println(device.type?.name)
                     when (device.type?.name) {
-                        "ac" -> DeviceCard(AcViewModel(device.name, device.id))
-                        "refrigerator" -> DeviceCard(RefrigeratorViewModel(device.name, device.id))
-                        "lamp" -> DeviceCard(LampViewModel(device.name, device.id))
-                        "vacuum" -> DeviceCard(VacuumViewModel(device.name, device.id))
-                        "door" -> DeviceCard(DoorViewModel(device.name, device.id))
+                        "ac" -> DeviceCard(AcViewModel(device))
+                        "refrigerator" -> DeviceCard(RefrigeratorViewModel(device))
+                        "lamp" -> DeviceCard(LampViewModel(device))
+                        "vacuum" -> DeviceCard(VacuumViewModel(device))
+                        "door" -> DeviceCard(DoorViewModel(device))
                     }
                 }
             }
