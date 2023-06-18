@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class RefrigeratorViewModel( name: String) : DeviceViewModel("refrigerator", R.drawable.heladera, name){
+class RefrigeratorViewModel( name: String?, id: String?) : DeviceViewModel("refrigerator", R.drawable.heladera, name,id){
     private val _uiState = MutableStateFlow(RefrigeratorUiState())
     val uiState: StateFlow<RefrigeratorUiState> = _uiState.asStateFlow()
 

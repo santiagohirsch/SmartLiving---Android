@@ -23,6 +23,8 @@ class DevicesViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(DevicesUiState())
     val uiState: StateFlow<DevicesUiState> = _uiState.asStateFlow()
 
+    private var currentDevices: MutableList<Device> = mutableListOf()
+
     private var fetchJob: Job? = null
 
     fun getAllDevices() {
@@ -34,9 +36,12 @@ class DevicesViewModel: ViewModel() {
                 apiService.getDevices()
             }.onSuccess { response ->
                 _uiState.update { it.copy(devices = response.body(),
-                isLoading = false)
+                    isLoading = false)
                 }
-                //uiState.value.devices?.devices?.forEach {println(it.state)}
+                //uiState.value.devices?.devices?.forEach {println(it.name)}
+                response.body()?.devices?.let { devices ->
+                    currentDevices = devices.toMutableList()
+                }
             }.onFailure { e->
                 _uiState.update { it.copy(
                     message = e.message,
@@ -44,6 +49,10 @@ class DevicesViewModel: ViewModel() {
                 ) }
             }
         }
+    }
+
+    fun getCurrentDevices() : MutableList<Device> {
+        return currentDevices
     }
 
     fun addNewDevice(name: String, id: String) {

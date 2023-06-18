@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AcViewModel(name: String) : DeviceViewModel("ac", R.drawable.ac, name) {
+class AcViewModel(name: String?, id: String?) : DeviceViewModel("ac", R.drawable.ac, name,id) {
     private val _uiState = MutableStateFlow(AcUiState())
     val uiState: StateFlow<AcUiState> = _uiState.asStateFlow()
 

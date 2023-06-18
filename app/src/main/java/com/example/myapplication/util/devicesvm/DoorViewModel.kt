@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class DoorViewModel(name: String) : DeviceViewModel("door", R.drawable.puerta, name) {
+class DoorViewModel(name: String?, id: String?) : DeviceViewModel("door", R.drawable.puerta, name,id) {
     private val _uiState = MutableStateFlow(DoorUiState())
     val uiState: StateFlow<DoorUiState> = _uiState.asStateFlow()
     private var fetchJob: Job? = null

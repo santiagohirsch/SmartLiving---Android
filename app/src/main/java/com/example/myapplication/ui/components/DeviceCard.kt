@@ -77,7 +77,7 @@ fun DeviceCard(
                     .weight(1f) // Allocate remaining space to the second element
             ) {
                 Text(
-                    text = device.name,
+                    text = device.name.toString(),
                     textAlign = TextAlign.Center,
                     fontSize = 20.sp,
                     modifier = modifier
@@ -97,7 +97,7 @@ fun DeviceCard(
 @Composable
 fun DeviceCardPreview() {
     MyApplicationTheme {
-        DeviceCard(device = LampViewModel("el pepe"))
+        //DeviceCard(device = LampViewModel("el pepe"))
     }
 }
 

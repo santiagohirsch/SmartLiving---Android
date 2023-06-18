@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LampViewModel(name: String) : DeviceViewModel("lamp", R.drawable.lampara, name){
+class LampViewModel(name: String?,id: String?) : DeviceViewModel("lamp", R.drawable.lampara, name,id){
     private val _uiState = MutableStateFlow(LampUiState())
     val uiState: StateFlow<LampUiState> = _uiState.asStateFlow()
 

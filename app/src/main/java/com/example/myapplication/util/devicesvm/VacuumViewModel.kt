@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class VacuumViewModel(name: String) : DeviceViewModel("vacuum", R.drawable.aspiradora, name){
+class VacuumViewModel(name: String?, id: String?) : DeviceViewModel("vacuum", R.drawable.aspiradora, name,id){
     private val _uiState = MutableStateFlow(VacuumUiState())
     val uiState: StateFlow<VacuumUiState> = _uiState.asStateFlow()
 

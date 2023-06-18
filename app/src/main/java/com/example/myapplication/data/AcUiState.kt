@@ -5,8 +5,8 @@ import androidx.compose.ui.res.painterResource
 import com.example.myapplication.R
 
 data class AcUiState(
-    val id: String = "",
-    val name: String = "",
+    val id: String? = "",
+    val name: String? = "",
     val type: AcType = AcType(),
     val state: AcState = AcState(),
     val img: Int = R.drawable.ac

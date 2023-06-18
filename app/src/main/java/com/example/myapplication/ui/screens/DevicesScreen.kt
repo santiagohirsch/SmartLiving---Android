@@ -44,8 +44,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication.R
+import com.example.myapplication.data.network.RetrofitClient
 import com.example.myapplication.ui.components.DeviceCard
 import com.example.myapplication.util.devicesrep.CurrentDevices
+import com.example.myapplication.util.devicesvm.AcViewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
 import com.example.myapplication.util.devicesvm.DevicesViewModel
 import com.example.myapplication.util.devicesvm.DoorViewModel
@@ -82,9 +84,9 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
             //verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            DeviceCard(device = VacuumViewModel("aspiradorita"))
+            /*DeviceCard(device = VacuumViewModel("aspiradorita"))
             DeviceCard(device = RefrigeratorViewModel("hola"))
-            DeviceCard(device = LampViewModel("hola"))
+            DeviceCard(device = LampViewModel("hola"))*/
             Text(
                 text = stringResource(R.string.devicesTitle),
                 fontSize = 25.sp,
@@ -92,23 +94,8 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 5.dp, top = 16.dp, bottom = 20.dp)
+                    .padding(start = 5.dp, top = 16.dp, bottom = 10.dp)
             )
-            Button(
-                onClick = { viewModel.getAllDevices() }
-            ){
-
-            }
-            Button(
-                onClick = {
-                    openDialog.value = true
-                }
-            ) {
-                Text(
-                    text = "Agregar dispositivo",
-                    color = colorResource(id = R.color.text)
-                )
-            }
             if (openDialog.value){
                 Dialog(
                     onDismissRequest = {
@@ -207,6 +194,29 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
+            LazyVerticalGrid(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(colorResource(R.color.secondary_button)),
+                columns = GridCells.Adaptive(140.dp),//Fixed(2),
+                contentPadding = PaddingValues(12.dp),
+            ) {
+                viewModel.getAllDevices()
+                items(viewModel.getCurrentDevices().size) { index ->
+                    val device = viewModel.getCurrentDevices()[index]
+                    println(device.type?.name)
+                    when (device.type?.name) {
+                        "ac" -> DeviceCard(AcViewModel(device.name, device.id))
+                        "refrigerator" -> DeviceCard(RefrigeratorViewModel(device.name, device.id))
+                        "lamp" -> DeviceCard(LampViewModel(device.name, device.id))
+                        "vacuum" -> DeviceCard(VacuumViewModel(device.name, device.id))
+                        "door" -> DeviceCard(DoorViewModel(device.name, device.id))
+                    }
+                }
+            }
+            }
         }
     }
-}
+
