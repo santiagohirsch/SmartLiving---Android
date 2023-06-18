@@ -44,4 +44,6 @@ interface ApiService {
     @PUT("/api/devices/{deviceId}/{actionName}")
     suspend fun execute(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String )
 
+    @PUT("/api/routines/{routineId}/execute")
+    suspend fun executeRoutine(@Path("routineId")routineId: String)
 }
