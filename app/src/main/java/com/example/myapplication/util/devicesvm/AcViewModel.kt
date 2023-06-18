@@ -108,7 +108,7 @@ class AcViewModel(name: String?, id: String?) : DeviceViewModel("ac", R.drawable
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executePS( deviceId, "setHorizontal", listOf(swing))
+                apiService.executePS( deviceId, "setHorizontalSwing", listOf(swing))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(

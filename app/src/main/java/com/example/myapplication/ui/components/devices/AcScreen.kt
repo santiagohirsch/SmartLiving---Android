@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -19,12 +20,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.util.devicesvm.AcViewModel
@@ -34,6 +39,21 @@ import com.example.myapplication.util.devicesvm.DeviceViewModel
 @Preview
 @Composable
 fun Ac(acViewModel: AcViewModel = viewModel()){
+    var selectMode by remember {
+        mutableStateOf(false)
+    }
+    var selectSpeed by remember {
+        mutableStateOf(false)
+    }
+    var selectSwing by remember {
+        mutableStateOf(false)
+    }
+    var selectVerticalSwing by remember {
+        mutableStateOf(false)
+    }
+    var selectHorizontalSwing by remember {
+        mutableStateOf(false)
+    }
     val uiState by acViewModel.uiState.collectAsState()
     Column(
         verticalArrangement = Arrangement.Center,
@@ -170,7 +190,7 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
         ) {
             Button(
                 onClick = {
-                    /*TODO*/
+                    selectMode = true
                 },
                 modifier = Modifier
                     .padding(start = 5.dp)
@@ -178,15 +198,97 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
             ) {
                 Text(text = "Seleccionar modo")
             }
+            if (selectMode) {
+                Dialog(onDismissRequest = { selectMode = false }) {
+                    Box(modifier = Modifier
+                        .background(color = Color.Black)
+                        .height(200.dp)
+                        .fillMaxWidth()
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Button(onClick = {
+                                acViewModel.setMode(acViewModel.id.toString(), "cool")
+                                selectMode = false
+                            }) {
+                                Text(text = "Seleccionar modo frio")
+                            }
+                            Button(onClick = {
+                                acViewModel.setMode(acViewModel.id.toString(), "heat")
+                                selectMode = false
+                            }) {
+                                Text(text = "Seleccionar modo calor")
+                            }
+                            Button(onClick = {
+                                acViewModel.setMode(acViewModel.id.toString(), "fan")
+                                selectMode = false
+                            }) {
+                                Text(text = "Seleccionar modo ventilacion")
+                            }
+                        }
+                    }
+
+                }
+            }
 
             Button(
                 onClick = {
-                    /*TODO*/
+                    selectSpeed = true
                 },
                 modifier = Modifier
                     .padding(start = 15.dp)
             ) {
                 Text(text = "Elegir velocidad")
+            }
+            if (selectSpeed) {
+                Dialog(onDismissRequest = { selectSpeed = false }) {
+                    Box(
+                        modifier = Modifier
+                            .background(color = Color.Black)
+                            .height(250.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Button(onClick = {
+                                acViewModel.setFanSpeed(acViewModel.id.toString(), "auto")
+                                selectSpeed = false
+                            }) {
+                                Text(text = "Velocidad automatica")
+                            }
+                            Button(onClick = {
+                                acViewModel.setFanSpeed(acViewModel.id.toString(), "25")
+                                selectSpeed = false
+                            }) {
+                                Text(text = "Velocidad baja")
+                            }
+                            Button(onClick = {
+                                acViewModel.setFanSpeed(acViewModel.id.toString(), "50")
+                                selectSpeed = false
+                            }) {
+                                Text(text = "Velocidad media")
+                            }
+                            Button(onClick = {
+                                acViewModel.setFanSpeed(acViewModel.id.toString(), "75")
+                                selectSpeed = false
+                            }) {
+                                Text(text = "Velocidad alta")
+                            }
+                            Button(onClick = {
+                                acViewModel.setFanSpeed(acViewModel.id.toString(), "100")
+                                selectSpeed = false
+                            }) {
+                                Text(text = "Velocidad maxima")
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -194,11 +296,157 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
             modifier = Modifier
                 .padding(all = 5.dp),
             onClick = {
-                /*TODO*/
+                selectSwing = true
             }
         ) {
             Text(text = "Desplazamiento de aspas")
         }
+
+        if (selectSwing) {
+            Dialog(onDismissRequest = { selectSwing = false }) {
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Black)
+                        .height(250.dp)
+                        .fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Button(onClick = {
+                            selectVerticalSwing = true
+                        }) {
+                            Text(text = "Aspas verticales")
+                        }
+                        if (selectVerticalSwing) {
+                            Dialog(onDismissRequest = {
+                                selectSwing = false
+                                selectVerticalSwing = false
+                            }) {
+                                Box(
+                                    modifier = Modifier
+                                        .background(color = Color.Black)
+                                        .height(250.dp)
+                                        .fillMaxWidth()
+                                ) {
+                                    Column(
+                                        modifier = Modifier.fillMaxSize(),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Button(onClick = {
+                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "auto")
+                                            selectVerticalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento automatico")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "22")
+                                            selectVerticalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento 22º")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "45")
+                                            selectVerticalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento 45º")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "67")
+                                            selectVerticalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento 67º")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "90")
+                                            selectVerticalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento 90º")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        Button(onClick = {
+                            selectHorizontalSwing = true
+                        }) {
+                            Text(text = "Aspas horizontales")
+                        }
+                        if (selectHorizontalSwing) {
+                            Dialog(onDismissRequest = {
+                                selectSwing = false
+                                selectHorizontalSwing = false
+                            }) {
+                                Box(
+                                    modifier = Modifier
+                                        .background(color = Color.Black)
+                                        .height(285.dp)
+                                        .fillMaxWidth()
+                                ) {
+                                    Column(
+                                        modifier = Modifier.fillMaxSize(),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Button(onClick = {
+                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "auto")
+                                            selectHorizontalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento automatico")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "-90")
+                                            selectHorizontalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento -90º")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "-45")
+                                            selectHorizontalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento -45º")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "0")
+                                            selectHorizontalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento 0º")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "45")
+                                            selectHorizontalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento 45º")
+                                        }
+                                        Button(onClick = {
+                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "90")
+                                            selectHorizontalSwing = false
+                                            selectSwing = false
+                                        }) {
+                                            Text(text = "Desplazamiento 90º")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         Button(
             shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
             modifier = Modifier
