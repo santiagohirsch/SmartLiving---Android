@@ -97,8 +97,11 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                 .padding(all = 10.dp)
         ) {
             Column(
+
                 modifier = Modifier
-                    .padding( top = 5.dp)
+                    .padding( top = 5.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
                     modifier = Modifier
@@ -184,10 +187,7 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
             }
         }
         }
-        Row(
-            modifier = Modifier
-                .padding(all = 25.dp)
-        ) {
+
             Button(
                 onClick = {
                     selectMode = true
@@ -290,7 +290,7 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                     }
                 }
             }
-        }
+
 
         Button(
             modifier = Modifier
@@ -452,7 +452,9 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
             modifier = Modifier
                 .padding(top = 25.dp, bottom = 5.dp),
             onClick = {
-                acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature + 1)
+                if (uiState.state.temperature < 38) {
+                    acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature + 1)
+                }
             }
         ) {
             Text(text = "Subir")
@@ -463,8 +465,9 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
             modifier = Modifier
                 .padding(top = 5.dp),
             onClick = {
-                acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature - 1)
-            }
+                if (uiState.state.temperature > 18) {
+                    acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature - 1)
+                }            }
         ) {
             Text(text = "Bajar")
         }

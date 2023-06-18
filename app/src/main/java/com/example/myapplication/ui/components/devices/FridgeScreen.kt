@@ -159,7 +159,9 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
             ) {
                 Button(
                     onClick = {
-                        fridgeViewModel.setFreezerTemperature(fridgeViewModel.id.toString(),uiState.state.freezerTemperature + 1)
+                        if (uiState.state.freezerTemperature < -8) {
+                            fridgeViewModel.setFreezerTemperature(fridgeViewModel.id.toString(),uiState.state.freezerTemperature + 1)
+                        }
                     },
                     shape = RoundedCornerShape(
                         topStart = 20.dp,
@@ -171,8 +173,9 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                 Text(text = "Temp freezer")
                 Button(
                     onClick = {
-                        fridgeViewModel.setFreezerTemperature(fridgeViewModel.id.toString(),uiState.state.freezerTemperature - 1)
-                    },
+                        if (uiState.state.freezerTemperature > -20) {
+                            fridgeViewModel.setFreezerTemperature(fridgeViewModel.id.toString(),uiState.state.freezerTemperature - 1)
+                        }                    },
                     shape = RoundedCornerShape(
                         bottomStart = 20.dp,
                         bottomEnd = 20.dp
@@ -188,7 +191,9 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
             ) {
                 Button(
                     onClick = {
-                        fridgeViewModel.setTemperature(fridgeViewModel.id.toString(),uiState.state.temperature + 1)
+                        if (uiState.state.temperature < 8) {
+                            fridgeViewModel.setTemperature(fridgeViewModel.id.toString(),uiState.state.temperature + 1)
+                        }
                     },
                     shape = RoundedCornerShape(
                         topStart = 20.dp,
@@ -200,8 +205,9 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                 Text(text = "Temp heladera")
                 Button(
                     onClick = {
-                        fridgeViewModel.setTemperature(fridgeViewModel.id.toString(),uiState.state.temperature - 1)
-                    },
+                        if (uiState.state.temperature > 2) {
+                            fridgeViewModel.setTemperature(fridgeViewModel.id.toString(),uiState.state.temperature - 1)
+                        }                    },
                     shape = RoundedCornerShape(
                         bottomStart = 20.dp,
                         bottomEnd = 20.dp
