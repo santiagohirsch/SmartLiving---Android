@@ -35,8 +35,8 @@ class LampViewModel(device: Device) : DeviceViewModel("lamp", R.drawable.lampara
                 powerUsage = device.type?.powerUsage ?: 300
             ),
             state = LampState(
-                status = device.state?.status ?: "inactive",
-                brightness = device.state?.brightness?.toDouble() ?: 100.0,
+                status = device.state?.status ?: "off",
+                brightness = device.state?.brightness ?: 100,
                 color = device.state?.color ?: "FFFFFF",
             ),
             img = R.drawable.aspiradora
@@ -94,12 +94,12 @@ class LampViewModel(device: Device) : DeviceViewModel("lamp", R.drawable.lampara
         }
     }
 
-    fun setBrightness(deviceId: String,bright: Double) {
+    fun setBrightness(deviceId: String,bright: Int) {
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executePD( deviceId, "setBrightness", listOf(bright))
+                apiService.executePI( deviceId, "setBrightness", listOf(bright))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(

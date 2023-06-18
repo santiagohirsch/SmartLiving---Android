@@ -74,7 +74,7 @@ fun Lamp(
                 modifier = Modifier
                     .scale(scale = 0.8f),
                 onValueChange = { newVal ->
-                                lampViewModel.setBrightness(lampViewModel.id.toString(),newVal.toDouble())
+                                lampViewModel.setBrightness(lampViewModel.id.toString(),newVal.toInt())
                 },
                 /*onValueChangeFinished = {
                 Log.d("MainActivity", "sliderVale = $sliderValue")
