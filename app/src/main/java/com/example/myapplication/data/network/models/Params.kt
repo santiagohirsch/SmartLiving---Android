@@ -8,5 +8,5 @@ data class Params(
     val fanSpeed: String? = "",
     val mode: String? = "",
     val freezerTemperature: Int? = 0,
-    val brightness: Double? = 0.0
+    val brightness: Int? = 100
 )

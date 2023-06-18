@@ -19,5 +19,5 @@ data class LampType(
 data class LampState(
     val status: String = "off",
     val color: String = "FFFFFF",
-    val brightness: Double = 100.0
+    val brightness: Int = 100
 )

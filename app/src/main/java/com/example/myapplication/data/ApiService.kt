@@ -37,10 +37,6 @@ interface ApiService {
     suspend fun executePI(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String, @Body params: List<Int> )
 
     @PUT("/api/devices/{deviceId}/{actionName}")
-    suspend fun executePD(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String, @Body params: List<Double> )
-
-
-    @PUT("/api/devices/{deviceId}/{actionName}")
     suspend fun execute(@Path("deviceId")deviceId: String, @Path("actionName")actionName: String )
 
     @PUT("/api/routines/{routineId}/execute")
