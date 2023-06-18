@@ -1,9 +1,12 @@
 package com.example.myapplication.ui.components.devices
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -17,12 +20,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.util.devicesvm.DeviceViewModel
@@ -32,6 +39,9 @@ import com.example.myapplication.util.devicesvm.VacuumViewModel
 @Composable
 fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
     val uiState by vacuumViewModel.uiState.collectAsState()
+    var selectMode by remember {
+        mutableStateOf(false)
+    }
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -67,10 +77,38 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
         )
         Button(
             onClick = {
-
+                selectMode = true
             }
         ) {
             Text(text = "Seleccionar modo")
+        }
+        if(selectMode){
+            Dialog(onDismissRequest = { selectMode = false }) {
+                Box(modifier = Modifier
+                    .background(color = Color.Black)
+                    .height(150.dp)
+                    .fillMaxWidth()
+                ){
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Button(onClick = {
+                            vacuumViewModel.setMode(vacuumViewModel.id.toString(), "vacuum")
+                            selectMode = false
+                        }) {
+                            Text(text = "Aspirar")
+                        }
+                        Button(onClick = {
+                            vacuumViewModel.setMode(vacuumViewModel.id.toString(), "mop")
+                            selectMode = false
+                        }) {
+                            Text(text = "Trapear")
+                        }
+                    }
+                }
+            }
         }
         Button(
             onClick = {
