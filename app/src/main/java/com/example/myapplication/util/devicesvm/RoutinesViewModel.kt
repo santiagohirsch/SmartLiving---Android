@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.DevicesUiState
 import com.example.myapplication.data.network.RetrofitClient
 import com.example.myapplication.data.network.RoutinesUiState
+import com.example.myapplication.data.network.models.Device
+import com.example.myapplication.data.network.models.Routine
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +21,8 @@ class RoutinesViewModel: ViewModel() {
 
     private var fetchJob: Job? = null
 
+    private var currentRoutines: MutableList<Routine> = mutableListOf()
+
     fun getAllRoutines() {
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
@@ -30,7 +34,10 @@ class RoutinesViewModel: ViewModel() {
                 _uiState.update { it.copy(routines = response.body(),
                     isLoading = false)
                 }
-                uiState.value.routines?.routines?.forEach{ println(it.name) }
+                //uiState.value.routines?.routines?.forEach{ println(it.name)
+                response.body()?.routines?.let { devices ->
+                    currentRoutines = devices.toMutableList()
+                }
             }.onFailure { e->
                 _uiState.update { it.copy(
                     message = e.message,
@@ -39,4 +46,10 @@ class RoutinesViewModel: ViewModel() {
             }
         }
     }
+
+    fun getCurrentRoutines() : MutableList<Routine> {
+        return currentRoutines
+    }
+
+
 }
