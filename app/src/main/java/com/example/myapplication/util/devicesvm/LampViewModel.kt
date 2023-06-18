@@ -69,12 +69,12 @@ class LampViewModel(name: String?,id: String?) : DeviceViewModel("lamp", R.drawa
         }
     }
 
-    fun setCBrightness(deviceId: String,bright: Double) {
+    fun setBrightness(deviceId: String,bright: Double) {
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
             runCatching {
                 val apiService = RetrofitClient.getApiService()
-                apiService.executePD( deviceId, "setColor", listOf(bright))
+                apiService.executePD( deviceId, "setBrightness", listOf(bright))
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(

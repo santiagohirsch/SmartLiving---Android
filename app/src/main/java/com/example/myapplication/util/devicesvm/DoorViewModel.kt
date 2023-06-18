@@ -25,7 +25,7 @@ class DoorViewModel(name: String?, id: String?) : DeviceViewModel("door", R.draw
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        state = currentState.state.copy(status = "open")
+                        state = currentState.state.copy(status = "opened")
                     )
                 }
             }.onFailure {
@@ -42,7 +42,7 @@ class DoorViewModel(name: String?, id: String?) : DeviceViewModel("door", R.draw
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        state = currentState.state.copy(status = "close")
+                        state = currentState.state.copy(status = "closed")
                     )
                 }
             }.onFailure {
@@ -59,7 +59,7 @@ class DoorViewModel(name: String?, id: String?) : DeviceViewModel("door", R.draw
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        state = currentState.state.copy(status = "lock")
+                        state = currentState.state.copy(status = "locked")
                     )
                 }
             }.onFailure {
@@ -76,7 +76,7 @@ class DoorViewModel(name: String?, id: String?) : DeviceViewModel("door", R.draw
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        state = currentState.state.copy(status = "unlock")
+                        state = currentState.state.copy(status = "unlocked")
                     )
                 }
             }.onFailure {

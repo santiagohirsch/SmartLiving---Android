@@ -15,6 +15,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,6 +30,7 @@ import com.example.myapplication.util.devicesvm.RefrigeratorViewModel
 @Preview
 @Composable
 fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
+    val uiState by fridgeViewModel.uiState.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,7 +52,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                 .background(color = Color.Gray)
         ) {
             Row() {
-                Text(text = "Modo: "/* + uiState.state.mode*/, modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Modo: " + uiState.state.mode, modifier = Modifier.padding(start = 15.dp))
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -60,7 +63,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. freezer "/* + uiState.state.freezerTemperature*/, modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Temp. freezer " + uiState.state.freezerTemperature, modifier = Modifier.padding(start = 15.dp))
             }
             Spacer(modifier = Modifier.width(5.dp))
             Box(
@@ -69,7 +72,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. heladera "/* + uiState.state.temperature*/, modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Temp. heladera " + uiState.state.temperature, modifier = Modifier.padding(start = 15.dp))
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -93,7 +96,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
             ) {
                 Button(
                     onClick = {
-                        fridgeViewModel.setMode("05ecc27266f711fe", "vacation")
+                        fridgeViewModel.setMode(fridgeViewModel.id.toString(), "vacation")
                     },
                     shape = RoundedCornerShape(
                         size = 20.dp
@@ -111,7 +114,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
             ) {
                 Button(
                     onClick = {
-                        /*TODO*/
+                        fridgeViewModel.setFreezerTemperature(fridgeViewModel.id.toString(),uiState.state.freezerTemperature + 1)
                     },
                     shape = RoundedCornerShape(
                         topStart = 20.dp,
@@ -123,7 +126,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                 Text(text = "Temp freezer")
                 Button(
                     onClick = {
-                        /*TODO*/
+                        fridgeViewModel.setFreezerTemperature(fridgeViewModel.id.toString(),uiState.state.freezerTemperature - 1)
                     },
                     shape = RoundedCornerShape(
                         bottomStart = 20.dp,
@@ -140,7 +143,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
             ) {
                 Button(
                     onClick = {
-                        /*TODO*/
+                        fridgeViewModel.setTemperature(fridgeViewModel.id.toString(),uiState.state.temperature + 1)
                     },
                     shape = RoundedCornerShape(
                         topStart = 20.dp,
@@ -152,7 +155,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                 Text(text = "Temp heladera")
                 Button(
                     onClick = {
-                        /*TODO*/
+                        fridgeViewModel.setTemperature(fridgeViewModel.id.toString(),uiState.state.temperature - 1)
                     },
                     shape = RoundedCornerShape(
                         bottomStart = 20.dp,

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -22,6 +24,7 @@ import com.example.myapplication.util.devicesvm.VacuumViewModel
 @Preview
 @Composable
 fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
+    val uiState by vacuumViewModel.uiState.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -35,7 +38,7 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
         )
         Button(
             onClick = {
-                vacuumViewModel.dock("f85d46c66ac17b54")
+                vacuumViewModel.dock(vacuumViewModel.id.toString())
             }
         ) {
             Text(text = "Seleccionar modo")

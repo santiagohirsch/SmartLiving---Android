@@ -84,9 +84,6 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
             //verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            /*DeviceCard(device = VacuumViewModel("aspiradorita"))
-            DeviceCard(device = RefrigeratorViewModel("hola"))
-            DeviceCard(device = LampViewModel("hola"))*/
             Text(
                 text = stringResource(R.string.devicesTitle),
                 fontSize = 25.sp,

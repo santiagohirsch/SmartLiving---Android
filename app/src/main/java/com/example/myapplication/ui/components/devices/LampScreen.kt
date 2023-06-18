@@ -12,6 +12,7 @@ import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -35,11 +36,9 @@ fun Lamp(
     modifier: Modifier = Modifier,
     lampViewModel: LampViewModel = viewModel()
 ){
-    var sliderValue by remember {
-        mutableFloatStateOf(0f)
-    }
+    val uiState by lampViewModel.uiState.collectAsState()
     var switchOn by remember {
-        mutableStateOf(false)
+        mutableStateOf(uiState.state.status == "on")
     }
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -47,14 +46,21 @@ fun Lamp(
             modifier = Modifier.fillMaxSize()
         ) {
             Image(
-                painter = painterResource(id = R.drawable.apagada), contentDescription = "lamp",
+                painter = if (uiState.state.status == "off") painterResource(id = R.drawable.apagada) else painterResource( id = R.drawable.prendida),
+                contentDescription = "lamp",
                 modifier = Modifier
                     .size(300.dp)
                     .padding(top = 40.dp)
             )
             Switch(
-                checked = switchOn, onCheckedChange = { switchOn_ ->
+                checked = switchOn,
+                onCheckedChange = { switchOn_ ->
                     switchOn = switchOn_
+                    if (switchOn) {
+                        lampViewModel.turnOn(lampViewModel.id.toString())
+                    } else {
+                        lampViewModel.turnOff(lampViewModel.id.toString())
+                    }
                 },
                 modifier = Modifier
                     .scale(scale = 2.2f),
@@ -63,27 +69,22 @@ fun Lamp(
                     checkedTrackColor = Color.Gray
                 )
             )
-            if (switchOn) {
-                lampViewModel.turnOn("9e59f5dc451ac130")
-            } else {
-                lampViewModel.turnOff("9e59f5dc451ac130")
-            }
             Slider(
-                value = sliderValue /*uiState.state.brightness*/,
+                value = uiState.state.brightness.toFloat(),
                 modifier = Modifier
                     .scale(scale = 0.8f),
-                onValueChange = { sliderValue_ ->
-                    sliderValue /*uiState.state.brightness*/ = sliderValue_
+                onValueChange = { newVal ->
+                                lampViewModel.setBrightness(lampViewModel.id.toString(),newVal.toDouble())
                 },
                 /*onValueChangeFinished = {
                 Log.d("MainActivity", "sliderVale = $sliderValue")
             },*/
                 valueRange = 0f..100f
             )
-            Text(text = sliderValue.toString())
+            Text(text = uiState.state.brightness.toString())
             Button(
                 onClick = {
-                    lampViewModel.setColor("4e86d9edb5985f4d","FEFEFE")
+                    lampViewModel.setColor(lampViewModel.id.toString(),"FEFEFE")
                 }
             ) {
                 Text(text = "Elegir color")

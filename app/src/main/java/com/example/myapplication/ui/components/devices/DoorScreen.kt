@@ -1,45 +1,58 @@
 package com.example.myapplication.ui.components.devices
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberImagePainter
+import com.example.myapplication.R
+import com.example.myapplication.util.devicesvm.AcViewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
 import com.example.myapplication.util.devicesvm.DoorViewModel
 
 @Preview
 @Composable
 fun Door(doorViewModel: DoorViewModel = viewModel()){
+    val uiState by doorViewModel.uiState.collectAsState()
     var switchOpen by remember {
-        mutableStateOf(false)
+        mutableStateOf(uiState.state.status == "opened")
     }
     var switchLock by remember {
-        mutableStateOf(false)
+        mutableStateOf(uiState.state.lock == "locked")
     }
     var openEnable by remember {
-        mutableStateOf(true)
+        mutableStateOf(uiState.state.lock == "unlocked")
     }
     var lockEnable by remember {
-        mutableStateOf(true)
+        mutableStateOf(uiState.state.status == "closed")
     }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -47,11 +60,21 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row() {
+            Image(
+                painter = if(uiState.state.status == "open") painterResource(R.drawable.open_door) else painterResource(R.drawable.closedoor),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(top = 12.dp, bottom = 6.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .size(112.dp),
+                contentScale = ContentScale.Crop
+            )
             Switch(
                 checked = switchOpen,
                 onCheckedChange = { switchOn_ ->
                     switchOpen = switchOn_
                     lockEnable = !switchOn_
+                    println(uiState.state.status)
                 },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = Color.Green,
@@ -61,11 +84,6 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
                 modifier = Modifier.scale(2.2f)
             )
             Spacer(modifier = Modifier.width(23.dp))
-            if (switchOpen ) {
-                doorViewModel.open("a1d9bc25c900ed90")
-            } else {
-                   doorViewModel.close("a1d9bc25c900ed90")
-            }
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row() {
@@ -74,6 +92,12 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
                 onCheckedChange = { switchOn_ ->
                     switchLock = switchOn_
                     openEnable = !switchOn_
+                    if(uiState.state.lock == "locked") {
+                        doorViewModel.unlock(doorViewModel.id.toString())
+                    }
+                    else {
+                        doorViewModel.lock(doorViewModel.id.toString())
+                    }
                 },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = Color.Green,
@@ -83,11 +107,15 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
                 modifier = Modifier.scale(2.2f)
             )
             Spacer(modifier = Modifier.width(23.dp))
-            if (switchLock ) {
-                doorViewModel.lock("a1d9bc25c900ed90")
-            } else {
-                doorViewModel.unlock("a1d9bc25c900ed90")
-            }
+            Image(
+                painter = if(uiState.state.status == "lock") painterResource(R.drawable.lock) else painterResource(R.drawable.unlock),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(top = 12.dp, bottom = 6.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .size(112.dp),
+                contentScale = ContentScale.Crop
+            )
         }
 
     }

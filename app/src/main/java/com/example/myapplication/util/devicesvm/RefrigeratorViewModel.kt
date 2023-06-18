@@ -27,7 +27,7 @@ class RefrigeratorViewModel( name: String?, id: String?) : DeviceViewModel("refr
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        state = currentState.state.copy(temperature = temp)
+                        state = currentState.state.copy(freezerTemperature = temp)
                     )
                 }
             }.onFailure {

@@ -19,7 +19,7 @@ data class AcType(
 )
 
 data class AcState(
-    val status: String = "",
+    val status: String = "off",
     val temperature: Int = 24,
     val mode: String = "cool",
     val verticalSwing: String = "auto",

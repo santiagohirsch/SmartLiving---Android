@@ -17,12 +17,15 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.util.devicesvm.AcViewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
@@ -30,13 +33,21 @@ import com.example.myapplication.util.devicesvm.DeviceViewModel
 
 @Preview
 @Composable
-fun Ac(acViewModel: DeviceViewModel = viewModel()){
+fun Ac(acViewModel: AcViewModel = viewModel()){
+    val uiState by acViewModel.uiState.collectAsState()
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedButton(
-            onClick = {  },
+            onClick = {
+                      if(uiState.state.status == "on") {
+                          acViewModel.turnOff(acViewModel.id.toString())
+                      }
+                      else {
+                        acViewModel.turnOn(acViewModel.id.toString())
+                      }
+            },
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier
                 .width(130.dp)
@@ -78,7 +89,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                 ) {
                     Row() {
                         Text(
-                            text = "Modo: "/* + uiState.state.mode*/,
+                            text = "Modo: " + uiState.state.mode,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
@@ -100,7 +111,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                                 .height(95.dp)
                         ) {
                             Text(
-                                text = "ON" /*uiState.state.status*/,
+                                text = uiState.state.status,
                                 color = Color.Black,
                                 modifier = Modifier
                                     .padding(start = 10.dp),
@@ -123,7 +134,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                                 )
                         )
                         {
-                        Text(text = "Temperature: "/* + uiState.state.temperature*/,
+                        Text(text = "Temperature: " + uiState.state.temperature,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
@@ -141,7 +152,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
                             .fillMaxWidth()
                             .background(color = Color.Gray)
                     ) {
-                        Text(text = "Velocidad: "/* + uiState.state.fanSpeed*/,
+                        Text(text = "Velocidad: " + uiState.state.fanSpeed,
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
@@ -193,7 +204,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
             modifier = Modifier
                 .padding(top = 25.dp, bottom = 5.dp),
             onClick = {
-                /*TODO*/
+                acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature + 1)
             }
         ) {
             Text(text = "Subir")
@@ -204,7 +215,7 @@ fun Ac(acViewModel: DeviceViewModel = viewModel()){
             modifier = Modifier
                 .padding(top = 5.dp),
             onClick = {
-                /*TODO*/
+                acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature - 1)
             }
         ) {
             Text(text = "Bajar")
