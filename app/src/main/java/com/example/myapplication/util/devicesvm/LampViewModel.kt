@@ -30,12 +30,12 @@ class LampViewModel(device: Device) : DeviceViewModel("lamp", R.drawable.lampara
             id = device.id ?: "",
             name = device.name ?: "",
             type = LampType(
-                id = device.type?.id ?: "ofglvd9gqx8yfl3l",
-                name = device.type?.name ?: "vacuum",
-                powerUsage = device.type?.powerUsage ?: 300
+                id = device.type?.id ?: "go46xmbqeomjrsjr",
+                name = device.type?.name ?: "lamp",
+                powerUsage = device.type?.powerUsage ?: 15
             ),
             state = LampState(
-                status = device.state?.status ?: "inactive",
+                status = device.state?.status ?: "off",
                 brightness = device.state?.brightness?.toDouble() ?: 100.0,
                 color = device.state?.color ?: "FFFFFF",
             ),

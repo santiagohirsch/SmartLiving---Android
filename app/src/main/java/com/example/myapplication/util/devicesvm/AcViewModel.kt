@@ -29,14 +29,14 @@ class AcViewModel(device: Device) : DeviceViewModel("ac", R.drawable.ac, device.
             id = device.id ?: "",
             name = device.name ?: "",
             type = AcType(
-                id = device.type?.id ?: "ofglvd9gqx8yfl3l",
-                name = device.type?.name ?: "vacuum",
-                powerUsage = device.type?.powerUsage ?: 300
+                id = device.type?.id ?: "li6cbv5sdlatti0j",
+                name = device.type?.name ?: "ac",
+                powerUsage = device.type?.powerUsage ?: 1600
             ),
             state = AcState(
-                status = device.state?.status ?: "inactive",
+                status = device.state?.status ?: "off",
                 temperature = device.state?.temperature ?: 24,
-                mode = device.state?.mode ?: "auto",
+                mode = device.state?.mode ?: "cool",
                 verticalSwing = device.state?.verticalSwing ?: "auto",
                 horizontalSwing = device.state?.horizontalSwing ?: "auto",
                 fanSpeed = device.state?.fanSpeed ?: "auto",

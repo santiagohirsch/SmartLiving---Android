@@ -29,14 +29,14 @@ class RefrigeratorViewModel(device: Device) : DeviceViewModel("refrigerator", R.
             id = device.id ?: "",
             name = device.name ?: "",
             type = RefrigeratorType(
-                id = device.type?.id ?: "ofglvd9gqx8yfl3l",
-                name = device.type?.name ?: "vacuum",
-                powerUsage = device.type?.powerUsage ?: 300
+                id = device.type?.id ?: "rnizejqr2di0okho",
+                name = device.type?.name ?: "refrigerator",
+                powerUsage = device.type?.powerUsage ?: 90
             ),
             state = RefrigeratorState(
-                freezerTemperature = device.state?.freezerTemperature ?: 0,
-                temperature = device.state?.temperature ?: 8,
-                mode = device.state?.mode ?: "",
+                freezerTemperature = device.state?.freezerTemperature ?: -8,
+                temperature = device.state?.temperature ?: 2,
+                mode = device.state?.mode ?: "default",
             ),
             img = R.drawable.aspiradora
         )
@@ -83,12 +83,27 @@ class RefrigeratorViewModel(device: Device) : DeviceViewModel("refrigerator", R.
                 val apiService = RetrofitClient.getApiService()
                 apiService.executePS( deviceId, "setMode", listOf(mode))
             }.onSuccess {
-                _uiState.update { currentState ->
-                    currentState.copy(
-                        state = currentState.state.copy(mode = mode)
-                    )
-                }
+                 getDevice(deviceId)
             }.onFailure {
+            }
+        }
+    }
+
+    private fun getDevice(id : String) {
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch {
+            runCatching {
+                val apiService =  RetrofitClient.getApiService()
+                apiService.getDevice(id)
+            }.onSuccess { response ->
+                _uiState.update {
+                    it.copy(state = RefrigeratorState(
+                    mode = response.body()?.result?.state?.mode.toString(),
+                    temperature = response.body()?.result?.state?.temperature?: 2,
+                    freezerTemperature = response.body()?.result?.state?.freezerTemperature?: -8
+                ))
+                }
+
             }
         }
     }

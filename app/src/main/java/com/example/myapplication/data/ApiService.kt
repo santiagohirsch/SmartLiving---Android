@@ -2,6 +2,7 @@ package com.example.myapplication.data
 
 
 import com.example.myapplication.data.network.models.Device
+import com.example.myapplication.data.network.models.DeviceResult
 import com.example.myapplication.data.network.models.DeviceToAdd
 import com.example.myapplication.data.network.models.DevicesList
 import com.example.myapplication.data.network.models.Params
@@ -20,10 +21,8 @@ interface ApiService {
     @GET("/api/devices")
     suspend fun getDevices() : Response<DevicesList>
 
-    /*@PUT("/api/devices/{id}")
-    suspend fun addDevice(@Path("id")id: String, @Query("name")name: String): Response<Device>/*/
-     */
-     */
+    @GET("/api/devices/{id}")
+    suspend fun getDevice(@Path("id")id: String): Response<DeviceResult>
 
     @POST("/api/devices")
     suspend fun addNewDevice(@Body device: DeviceToAdd) : Response<Device>

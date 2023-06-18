@@ -27,9 +27,9 @@ class DoorViewModel(device: Device) : DeviceViewModel("door", R.drawable.puerta,
             id = device.id ?: "",
             name = device.name ?: "",
             type = DoorType(
-                id = device.type?.id ?: "ofglvd9gqx8yfl3l",
-                name = device.type?.name ?: "vacuum",
-                powerUsage = device.type?.powerUsage ?: 300
+                id = device.type?.id ?: "lsf78ly0eqrjbz91",
+                name = device.type?.name ?: "door",
+                powerUsage = device.type?.powerUsage ?: 350
             ),
             state = DoorState(
                 status = device.state?.status ?: "closed",
