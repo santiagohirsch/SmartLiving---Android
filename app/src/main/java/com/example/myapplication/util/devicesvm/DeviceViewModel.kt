@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 open class DeviceViewModel(var type: String, val img: Int, var name: String?, var id: String?) : ViewModel() {
-    /*private val _uiState = MutableStateFlow(DeviceUiState())
-    val uiState: StateFlow<DeviceUiState> = _uiState.asStateFlow()*/
+
 }

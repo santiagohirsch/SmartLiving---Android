@@ -203,7 +203,6 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
                 viewModel.getAllDevices()
                 items(viewModel.getCurrentDevices().size) { index ->
                     val device = viewModel.getCurrentDevices()[index]
-                    println(device.type?.name)
                     when (device.type?.name) {
                         "ac" -> DeviceCard(AcViewModel(device))
                         "refrigerator" -> DeviceCard(RefrigeratorViewModel(device))
