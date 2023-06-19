@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -43,7 +45,7 @@ import com.example.myapplication.util.devicesvm.LampViewModel
 @Composable
 fun DeviceCard(
     device: DeviceViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
@@ -93,14 +95,6 @@ fun DeviceCard(
     }
 }
 
-@Preview
-@Composable
-fun DeviceCardPreview() {
-    MyApplicationTheme {
-        //DeviceCard(device = LampViewModel("el pepe"))
-    }
-}
-
 @Composable
 fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
     val currentDevices: CurrentDevices = CurrentDevices()
@@ -117,7 +111,13 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
                         onDismiss()
                     }
                 ) {
-                    Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
+                    Icon(imageVector = Icons.Outlined.Clear, contentDescription = "")
+                }
+                IconButton(onClick = {
+                    device.delete(device.id.toString())
+                    onDismiss()
+                                     }, modifier = Modifier.padding(start=265.dp) ) {
+                    Icon(imageVector = Icons.Outlined.Delete, contentDescription = "" ,Modifier.size(30.dp))
                 }
                 currentDevices.ViewDevice(device)
             }
