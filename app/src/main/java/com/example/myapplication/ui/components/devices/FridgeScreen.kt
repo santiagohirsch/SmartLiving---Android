@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
@@ -60,7 +61,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                 .background(color = Color.Gray)
         ) {
             Row() {
-                Text(text = "Modo: " + uiState.state.mode, modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Modo: " + uiState.state.mode, modifier = Modifier.padding(start = 15.dp,top = 5.dp), fontSize = 23.sp)
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -71,7 +72,8 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. freezer " + uiState.state.freezerTemperature, modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Freezer ", modifier = Modifier.padding(start = 42.dp), fontSize = 20.sp)
+                Text(text = uiState.state.freezerTemperature.toString() + "°C", modifier = Modifier.padding(start = 15.dp,top = 50.dp), fontSize = 56.sp)
             }
             Spacer(modifier = Modifier.width(5.dp))
             Box(
@@ -80,7 +82,8 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = "Temp. heladera " + uiState.state.temperature, modifier = Modifier.padding(start = 15.dp))
+                Text(text = "Heladera ", modifier = Modifier.padding(start = 30.dp), fontSize = 20.sp)
+                Text(text = uiState.state.temperature.toString() + "°C", modifier = Modifier.padding(start = 21.dp,top = 50.dp), fontSize = 56.sp)
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -110,7 +113,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                         size = 20.dp
                     )
                 ) {
-                    Text(text = "Cambiar modo")
+                    Text(text = "Cambiar modo",color = Color.White)
                 }
 
                 if (changeMode) {
@@ -168,7 +171,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                         topEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Subir")
+                    Text(text = "Subir",color = Color.White)
                 }
                 Text(text = "Temp freezer")
                 Button(
@@ -181,7 +184,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                         bottomEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Bajar")
+                    Text(text = "Bajar",color = Color.White)
                 }
             }
             Spacer(modifier = Modifier.width(65.dp))
@@ -200,7 +203,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                         topEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Subir")
+                    Text(text = "Subir",color = Color.White)
                 }
                 Text(text = "Temp heladera")
                 Button(
@@ -213,7 +216,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                         bottomEnd = 20.dp
                     )
                 ) {
-                    Text(text = "Bajar")
+                    Text(text = "Bajar",color = Color.White)
                 }
             }
         }
