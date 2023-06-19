@@ -59,69 +59,62 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row() {
-            Image(
-                painter = if(uiState.state.status == "opened") painterResource(R.drawable.open_door) else painterResource(R.drawable.closedoor),
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(top = 12.dp, bottom = 6.dp)
-                    .clip(RoundedCornerShape(5.dp))
-                    .size(112.dp),
-                contentScale = ContentScale.Crop
-            )
-            Switch(
-                checked = switchOpen,
-                onCheckedChange = { switchOn_ ->
-                    switchOpen = switchOn_
-                    lockEnable = !switchOn_
-                    if(uiState.state.status == "opened") {
-                        doorViewModel.close(doorViewModel.id.toString())
-                    }
-                    else {
-                        doorViewModel.open(doorViewModel.id.toString())
-                    }
-                },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.Green,
-                    checkedTrackColor = Color.Gray
-                ),
-                enabled = openEnable,
-                modifier = Modifier.scale(2.2f)
-            )
-            Spacer(modifier = Modifier.width(23.dp))
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Row() {
-            Switch(
-                checked = switchLock,
-                onCheckedChange = { switchOn_ ->
-                    switchLock = switchOn_
-                    openEnable = !switchOn_
-                    if(uiState.state.lock == "locked") {
-                        doorViewModel.unlock(doorViewModel.id.toString())
-                    }
-                    else {
-                        doorViewModel.lock(doorViewModel.id.toString())
-                    }
-                },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.Green,
-                    checkedTrackColor = Color.Gray
-                ),
-                enabled = lockEnable,
-                modifier = Modifier.scale(2.2f)
-            )
-            Spacer(modifier = Modifier.width(23.dp))
-            Image(
-                painter = if(uiState.state.lock == "locked") painterResource(R.drawable.lock) else painterResource(R.drawable.unlock),
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(top = 12.dp, bottom = 6.dp)
-                    .clip(RoundedCornerShape(5.dp))
-                    .size(112.dp),
-                contentScale = ContentScale.Crop
-            )
-        }
-
+        Switch(
+            checked = switchOpen,
+            onCheckedChange = { switchOn_ ->
+                switchOpen = switchOn_
+                lockEnable = !switchOn_
+                if(uiState.state.status == "opened") {
+                    doorViewModel.close(doorViewModel.id.toString())
+                }
+                else {
+                    doorViewModel.open(doorViewModel.id.toString())
+                }
+            },
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.Green,
+                checkedTrackColor = Color.Gray
+            ),
+            enabled = openEnable,
+            modifier = Modifier.scale(2.2f)
+        )
+        Image(
+            painter = if(uiState.state.status == "opened") painterResource(R.drawable.open_door) else painterResource(R.drawable.closedoor),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(top = 12.dp, bottom = 6.dp)
+                .clip(RoundedCornerShape(5.dp))
+                .size(130.dp),
+            contentScale = ContentScale.Crop
+        )
+        Spacer(modifier = Modifier.height(100.dp))
+        Switch(
+            checked = switchLock,
+            onCheckedChange = { switchOn_ ->
+                switchLock = switchOn_
+                openEnable = !switchOn_
+                if(uiState.state.lock == "locked") {
+                    doorViewModel.unlock(doorViewModel.id.toString())
+                }
+                else {
+                    doorViewModel.lock(doorViewModel.id.toString())
+                }
+            },
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.Green,
+                checkedTrackColor = Color.Gray
+            ),
+            enabled = lockEnable,
+            modifier = Modifier.scale(2.2f)
+        )
+        Image(
+            painter = if(uiState.state.lock == "locked") painterResource(R.drawable.lock) else painterResource(R.drawable.unlock),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(top = 12.dp, bottom = 6.dp)
+                .clip(RoundedCornerShape(5.dp))
+                .size(130.dp),
+            contentScale = ContentScale.Crop
+        )
     }
 }

@@ -27,8 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -116,9 +119,8 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
-                            //fontSize = 10.dp
+                            fontSize = 23.sp
                         )
-
                     }
                 }
                 Spacer(modifier = Modifier
@@ -137,8 +139,8 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                                 text = uiState.state.status,
                                 color = Color.Black,
                                 modifier = Modifier
-                                    .padding(start = 10.dp),
-                                //fontSize = 10.dp
+                                    .padding(start = 10.dp, top = 7.dp),
+                                fontSize = 53.sp
                             )
                         }
                         Spacer(modifier = Modifier
@@ -157,11 +159,11 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                                 )
                         )
                         {
-                        Text(text = "Temperature: " + uiState.state.temperature,
+                        Text(text = uiState.state.temperature.toString() + "°C",
                             color = Color.Black,
                             modifier = Modifier
-                                .padding(start = 10.dp),
-                            //fontSize = 8.dp
+                                .padding(start = 30.dp, top = 7.dp),
+                            fontSize = 56.sp,
                             )
                         }
                     }
@@ -179,7 +181,7 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                             color = Color.Black,
                             modifier = Modifier
                                 .padding(start = 10.dp),
-                            //fontSize = 8.dp
+                            fontSize = 23.sp
                         )
                     }
                 }

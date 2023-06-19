@@ -60,7 +60,6 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
             modifier = Modifier
                 .width(130.dp)
                 .height(80.dp)
-                .offset(x = 90.dp, y = 0.dp) // Mueve la caja 50.dp hacia la derecha
                 .padding(all = 10.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Red,
@@ -69,12 +68,6 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
             Text( text = "Encender/\n  Apagar",
                 color = Color.White)
         }
-        Image(
-            painter = painterResource(id = R.drawable.aspiradora), contentDescription = "vacuum",
-            modifier = Modifier
-                .size(100.dp)
-                .padding(top = 40.dp)
-        )
         Button(
             onClick = {
                 selectMode = true
