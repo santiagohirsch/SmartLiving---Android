@@ -92,7 +92,7 @@ fun RoutineCard(routine : RoutineViewModel){
                 Box(
                     modifier = Modifier
                         .background(Color.White)
-                        .height(680.dp)
+                        .height(450.dp)
                 ) {
                     IconButton(
                         onClick = {
