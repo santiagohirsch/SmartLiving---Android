@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication.R
 import com.example.myapplication.data.network.RetrofitClient
+import com.example.myapplication.data.network.models.Device
 import com.example.myapplication.ui.components.DeviceCard
 import com.example.myapplication.util.devicesrep.CurrentDevices
 import com.example.myapplication.util.devicesvm.AcViewModel
@@ -191,7 +192,7 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
-            LazyVerticalGrid(
+            /*LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
@@ -210,6 +211,33 @@ fun DevicesScreen(viewModel: DevicesViewModel) {
                         "vacuum" -> DeviceCard(VacuumViewModel(device))
                         "door" -> DeviceCard(DoorViewModel(device))
                     }
+                }
+            }*/
+
+            LazyVerticalGrid(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(colorResource(R.color.secondary_button)),
+                columns = GridCells.Adaptive(140.dp),//Fixed(2),
+                contentPadding = PaddingValues(12.dp),
+            ) {
+                viewModel.getLogs()
+                items(viewModel.getRecents().size) { index ->
+                    val id = viewModel.getRecents()[index].deviceId
+                    viewModel.getCurrentDevices().forEach {
+                        if (it.id.toString().compareTo(id.toString()) == 0) {
+                            when (it.type?.name) {
+                                "ac" -> DeviceCard(AcViewModel(it))
+                                "refrigerator" -> DeviceCard(RefrigeratorViewModel(it))
+                                "lamp" -> DeviceCard(LampViewModel(it))
+                                "vacuum" -> DeviceCard(VacuumViewModel(it))
+                                "door" -> DeviceCard(DoorViewModel(it))
+                            }
+                        }
+                    }
+
                 }
             }
         }

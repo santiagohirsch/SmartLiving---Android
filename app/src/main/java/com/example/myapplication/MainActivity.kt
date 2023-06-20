@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val devicesViewModel: DevicesViewModel = viewModel()
             val routinesViewModel: RoutinesViewModel = viewModel()
+            devicesViewModel.getAllDevices()
             MyApplicationTheme {
                 val navController = rememberNavController()
                 Scaffold(

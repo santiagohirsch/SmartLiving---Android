@@ -5,6 +5,7 @@ import com.example.myapplication.data.network.models.Device
 import com.example.myapplication.data.network.models.DeviceResult
 import com.example.myapplication.data.network.models.DeviceToAdd
 import com.example.myapplication.data.network.models.DevicesList
+import com.example.myapplication.data.network.models.LogList
 import com.example.myapplication.data.network.models.Params
 import com.example.myapplication.data.network.models.RoutineList
 import retrofit2.Response
@@ -45,4 +46,7 @@ interface ApiService {
 
     @PUT("/api/routines/{routineId}/execute")
     suspend fun executeRoutine(@Path("routineId")routineId: String)
+
+    @GET("/api/devices/logs/limit/{limit}/offset/{offset}")
+    suspend fun getLogs(@Path("limit")limit: String, @Path("offset")offset: String) : Response<LogList>
 }
