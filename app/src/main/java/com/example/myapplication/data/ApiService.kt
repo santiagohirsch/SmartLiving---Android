@@ -9,6 +9,7 @@ import com.example.myapplication.data.network.models.Params
 import com.example.myapplication.data.network.models.RoutineList
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -17,6 +18,9 @@ import retrofit2.http.Query
 import java.util.Objects
 
 interface ApiService {
+
+    @DELETE("/api/devices/{deviceId}")
+    suspend fun delete(@Path("deviceId")deviceId: String)
 
     @GET("/api/devices")
     suspend fun getDevices() : Response<DevicesList>
