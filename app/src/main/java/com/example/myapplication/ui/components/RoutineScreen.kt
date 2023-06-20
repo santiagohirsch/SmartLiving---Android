@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.example.myapplication.util.devicesvm.RoutineViewModel
 
 @Composable
-fun RoutineScreen(routineViewModel: RoutineViewModel){
+fun RoutineScreen(routineViewModel: RoutineViewModel, onDismiss: () -> Unit){
     val uiState by routineViewModel.uiState.collectAsState()
     Column(
         verticalArrangement = Arrangement.Center,
@@ -38,7 +38,9 @@ fun RoutineScreen(routineViewModel: RoutineViewModel){
         }
         Spacer(modifier = Modifier.height(20.dp))
         Button(
-            onClick = { routineViewModel.executeRoutine() },
+            onClick = {
+                routineViewModel.executeRoutine()
+                onDismiss() },
             modifier = Modifier
                 .height(80.dp)
                 .width(130.dp),

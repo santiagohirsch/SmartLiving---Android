@@ -132,19 +132,19 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                                     fridgeViewModel.setMode(fridgeViewModel.id.toString(), "default")
                                     changeMode = false
                                 }) {
-                                    Text(text = "Seleccionar modo default")
+                                    Text(text = "Seleccionar modo default", color = Color.White)
                                 }
                                 Button(onClick = {
                                     fridgeViewModel.setMode(fridgeViewModel.id.toString(), "vacation")
                                     changeMode = false
                                 }) {
-                                    Text(text = "Seleccionar modo vacaciones")
+                                    Text(text = "Seleccionar modo vacaciones", color = Color.White)
                                 }
                                 Button(onClick = {
                                     fridgeViewModel.setMode(fridgeViewModel.id.toString(), "party")
                                     changeMode = false
                                 }) {
-                                    Text(text = "Seleccionar modo fiesta")
+                                    Text(text = "Seleccionar modo fiesta", color = Color.White)
                                 }
                             }
                         }

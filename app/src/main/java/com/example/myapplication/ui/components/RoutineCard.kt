@@ -87,7 +87,7 @@ fun RoutineCard(routine : RoutineViewModel){
 
     if (showDialog) {
         Dialog(
-            onDismissRequest = { showDialog = false},
+            onDismissRequest = { showDialog = false },
             content = {
                 Box(
                     modifier = Modifier
@@ -101,7 +101,7 @@ fun RoutineCard(routine : RoutineViewModel){
                     ) {
                         Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
                     }
-                    RoutineScreen(routineViewModel = routine)
+                    RoutineScreen(routineViewModel = routine, onDismiss = { showDialog = false })
                 }
             }
         )
