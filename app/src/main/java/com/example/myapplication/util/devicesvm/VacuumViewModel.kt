@@ -56,7 +56,7 @@ class VacuumViewModel(device: Device) : DeviceViewModel("vacuum", R.drawable.asp
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        state = currentState.state.copy(status = "started")
+                        state = currentState.state.copy(status = "active")
                     )
                 }
             }.onFailure {
@@ -73,7 +73,7 @@ class VacuumViewModel(device: Device) : DeviceViewModel("vacuum", R.drawable.asp
             }.onSuccess {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        state = currentState.state.copy(status = "paused")
+                        state = currentState.state.copy(status = "inactive")
                     )
                 }
             }.onFailure {

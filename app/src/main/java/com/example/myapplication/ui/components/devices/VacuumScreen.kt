@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
@@ -60,7 +61,7 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
             modifier = Modifier
                 .width(130.dp)
                 .height(80.dp)
-                .padding(all = 10.dp),
+                .padding(top = 20.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Red,
             ),
@@ -68,6 +69,27 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
             Text( text = "Encender/\n  Apagar",
                 color = Color.White)
         }
+        Text(
+            text = uiState.state.mode,
+            modifier = Modifier
+                .offset(y = 168.dp),
+            color = Color.Black,
+            fontSize = 18.sp
+        )
+        Text(
+            text = uiState.state.status,
+            modifier = Modifier
+                .offset(y = 250.dp),
+            color = Color.Black,
+            fontSize = 18.sp
+        )
+        Image(
+            painter = if (uiState.state.status == "active") painterResource(id = R.drawable.vacuumon) else if(uiState.state.status == "inactive") painterResource( id = R.drawable.vacuum) else painterResource(id = R.drawable.vacuumcharging),
+            contentDescription = "lamp",
+            modifier = Modifier
+                .size(400.dp)
+                .padding(top = 0.dp)
+        )
         Button(
             onClick = {
                 selectMode = true

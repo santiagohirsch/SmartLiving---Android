@@ -59,6 +59,29 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Image(
+            painter = if(uiState.state.status == "opened") painterResource(R.drawable.open_door) else if (uiState.state.lock == "locked") painterResource(R.drawable.blocked)  else painterResource(R.drawable.closed) ,
+            contentDescription = null,
+            modifier = Modifier
+                .padding(top = 12.dp, bottom = 6.dp)
+                .clip(RoundedCornerShape(5.dp))
+                .clickable {
+                    if(uiState.state.status == "opened") {
+                        doorViewModel.close(doorViewModel.id.toString())
+                        switchOpen = false
+                        lockEnable = !lockEnable
+                    }
+                    else if(uiState.state.lock != "locked") {
+                        doorViewModel.open(doorViewModel.id.toString())
+                        switchOpen = true
+                        lockEnable = !lockEnable
+                    }
+                }
+                .size(350.dp),
+            contentScale = ContentScale.Crop
+        )
+        Text(text = "Abrir/Cerrar", fontSize = 24.sp)
         Switch(
             checked = switchOpen,
             onCheckedChange = { switchOn_ ->
@@ -78,16 +101,8 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
             enabled = openEnable,
             modifier = Modifier.scale(2.2f)
         )
-        Image(
-            painter = if(uiState.state.status == "opened") painterResource(R.drawable.open_door) else painterResource(R.drawable.closedoor),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(top = 12.dp, bottom = 6.dp)
-                .clip(RoundedCornerShape(5.dp))
-                .size(130.dp),
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(25.dp))
+        Text(text = "Bloquear/Desbloquear", fontSize = 24.sp)
         Switch(
             checked = switchLock,
             onCheckedChange = { switchOn_ ->
@@ -106,15 +121,6 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
             ),
             enabled = lockEnable,
             modifier = Modifier.scale(2.2f)
-        )
-        Image(
-            painter = if(uiState.state.lock == "locked") painterResource(R.drawable.lock) else painterResource(R.drawable.unlock),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(top = 12.dp, bottom = 6.dp)
-                .clip(RoundedCornerShape(5.dp))
-                .size(130.dp),
-            contentScale = ContentScale.Crop
         )
     }
 }
