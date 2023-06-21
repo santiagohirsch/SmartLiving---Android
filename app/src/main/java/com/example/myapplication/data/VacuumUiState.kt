@@ -1,6 +1,7 @@
 package com.example.myapplication.data
 
 import com.example.myapplication.R
+import com.example.myapplication.data.network.models.Location
 
 data class VacuumUiState(
     val id: String = "",
@@ -20,5 +21,5 @@ data class VacuumState(
     val status: String = "inactive",
     val mode: String = "vacuum",
     val batteryLevel: Int = 4,
-    val location: String = "",
+    val location: Location = Location(),
 )

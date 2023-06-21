@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,8 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -29,32 +28,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication.R
-import com.example.myapplication.ui.theme.SmartLivingTheme
 import com.example.myapplication.util.devicesrep.CurrentDevices
-import com.example.myapplication.util.devicesvm.DeviceViewModel
-import com.example.myapplication.util.devicesvm.LampViewModel
+import com.example.myapplication.util.devicesvm.RoutineViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun DeviceCard(
-    device: DeviceViewModel,
-    modifier: Modifier = Modifier,
-) {
+fun RoutineCard(routine : RoutineViewModel){
     var showDialog by remember { mutableStateOf(false) }
 
     Card(
-        modifier = modifier
-            .padding(5.dp)
+        modifier = Modifier
+            .padding(8.dp)
             .width(140.dp)
-            .clickable { showDialog = true }
             .height(200.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
@@ -65,11 +58,12 @@ fun DeviceCard(
                 .clip(RoundedCornerShape(5.dp))
         ) {
             Image(
-                painter = painterResource(device.img),
+                painter = painterResource(R.drawable.rutina),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(top = 12.dp, bottom = 6.dp)
                     .clip(RoundedCornerShape(5.dp))
+                    .clickable { showDialog = true }
                     .size(112.dp),
                 contentScale = ContentScale.Crop
             )
@@ -80,10 +74,10 @@ fun DeviceCard(
                     .weight(1f) // Allocate remaining space to the second element
             ) {
                 Text(
-                    text = device.name.toString(),
+                    text = routine.uiState.value.name.toString(),
                     textAlign = TextAlign.Center,
                     fontSize = 20.sp,
-                    modifier = modifier
+                    modifier = Modifier
                         .clip(RoundedCornerShape(5.dp))
                     //style = MaterialTheme.typography.headlineSmall
                 )
@@ -92,38 +86,25 @@ fun DeviceCard(
     }
 
     if (showDialog) {
-        CustomDialog(device = device, onDismiss = {showDialog = false})
-    }
-}
-
-
-
-@Composable
-fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
-    val currentDevices: CurrentDevices = CurrentDevices()
-    Dialog(
-        onDismissRequest = { onDismiss()},
-        content = {
-            Box(
-                modifier = Modifier
-                    .background(colorResource(R.color.primary_button))
-                    .height(680.dp)
-            ) {
-                IconButton(
-                    onClick = {
-                        onDismiss()
-                    }
+        Dialog(
+            onDismissRequest = { showDialog = false },
+            content = {
+                Box(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .height(450.dp)
                 ) {
-                    Icon(imageVector = Icons.Outlined.Clear, contentDescription = "")
+                    IconButton(
+                        onClick = {
+                            showDialog = false
+                        }
+                    ) {
+                        Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
+                    }
+                    RoutineScreen(routineViewModel = routine, onDismiss = { showDialog = false })
                 }
-                IconButton(onClick = {
-                    device.delete(device.id.toString())
-                    onDismiss()
-                                     }, modifier = Modifier.padding(start=265.dp) ) {
-                    Icon(imageVector = Icons.Outlined.Delete, contentDescription = "" ,Modifier.size(30.dp))
-                }
-                currentDevices.ViewDevice(device)
             }
-        }
-    )
+        )
+    }
+
 }

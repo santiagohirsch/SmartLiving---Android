@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +11,13 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.SmartLivingTheme
+import com.example.myapplication.util.devicesvm.DevicesViewModel
+import com.example.myapplication.util.devicesvm.RoutinesViewModel
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -25,6 +29,8 @@ class MainActivity : ComponentActivity() {
         val deviceId = intent.getIntExtra("deviceid", -1)
 
         setContent {
+            val devicesViewModel: DevicesViewModel = viewModel()
+            val routinesViewModel: RoutinesViewModel = viewModel()
             val windowSizeClass = calculateWindowSizeClass(this)
             SmartLivingTheme (
                 windowSizeClass = windowSizeClass
@@ -33,11 +39,12 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController) }
                 ) {
-                    AppNavGraph(windowSizeClass = windowSizeClass, navController = navController)
+                    AppNavGraph(windowSizeClass = windowSizeClass, navController = navController, devicesViewModel, routinesViewModel)
                 }
             }
         }
     }
+}
 }
 
 @Composable
@@ -74,3 +81,5 @@ fun BottomBar(navController: NavController) {
         }
     }
 }
+
+

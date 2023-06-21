@@ -32,6 +32,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,16 +49,25 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.zIndex
 import com.example.myapplication.R
+import com.example.myapplication.data.network.RetrofitClient
 import com.example.myapplication.ui.components.DeviceCard
 import com.example.myapplication.util.devicesrep.CurrentDevices
+import com.example.myapplication.util.devicesvm.AcViewModel
+import com.example.myapplication.util.devicesvm.DeviceViewModel
+import com.example.myapplication.util.devicesvm.DevicesViewModel
+import com.example.myapplication.util.devicesvm.DoorViewModel
+import com.example.myapplication.util.devicesvm.LampViewModel
+import com.example.myapplication.util.devicesvm.RefrigeratorViewModel
+import com.example.myapplication.util.devicesvm.VacuumViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
-@Preview
+
 @Composable
 fun DevicesScreen(
+    viewModel: DevicesViewModel,
     isPhone: Boolean = true
 ) {
-    val currentDevices: CurrentDevices = CurrentDevices()
+    
     val openDialog = remember {
         mutableStateOf(false)
     }
@@ -108,7 +118,7 @@ fun DevicesScreen(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 5.dp, top = 16.dp, bottom = 20.dp)
+                    .padding(start = 5.dp, top = 16.dp, bottom = 10.dp)
             )
             if (openDialog.value){
                 Dialog(
@@ -195,6 +205,7 @@ fun DevicesScreen(
                                             selected=""
                                             dropDownEnabled = false
                                             nameEnabled = false
+                                            viewModel.addNewDevice("elwey","go46xmbqeomjrsjr" )
                                         },
                                         enabled = dropDownEnabled && nameEnabled
                                     ) {
@@ -218,28 +229,19 @@ fun DevicesScreen(
                 columns = GridCells.Adaptive(140.dp),//Fixed(2),
                 contentPadding = PaddingValues(12.dp),
             ) {
-                items(getTotalDevices()) {
-                    for(device in currentDevices.devices) {
-                        DeviceCard(
-                            device = device
-                        )
+                viewModel.getAllDevices()
+                items(viewModel.getCurrentDevices().size) { index ->
+                    val device = viewModel.getCurrentDevices()[index]
+                    when (device.type?.name) {
+                        "ac" -> DeviceCard(AcViewModel(device))
+                        "refrigerator" -> DeviceCard(RefrigeratorViewModel(device))
+                        "lamp" -> DeviceCard(LampViewModel(device))
+                        "vacuum" -> DeviceCard(VacuumViewModel(device))
+                        "door" -> DeviceCard(DoorViewModel(device))
                     }
                 }
-
             }
         }
     }
 }
 
-@DrawableRes
-fun getImageResourceId(index: Int): Int {
-    return when (index % 3) {
-        0 -> R.drawable.ac
-        1 -> R.drawable.puerta
-        else -> R.drawable.lampara
-    }
-}
-
-fun getTotalDevices(): Int{
-    return 20
-}
