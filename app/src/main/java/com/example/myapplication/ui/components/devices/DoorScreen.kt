@@ -81,7 +81,7 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
                 .size(350.dp),
             contentScale = ContentScale.Crop
         )
-        Text(text = "Abrir/Cerrar", fontSize = 24.sp)
+        Text(text = "Cerrar/Abrir", fontSize = 24.sp)
         Switch(
             checked = switchOpen,
             onCheckedChange = { switchOn_ ->
@@ -102,7 +102,7 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
             modifier = Modifier.scale(2.2f)
         )
         Spacer(modifier = Modifier.height(25.dp))
-        Text(text = "Bloquear/Desbloquear", fontSize = 24.sp)
+        Text(text = "Desbloquear/Bloquear", fontSize = 24.sp)
         Switch(
             checked = switchLock,
             onCheckedChange = { switchOn_ ->

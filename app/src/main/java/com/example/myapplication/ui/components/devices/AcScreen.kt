@@ -43,7 +43,7 @@ import com.example.myapplication.util.devicesvm.DeviceViewModel
 
 @Preview
 @Composable
-fun Ac(acViewModel: AcViewModel = viewModel()){
+fun Ac(acViewModel: AcViewModel = viewModel()) {
     var selectMode by remember {
         mutableStateOf(false)
     }
@@ -66,25 +66,26 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
     ) {
         OutlinedButton(
             onClick = {
-                      if(uiState.state.status == "on") {
-                          acViewModel.turnOff(acViewModel.id.toString())
-                      }
-                      else {
-                        acViewModel.turnOn(acViewModel.id.toString())
-                      }
+                if (uiState.state.status == "on") {
+                    acViewModel.turnOff(acViewModel.id.toString())
+                } else {
+                    acViewModel.turnOn(acViewModel.id.toString())
+                }
             },
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier
-                .width(130.dp)
-                .height(80.dp)
-                .offset(x = 90.dp, y = 0.dp) // Mueve la caja 50.dp hacia la derecha
-                .padding(all = 10.dp),
+                .width(120.dp)
+                .height(70.dp)
+                //.offset(x = 90.dp, y = 0.dp) // Mueve la caja 50.dp hacia la derecha
+                .padding(start = 10.dp, top = 5.dp, bottom = 5.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Red,
             ),
         ) {
-            Text( text = stringResource(R.string.turn_on_or_off),
-            color = Color.White)
+            Text(
+                text = stringResource(R.string.turn_on_or_off),
+                color = Color.White
+            )
         }
         Box(
             modifier = Modifier
@@ -93,41 +94,42 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                 .padding(all = 10.dp),
             contentAlignment = Alignment.Center
         ) {
-        Box(
-            modifier = Modifier
-                .width(300.dp)
-                .height(200.dp)
-                .clip(shape = RoundedCornerShape(size = 22.dp))
-                .background(color = Color.Black)
-                .padding(all = 10.dp)
-        ) {
-            Column(
-
+            Box(
                 modifier = Modifier
-                    .padding( top = 5.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .width(300.dp)
+                    .height(200.dp)
+                    .clip(shape = RoundedCornerShape(size = 22.dp))
+                    .background(color = Color.Black)
+                    .padding(all = 10.dp)
             ) {
-                Box(
+                Column(
+
                     modifier = Modifier
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                        .height(30.dp)
-                        .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .padding(top = 5.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Row() {
-                        Text(
-                            text = stringResource(R.string.mode) + uiState.state.mode,
-                            color = Color.Black,
-                            modifier = Modifier
-                                .padding(start = 10.dp),
-                            fontSize = 23.sp
-                        )
+                    Box(
+                        modifier = Modifier
+                            .background(color = Color.Gray)
+                            .fillMaxWidth()
+                            .height(30.dp)
+                            .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                    ) {
+                        Row() {
+                            Text(
+                                text = stringResource(R.string.mode) + uiState.state.mode,
+                                color = Color.Black,
+                                modifier = Modifier
+                                    .padding(start = 10.dp),
+                                fontSize = 23.sp
+                            )
+                        }
                     }
-                }
-                Spacer(modifier = Modifier
-                    .height(5.dp)
-                )
+                    Spacer(
+                        modifier = Modifier
+                            .height(5.dp)
+                    )
                     Row(
                         modifier = Modifier
                     ) {
@@ -145,8 +147,9 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                                 fontSize = 53.sp
                             )
                         }
-                        Spacer(modifier = Modifier
-                            .width(5.dp)
+                        Spacer(
+                            modifier = Modifier
+                                .width(5.dp)
                         )
                         Box(
                             modifier = Modifier
@@ -161,179 +164,153 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                                 )
                         )
                         {
-                        Text(text = stringResource(R.string.temperature_msg) + uiState.state.temperature.toString() + "°C",
-                            color = Color.Black,
-                            modifier = Modifier
-                                .padding(start = 30.dp, top = 7.dp),
-                            fontSize = 56.sp,
+                            Text(
+                                text = stringResource(R.string.temperature_msg),
+                                color = Color.Black,
+                                modifier = Modifier
+                                    .padding(start = 30.dp, top = 5.dp),
+                                fontSize = 20.sp,
+                            )
+                            Text(
+                                text = uiState.state.temperature.toString() + "°C",
+                                color = Color.Black,
+                                modifier = Modifier
+                                    .padding(start = 30.dp, top = 15.dp),
+                                fontSize = 56.sp,
                             )
                         }
                     }
-                Spacer(modifier = Modifier
-                    .height(5.dp)
-                )
-                Row() {
-                    Box(
+                    Spacer(
                         modifier = Modifier
-                            .height(30.dp)
-                            .fillMaxWidth()
-                            .background(color = Color.Gray)
-                    ) {
-                        Text(text = stringResource(R.string.speed_msg) + uiState.state.fanSpeed,
-                            color = Color.Black,
+                            .height(5.dp)
+                    )
+                    Row() {
+                        Box(
                             modifier = Modifier
-                                .padding(start = 10.dp),
-                            fontSize = 23.sp
-                        )
+                                .height(30.dp)
+                                .fillMaxWidth()
+                                .background(color = Color.Gray)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.speed_msg) + uiState.state.fanSpeed,
+                                color = Color.Black,
+                                modifier = Modifier
+                                    .padding(start = 10.dp),
+                                fontSize = 23.sp
+                            )
+                        }
                     }
                 }
-
             }
         }
-        }
-
-            Button(
-                onClick = {
-                    selectMode = true
-                },
-                modifier = Modifier
-                    .padding(start = 5.dp)
-
-            ) {
-                Text(text = stringResource(R.string.select_mode_msg))
-            }
-            if (selectMode) {
-                Dialog(onDismissRequest = { selectMode = false }) {
-                    Box(modifier = Modifier
-                        .background(color = Color.Black)
-                        .height(200.dp)
-                        .fillMaxWidth()
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Button(onClick = {
-                                acViewModel.setMode(acViewModel.id.toString(), "cool")
-                                selectMode = false
-                            }) {
-                                Text(text = "Seleccionar modo frio")
-                            }
-                            Button(onClick = {
-                                acViewModel.setMode(acViewModel.id.toString(), "heat")
-                                selectMode = false
-                            }) {
-                                Text(text = "Seleccionar modo calor")
-                            }
-                            Button(onClick = {
-                                acViewModel.setMode(acViewModel.id.toString(), "fan")
-                                selectMode = false
-                            }) {
-                                Text(text = "Seleccionar modo ventilacion")
-                            }
-                        }
-                    }
-
-                }
-            }
-            if (selectMode) {
-                Dialog(onDismissRequest = { selectMode = false }) {
-                    Box(modifier = Modifier
-                        .background(color = Color.Black)
-                        .height(200.dp)
-                        .fillMaxWidth()
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Button(onClick = {
-                                acViewModel.setMode(acViewModel.id.toString(), "cool")
-                                selectMode = false
-                            }) {
-                                Text(text = "Seleccionar modo frio")
-                            }
-                            Button(onClick = {
-                                acViewModel.setMode(acViewModel.id.toString(), "heat")
-                                selectMode = false
-                            }) {
-                                Text(text = "Seleccionar modo calor")
-                            }
-                            Button(onClick = {
-                                acViewModel.setMode(acViewModel.id.toString(), "fan")
-                                selectMode = false
-                            }) {
-                                Text(text = "Seleccionar modo ventilacion")
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            Button(
-                onClick = {
-                    selectSpeed = true
-                },
-                modifier = Modifier
-                    .padding(start = 15.dp)
-            ) {
-                Text(text = stringResource(R.string.choose_speed))
-            }
-            if (selectSpeed) {
-                Dialog(onDismissRequest = { selectSpeed = false }) {
-                    Box(
-                        modifier = Modifier
-                            .background(color = Color.Black)
-                            .height(250.dp)
-                            .fillMaxWidth()
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Button(onClick = {
-                                acViewModel.setFanSpeed(acViewModel.id.toString(), "auto")
-                                selectSpeed = false
-                            }) {
-                                Text(text = "Velocidad automatica")
-                            }
-                            Button(onClick = {
-                                acViewModel.setFanSpeed(acViewModel.id.toString(), "25")
-                                selectSpeed = false
-                            }) {
-                                Text(text = "Velocidad baja")
-                            }
-                            Button(onClick = {
-                                acViewModel.setFanSpeed(acViewModel.id.toString(), "50")
-                                selectSpeed = false
-                            }) {
-                                Text(text = "Velocidad media")
-                            }
-                            Button(onClick = {
-                                acViewModel.setFanSpeed(acViewModel.id.toString(), "75")
-                                selectSpeed = false
-                            }) {
-                                Text(text = "Velocidad alta")
-                            }
-                            Button(onClick = {
-                                acViewModel.setFanSpeed(acViewModel.id.toString(), "100")
-                                selectSpeed = false
-                            }) {
-                                Text(text = "Velocidad maxima")
-                            }
-                        }
-                    }
-                }
-            }
-
 
         Button(
-            modifier = Modifier
-                .padding(all = 5.dp),
+            onClick = {
+                selectMode = true
+            }
+        ) {
+            Text(text = stringResource(R.string.select_mode_msg))
+        }
+        if (selectMode) {
+            Dialog(onDismissRequest = { selectMode = false }) {
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Black)
+                        .height(200.dp)
+                        .fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Button(onClick = {
+                            acViewModel.setMode(acViewModel.id.toString(), "cool")
+                            selectMode = false
+                        }) {
+                            Text(text = "Seleccionar modo frio")
+                        }
+                        Button(onClick = {
+                            acViewModel.setMode(acViewModel.id.toString(), "heat")
+                            selectMode = false
+                        }) {
+                            Text(text = "Seleccionar modo calor")
+                        }
+                        Button(onClick = {
+                            acViewModel.setMode(acViewModel.id.toString(), "fan")
+                            selectMode = false
+                        }) {
+                            Text(text = "Seleccionar modo ventilacion")
+                        }
+                    }
+                }
+
+            }
+        }
+
+        Button(
+            onClick = {
+                selectSpeed = true
+            }
+        ) {
+            Text(text = stringResource(R.string.choose_speed))
+        }
+        if (selectSpeed) {
+            Dialog(onDismissRequest = { selectSpeed = false }) {
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Black)
+                        .height(250.dp)
+                        .fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Button(onClick = {
+                            acViewModel.setFanSpeed(acViewModel.id.toString(), "auto")
+                            selectSpeed = false
+                        }) {
+                            Text(text = "Velocidad automatica")
+                        }
+                        Button(onClick = {
+                            acViewModel.setFanSpeed(acViewModel.id.toString(), "25")
+                            selectSpeed = false
+                        }) {
+                            Text(text = "Velocidad baja")
+                        }
+                        Button(onClick = {
+                            acViewModel.setFanSpeed(acViewModel.id.toString(), "50")
+                            selectSpeed = false
+                        }) {
+                            Text(text = "Velocidad media")
+                        }
+                        Button(onClick = {
+                            acViewModel.setFanSpeed(acViewModel.id.toString(), "75")
+                            selectSpeed = false
+                        }) {
+                            Text(text = "Velocidad alta")
+                        }
+                        Button(onClick = {
+                            acViewModel.setFanSpeed(acViewModel.id.toString(), "100")
+                            selectSpeed = false
+                        }) {
+                            Text(text = "Velocidad maxima")
+                        }
+                    }
+                }
+            }
+        }
+        Text(
+            text = "Vertical swing: " + uiState.state.verticalSwing,
+            fontSize = 20.sp
+        )
+        Text(
+            text = "Horizontal swing: " + uiState.state.horizontalSwing,
+            fontSize = 20.sp
+        )
+        Button(
             onClick = {
                 selectSwing = true
             }
@@ -376,35 +353,50 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
                                         Button(onClick = {
-                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "auto")
+                                            acViewModel.setVerticalSwing(
+                                                acViewModel.id.toString(),
+                                                "auto"
+                                            )
                                             selectVerticalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento automatico")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "22")
+                                            acViewModel.setVerticalSwing(
+                                                acViewModel.id.toString(),
+                                                "22"
+                                            )
                                             selectVerticalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento 22º")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "45")
+                                            acViewModel.setVerticalSwing(
+                                                acViewModel.id.toString(),
+                                                "45"
+                                            )
                                             selectVerticalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento 45º")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "67")
+                                            acViewModel.setVerticalSwing(
+                                                acViewModel.id.toString(),
+                                                "67"
+                                            )
                                             selectVerticalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento 67º")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setVerticalSwing(acViewModel.id.toString(), "90")
+                                            acViewModel.setVerticalSwing(
+                                                acViewModel.id.toString(),
+                                                "90"
+                                            )
                                             selectVerticalSwing = false
                                             selectSwing = false
                                         }) {
@@ -436,42 +428,60 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
                                         Button(onClick = {
-                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "auto")
+                                            acViewModel.setHorizontalSwing(
+                                                acViewModel.id.toString(),
+                                                "auto"
+                                            )
                                             selectHorizontalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento automatico")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "-90")
+                                            acViewModel.setHorizontalSwing(
+                                                acViewModel.id.toString(),
+                                                "-90"
+                                            )
                                             selectHorizontalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento -90º")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "-45")
+                                            acViewModel.setHorizontalSwing(
+                                                acViewModel.id.toString(),
+                                                "-45"
+                                            )
                                             selectHorizontalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento -45º")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "0")
+                                            acViewModel.setHorizontalSwing(
+                                                acViewModel.id.toString(),
+                                                "0"
+                                            )
                                             selectHorizontalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento 0º")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "45")
+                                            acViewModel.setHorizontalSwing(
+                                                acViewModel.id.toString(),
+                                                "45"
+                                            )
                                             selectHorizontalSwing = false
                                             selectSwing = false
                                         }) {
                                             Text(text = "Desplazamiento 45º")
                                         }
                                         Button(onClick = {
-                                            acViewModel.setHorizontalSwing(acViewModel.id.toString(), "90")
+                                            acViewModel.setHorizontalSwing(
+                                                acViewModel.id.toString(),
+                                                "90"
+                                            )
                                             selectHorizontalSwing = false
                                             selectSwing = false
                                         }) {
@@ -485,14 +495,17 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                 }
             }
         }
-        
+
         Button(
             shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
             modifier = Modifier
                 .padding(top = 25.dp, bottom = 5.dp),
             onClick = {
                 if (uiState.state.temperature < 38) {
-                    acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature + 1)
+                    acViewModel.setTemperature(
+                        acViewModel.id.toString(),
+                        uiState.state.temperature + 1
+                    )
                 }
             }
         ) {
@@ -505,8 +518,12 @@ fun Ac(acViewModel: AcViewModel = viewModel()){
                 .padding(top = 5.dp),
             onClick = {
                 if (uiState.state.temperature > 18) {
-                    acViewModel.setTemperature(acViewModel.id.toString(),uiState.state.temperature - 1)
-                }            }
+                    acViewModel.setTemperature(
+                        acViewModel.id.toString(),
+                        uiState.state.temperature - 1
+                    )
+                }
+            }
         ) {
             Text(text = stringResource(R.string.decrease))
         }

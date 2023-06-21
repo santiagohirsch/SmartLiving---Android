@@ -44,6 +44,7 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()) {
     var selectMode by remember {
         mutableStateOf(false)
     }
+    vacuumViewModel.getDevice(vacuumViewModel.id.toString())
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -89,11 +90,17 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()) {
             painter = if (uiState.state.status == "active") painterResource(id = R.drawable.vacuumon) else if (uiState.state.status == "inactive") painterResource(
                 id = R.drawable.vacuum
             ) else painterResource(id = R.drawable.vacuumcharging),
-            contentDescription = "lamp",
+            contentDescription = "vacuum",
             modifier = Modifier
                 .size(400.dp)
-                .padding(top = 0.dp)
         )
+        Button(
+            onClick = {
+                vacuumViewModel.dock(vacuumViewModel.id.toString())
+            }
+        ) {
+            Text(text = stringResource(R.string.return_base_msg))
+        }
         Button(
             onClick = {
                 selectMode = true
@@ -129,13 +136,7 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()) {
                     }
                 }
             }
-            Button(
-                onClick = {
-                    vacuumViewModel.dock(vacuumViewModel.id.toString())
-                }
-            ) {
-                Text(text = stringResource(R.string.return_base_msg))
-            }
+
         }
     }
 }

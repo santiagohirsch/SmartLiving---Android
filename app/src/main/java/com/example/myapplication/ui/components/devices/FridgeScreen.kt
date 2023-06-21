@@ -74,7 +74,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = stringResource(R.string.temp_freezer), modifier = Modifier.padding(start = 42.dp), fontSize = 20.sp)
+                Text(text = stringResource(R.string.temp_freezer), modifier = Modifier.padding(start = 10.dp), fontSize = 20.sp)
                 Text(text = uiState.state.freezerTemperature.toString() + "°C", modifier = Modifier.padding(start = 15.dp,top = 50.dp), fontSize = 56.sp)
             }
             Spacer(modifier = Modifier.width(5.dp))
@@ -84,7 +84,7 @@ fun Fridge(fridgeViewModel: RefrigeratorViewModel = viewModel()){
                     .height(200.dp)
                     .background(color = Color.Gray)
             ) {
-                Text(text = stringResource(R.string.temp_fridge), modifier = Modifier.padding(start = 30.dp), fontSize = 20.sp)
+                Text(text = stringResource(R.string.temp_fridge), modifier = Modifier.padding(start = 15.dp), fontSize = 20.sp)
                 Text(text = uiState.state.temperature.toString() + "°C", modifier = Modifier.padding(start = 21.dp,top = 50.dp), fontSize = 56.sp)
             }
         }

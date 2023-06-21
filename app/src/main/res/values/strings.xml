@@ -20,13 +20,13 @@
     <string name="change_location_msg">Cambiar ubicacion de base de carga</string>
     <string name="return_base_msg">Regresar a base de carga</string>
     <string name="choose_color">Seleccionar color</string>
-    <string name="mode">Modo: </string>
+    <string name="mode">Modo:  </string>
     <string name="temp_freezer">Temp. freezer </string>
     <string name="temp_fridge">Temp. heladera </string>
     <string name="increase">Subir</string>
     <string name="decrease">Bajar</string>
     <string name="change_mode_msg">Cambiar modo</string>
-    <string name="turn_on_or_off">Encender/\\n Apagar</string>
+    <string name="turn_on_or_off">Encender/\nApagar</string>
     <string name="on">Encendido</string>
     <string name="temperature_msg">Temperatura: </string>
     <string name="speed_msg">Velocidad: </string>

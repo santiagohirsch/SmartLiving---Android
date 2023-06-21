@@ -2,6 +2,7 @@ package com.example.myapplication.util.devicesvm
 
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.R
+import com.example.myapplication.data.RefrigeratorState
 import com.example.myapplication.data.VacuumState
 import com.example.myapplication.data.VacuumType
 import com.example.myapplication.data.VacuumUiState
@@ -54,11 +55,12 @@ class VacuumViewModel(device: Device) : DeviceViewModel("vacuum", R.drawable.asp
                 val apiService = RetrofitClient.getApiService()
                 apiService.execute( deviceId, "start")
             }.onSuccess {
-                _uiState.update { currentState ->
-                    currentState.copy(
-                        state = currentState.state.copy(status = "active")
-                    )
-                }
+                if(uiState.value.state.batteryLevel>4)
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            state = currentState.state.copy(status = "active")
+                        )
+                    }
             }.onFailure {
             }
         }
@@ -111,6 +113,27 @@ class VacuumViewModel(device: Device) : DeviceViewModel("vacuum", R.drawable.asp
                     )
                 }
             }.onFailure {
+            }
+        }
+    }
+
+    fun getDevice(id : String) {
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch {
+            runCatching {
+                val apiService =  RetrofitClient.getApiService()
+                apiService.getDevice(id)
+            }.onSuccess { response ->
+                _uiState.update {
+                    it.copy(
+                        state = VacuumState(
+                            status = response.body()?.result?.state?.status.toString(),
+                            mode = response.body()?.result?.state?.mode.toString(),
+                            batteryLevel = response.body()?.result?.state?.batteryLevel!!.toInt()
+                        )
+                    )
+                }
+
             }
         }
     }

@@ -98,6 +98,18 @@ fun Lamp(
                 valueRange = 0f..100f
             )
             Text(text = "Intensidad : "  + uiState.state.brightness.toString(), fontSize = 20.sp)
+            Row(modifier = Modifier.clickable { showDialog = true }){
+                Text(text = "Color: ",
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                )
+                Box(
+                    modifier = Modifier
+                        .background(hexStringToColor(uiState.state.color))
+                        .size(48.6.dp)
+                )
+            }
             Button(
                 onClick = {
                     showDialog = true
@@ -184,4 +196,11 @@ fun colorToHexString(color: Color): String {
     val green = (color.green * 255).toInt()
     val blue = (color.blue * 255).toInt()
     return String.format("%02X%02X%02X", red, green, blue)
+}
+
+fun hexStringToColor(hexString: String): Color {
+    val red = hexString.substring(0, 2).toInt(16) / 255f
+    val green = hexString.substring(2, 4).toInt(16) / 255f
+    val blue = hexString.substring(4, 6).toInt(16) / 255f
+    return Color(red, green, blue)
 }
