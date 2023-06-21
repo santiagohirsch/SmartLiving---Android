@@ -10,12 +10,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat
 
 class SmartLiving : Application() {
-    override fun onCreate() {
+    /*override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
         val intent = Intent(this, EventService::class.java)
         startService(intent)
-    }
+    }*/
 
     @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel() {
