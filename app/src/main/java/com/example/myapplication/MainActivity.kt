@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-}
+
 
 @Composable
 fun BottomBar(navController: NavController) {

@@ -39,7 +39,7 @@ import com.example.myapplication.util.devicesvm.VacuumViewModel
 
 @Preview
 @Composable
-fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
+fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()) {
     val uiState by vacuumViewModel.uiState.collectAsState()
     var selectMode by remember {
         mutableStateOf(false)
@@ -51,10 +51,9 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
     ) {
         OutlinedButton(
             onClick = {
-                if(uiState.state.status == "inactive") {
+                if (uiState.state.status == "inactive") {
                     vacuumViewModel.start(vacuumViewModel.id.toString())
-                }
-                else {
+                } else {
                     vacuumViewModel.pause(vacuumViewModel.id.toString())
                 }
             },
@@ -67,8 +66,10 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
                 backgroundColor = Color.Red,
             ),
         ) {
-            Text( text = "Encender/\n  Apagar",
-                color = Color.White)
+            Text(
+                text = "Encender/\n  Apagar",
+                color = Color.White
+            )
         }
         Text(
             text = uiState.state.mode,
@@ -85,7 +86,9 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
             fontSize = 18.sp
         )
         Image(
-            painter = if (uiState.state.status == "active") painterResource(id = R.drawable.vacuumon) else if(uiState.state.status == "inactive") painterResource( id = R.drawable.vacuum) else painterResource(id = R.drawable.vacuumcharging),
+            painter = if (uiState.state.status == "active") painterResource(id = R.drawable.vacuumon) else if (uiState.state.status == "inactive") painterResource(
+                id = R.drawable.vacuum
+            ) else painterResource(id = R.drawable.vacuumcharging),
             contentDescription = "lamp",
             modifier = Modifier
                 .size(400.dp)
@@ -98,13 +101,14 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
         ) {
             Text(text = stringResource(R.string.select_mode_msg))
         }
-        if(selectMode){
+        if (selectMode) {
             Dialog(onDismissRequest = { selectMode = false }) {
-                Box(modifier = Modifier
-                    .background(color = Color.Black)
-                    .height(150.dp)
-                    .fillMaxWidth()
-                ){
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Black)
+                        .height(150.dp)
+                        .fillMaxWidth()
+                ) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -125,15 +129,13 @@ fun Vacuum(vacuumViewModel: VacuumViewModel = viewModel()){
                     }
                 }
             }
-        ) {
-            Text(text = stringResource(R.string.change_location_msg))
-        }
-        Button(
-            onClick = {
-                vacuumViewModel.dock(vacuumViewModel.id.toString())
+            Button(
+                onClick = {
+                    vacuumViewModel.dock(vacuumViewModel.id.toString())
+                }
+            ) {
+                Text(text = stringResource(R.string.return_base_msg))
             }
-        ) {
-            Text(text = stringResource(R.string.return_base_msg))
         }
     }
 }
