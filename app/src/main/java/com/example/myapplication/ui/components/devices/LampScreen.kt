@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,51 +41,52 @@ fun Lamp(
     var switchOn by remember {
         mutableStateOf(false)
     }
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.apagada), contentDescription = "lamp",
-                modifier = Modifier
-                    .size(300.dp)
-                    .padding(top = 40.dp)
+    Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.apagada),
+            contentDescription = "lamp",
+            modifier = Modifier
+                .size(300.dp)
+                .padding(top = 40.dp)
+        )
+        Switch(
+            checked = switchOn, onCheckedChange = { switchOn_ ->
+                switchOn = switchOn_
+            },
+            modifier = Modifier
+                .scale(scale = 2.2f),
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.Green,
+                checkedTrackColor = Color.Gray
             )
-            Switch(
-                checked = switchOn, onCheckedChange = { switchOn_ ->
-                    switchOn = switchOn_
-                },
-                modifier = Modifier
-                    .scale(scale = 2.2f),
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.Green,
-                    checkedTrackColor = Color.Gray
-                )
-            )
-            Text(text = if (switchOn) "On" else "Off")
-            Slider(
-                value = sliderValue /*uiState.state.brightness*/,
-                modifier = Modifier
-                    .scale(scale = 0.8f),
-                onValueChange = { sliderValue_ ->
-                    sliderValue /*uiState.state.brightness*/ = sliderValue_
-                },
-                /*onValueChangeFinished = {
-                Log.d("MainActivity", "sliderVale = $sliderValue")
-            },*/
-                valueRange = 0f..100f
-            )
-            Text(text = sliderValue.toString())
-            Button(
-                onClick = {
-                    /*TODO*/
-                }
-            ) {
-                Text(text = "Elegir color")
+        )
+        Text(text = if (switchOn) "On" else "Off")
+        Slider(
+            value = sliderValue /*uiState.state.brightness*/,
+            modifier = Modifier
+                .scale(scale = 0.8f),
+            onValueChange = { sliderValue_ ->
+                sliderValue /*uiState.state.brightness*/ = sliderValue_
+            },
+            /*onValueChangeFinished = {
+            Log.d("MainActivity", "sliderVale = $sliderValue")
+        },*/
+            valueRange = 0f..100f
+        )
+        Text(text = sliderValue.toString())
+        Button(
+            onClick = {
+                /*TODO*/
             }
-            /*Button(onClick = { /*TODO*/ }) {
-            Text(text = "Confirmar brillo")
-        }*/
+        ) {
+            Text(text = stringResource(R.string.choose_color))
         }
+        /*Button(onClick = { /*TODO*/ }) {
+        Text(text = "Confirmar brillo")
+    }*/
+    }
 }

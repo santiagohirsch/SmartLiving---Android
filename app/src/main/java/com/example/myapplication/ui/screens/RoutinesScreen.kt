@@ -10,12 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -29,13 +29,12 @@ import com.example.myapplication.SmartLiving
 @Preview
 @Composable
 fun RoutinesScreen() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(android.graphics.Color.parseColor("#2f2f4d"))) {
-
+    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Column() {
             Text(
-                text = "Rutinas",
+                text = stringResource(R.string.routines_title),
                 fontSize = 25.sp,
-                color = Color.White,
+                color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
                     .fillMaxWidth()

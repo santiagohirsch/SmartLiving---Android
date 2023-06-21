@@ -5,14 +5,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.ui.theme.SmartLivingTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,12 +25,15 @@ class MainActivity : ComponentActivity() {
         val deviceId = intent.getIntExtra("deviceid", -1)
 
         setContent {
-            MyApplicationTheme {
+            val windowSizeClass = calculateWindowSizeClass(this)
+            SmartLivingTheme (
+                windowSizeClass = windowSizeClass
+            ){
                 val navController = rememberNavController()
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController) }
                 ) {
-                    AppNavGraph(navController = navController)
+                    AppNavGraph(windowSizeClass = windowSizeClass, navController = navController)
                 }
             }
         }
@@ -46,6 +53,8 @@ fun BottomBar(navController: NavController) {
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
             BottomNavigationItem(
+                //unselectedContentColor = MaterialTheme.colors.onPrimary,
+                //selectedContentColor = MaterialTheme.colors.onPrimary,
                 icon = { Icon(imageVector = item.icon, contentDescription = item.title) },
                 label = { Text(text = item.title) },
                 alwaysShowLabel = true,

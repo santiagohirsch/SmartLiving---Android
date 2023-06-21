@@ -7,24 +7,30 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.ExposedDropdownMenuDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,15 +39,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.zIndex
 import com.example.myapplication.R
 import com.example.myapplication.ui.components.DeviceCard
 import com.example.myapplication.util.devicesrep.CurrentDevices
@@ -49,7 +54,9 @@ import com.example.myapplication.util.devicesrep.CurrentDevices
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
-fun DevicesScreen() {
+fun DevicesScreen(
+    isPhone: Boolean = true
+) {
     val currentDevices: CurrentDevices = CurrentDevices()
     val openDialog = remember {
         mutableStateOf(false)
@@ -57,7 +64,7 @@ fun DevicesScreen() {
     var value by remember {
         mutableStateOf("")
     }
-    val listItems = arrayOf("Horno", "Lampara", "Heladera", "Puerta", "Aspiradora")
+    val listItems = arrayOf(stringResource(R.string.ac_name), stringResource(R.string.door_name), stringResource(R.string.fridge_name), stringResource(R.string.lamp_name), stringResource(R.string.vacuum_name))
     val contextForToast = LocalContext.current.applicationContext
     var expanded by remember {
         mutableStateOf(false)
@@ -67,33 +74,42 @@ fun DevicesScreen() {
     }
     var nameEnabled = false
     var dropDownEnabled = false
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(android.graphics.Color.parseColor("#2f2f4d"))) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        //.background(MaterialTheme.colors.secondary)
+    ) {
+        FloatingActionButton(
+            modifier = Modifier
+                .zIndex(2f)
+                .padding(all = 16.dp)
+                .padding(bottom = 65.dp)
+                .align(alignment = Alignment.BottomEnd)
+                .size(if(!isPhone) (100.dp) else(50.dp))
+            ,
+            onClick = { openDialog.value = true },
+            containerColor = MaterialTheme.colors.secondary
+        ) {
+            Icon(
+                imageVector = Icons.Default/*Default.Rounded*/.Add,
+                contentDescription = "Add"
+            )
+        }
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
+                .zIndex(1f)
+                .fillMaxSize(),
             //verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.devicesTitle),
-                fontSize = 25.sp,
-                color = Color.White,
+                text = stringResource(R.string.devices_title),
+                fontSize = if(isPhone) 25.sp else 70.sp,
+                color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 5.dp, top = 16.dp, bottom = 20.dp)
             )
-            Button(
-                onClick = {
-                    openDialog.value = true
-                }
-            ) {
-                Text(
-                    text = "Agregar dispositivo",
-                    color = colorResource(id = R.color.text)
-                )
-            }
             if (openDialog.value){
                 Dialog(
                     onDismissRequest = {
@@ -101,12 +117,13 @@ fun DevicesScreen() {
                     }) {
                     Surface(
                         modifier = Modifier
+                            .clip(RoundedCornerShape(5.dp))
                             .fillMaxWidth()
                             .wrapContentHeight()
                     ) {
                         Box(modifier = Modifier
                             .width(300.dp)
-                            .height(300.dp)
+                            .height(220.dp)
                         )
                         {
                             Column(
@@ -121,8 +138,8 @@ fun DevicesScreen() {
                                         value = newText
                                         nameEnabled = true
                                     },
-                                    label = { Text(text = "Nombre del dispositivo") },
-                                    placeholder = { Text(text = "Escriba el nombre del dispositivo") }
+                                    label = { Text(text = stringResource(R.string.device_name_msg)) },
+                                    placeholder = { Text(text = stringResource(R.string.device_name_msg_2)) }
                                 )
                                 Spacer(modifier = Modifier.height(20.dp))
                                 ExposedDropdownMenuBox(
@@ -135,7 +152,7 @@ fun DevicesScreen() {
                                         value = selected,
                                         onValueChange = {},
                                         readOnly = true,
-                                        label = { Text(text = "Tipo de dispositivo")},
+                                        label = { Text(text = stringResource(R.string.device_type))},
                                         trailingIcon = {
                                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                                         }
@@ -168,7 +185,7 @@ fun DevicesScreen() {
                                             nameEnabled = false
                                         }
                                     ) {
-                                        Text(text = "Cancelar")
+                                        Text(text = stringResource(R.string.cancel))
                                     }
                                     Spacer(modifier = Modifier.width(15.dp))
                                     Button(
@@ -181,7 +198,7 @@ fun DevicesScreen() {
                                         },
                                         enabled = dropDownEnabled && nameEnabled
                                     ) {
-                                        Text(text = "Confirmar")
+                                        Text(text = stringResource(R.string.confirm))
                                     }
                                 }
                             }
@@ -190,13 +207,14 @@ fun DevicesScreen() {
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(3.dp))
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
+                    .padding(bottom = 65.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(colorResource(R.color.secondary_button)),
+                    .background(MaterialTheme.colors.primary),
                 columns = GridCells.Adaptive(140.dp),//Fixed(2),
                 contentPadding = PaddingValues(12.dp),
             ) {
@@ -223,5 +241,5 @@ fun getImageResourceId(index: Int): Int {
 }
 
 fun getTotalDevices(): Int{
-    return 10
+    return 20
 }

@@ -27,15 +27,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.R
+import com.example.myapplication.ui.theme.SmartLivingTheme
 import com.example.myapplication.util.devicesrep.CurrentDevices
 import com.example.myapplication.util.devicesvm.DeviceViewModel
 import com.example.myapplication.util.devicesvm.LampViewModel
@@ -49,8 +50,9 @@ fun DeviceCard(
 
     Card(
         modifier = modifier
-            .padding(8.dp)
+            .padding(5.dp)
             .width(140.dp)
+            .clickable { showDialog = true }
             .height(200.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
@@ -66,7 +68,6 @@ fun DeviceCard(
                 modifier = Modifier
                     .padding(top = 12.dp, bottom = 6.dp)
                     .clip(RoundedCornerShape(5.dp))
-                    .clickable { showDialog = true }
                     .size(112.dp),
                 contentScale = ContentScale.Crop
             )
@@ -93,14 +94,15 @@ fun DeviceCard(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 fun DeviceCardPreview() {
-    MyApplicationTheme {
+    val windowSizeClass = Material3WindowAmbient.windowSizeClass
+    SmartLivingTheme(windowSizeClass = windowSizeClass) {
         DeviceCard(device = LampViewModel("el pepe"))
     }
 }
-
+*/
 @Composable
 fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
     val currentDevices: CurrentDevices = CurrentDevices()
@@ -109,7 +111,7 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
         content = {
             Box(
                 modifier = Modifier
-                    .background(Color.White)
+                    .background(colorResource(R.color.primary_button))
                     .height(680.dp)
             ) {
                 IconButton(
@@ -121,5 +123,6 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
                 }
                 currentDevices.ViewDevice(device)
             }
-    })
+        }
+    )
 }
