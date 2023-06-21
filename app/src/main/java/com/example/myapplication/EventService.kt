@@ -55,13 +55,14 @@ class EventService : Service() {
 
     override fun onDestroy() {
         Log.d(TAG, "Stopping service...")
+        super.onDestroy()
 
         if (job.isActive) job.cancel()
     }
 
     private fun fetchEvents(): List<EventData>? {
         //${BuildConfig.API_BASE_URL}
-        val url = "http://10.0.2.2:8080/devices/events"
+        val url = "${BuildConfig.API_BASE_URL}api/devices/events"
 
         val connection = (URL(url).openConnection() as HttpURLConnection).also {
             it.requestMethod = "GET"
@@ -96,7 +97,7 @@ class EventService : Service() {
             Log.d(TAG, "Fetched ${eventList.size} events found...")
             return eventList
         } else {
-            Log.d(TAG, "Error connecting or No new vents found...")
+            Log.d(TAG, "Error connecting or No new vents found...  ( ${responseCode} )")
             return null
         }
     }

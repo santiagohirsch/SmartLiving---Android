@@ -1,7 +1,10 @@
 package com.example.myapplication
 
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,17 +13,26 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.MyIntent.Companion.DEVICE_ID
 import com.example.myapplication.ui.theme.SmartLivingTheme
 import com.example.myapplication.util.devicesvm.DevicesViewModel
 import com.example.myapplication.util.devicesvm.RoutinesViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionRequired
+import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.permissions.rememberPermissionState
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+
+    private lateinit var receiver: SkipNotificationReceiver
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalPermissionsApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +51,49 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController) }
                 ) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        val permissionState =
+                            rememberPermissionState(permission = Manifest.permission.POST_NOTIFICATIONS)
+                        if(!permissionState.hasPermission) {
+                            NotificationPermission(permissionState = permissionState)
+                            LaunchedEffect(true) {
+                                permissionState.launchPermissionRequest()
+                            }
+                        }
+                    }
                     AppNavGraph(windowSizeClass = windowSizeClass, navController = navController, devicesViewModel, routinesViewModel)
                 }
             }
+
         }
+        receiver = SkipNotificationReceiver(DEVICE_ID)
+        IntentFilter(MyIntent.SHOW_NOTIFICATION)
+            .apply { priority = 1 }
+            .also { registerReceiver(receiver, it) }
+    }
+    override fun onStop() {
+        super.onStop()
+
+        unregisterReceiver(receiver)
+    }
+
+    @OptIn(ExperimentalPermissionsApi::class)
+    @Composable
+    fun NotificationPermission(
+        permissionState: PermissionState,
+    ) {
+        PermissionRequired(
+            permissionState = permissionState,
+            permissionNotGrantedContent = { /* TODO: función para infromarle al usuario de la necesidad de otrogar el permiso */ },
+            permissionNotAvailableContent = { /* TODO: función hacer las adecuaciones a la App debido a que el permiso no fue otorgado  */ }
+        ) {
+            /* Hacer uso del recurso porque el permiso fue otorgado */
+        }
+    }
+
+    companion object {
+        // TODO: valor fijo, cambiar por un valor de dispositivo válido.
+        private const val DEVICE_ID = "21e9ef5348c462ef"
     }
 }
 

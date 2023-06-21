@@ -17,7 +17,7 @@ class ShowNotificationReceiver : BroadcastReceiver() {
     }
 
 
-    fun showNotification(context: Context, deviceId: String) {
+    private fun showNotification(context: Context, deviceId: String) {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             putExtra(MyIntent.DEVICE_ID, deviceId)
@@ -25,7 +25,7 @@ class ShowNotificationReceiver : BroadcastReceiver() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         val builder = NotificationCompat.Builder(context, SmartLiving.CHANNEL_ID)
-            .setSmallIcon(R.drawable.aspiradora)
+            .setSmallIcon(R.drawable.aspiradora) //TODO CAMBIAR
             .setContentTitle(context.getString(R.string.notification_title))
             .setContentText(context.getString(R.string.notification_text))
             .setStyle(
@@ -48,6 +48,6 @@ class ShowNotificationReceiver : BroadcastReceiver() {
     }
 
 companion object {
-        private const val TAG = "NotificationReceiver"
+        private const val TAG = "ShowNotificationReceiver"
     }
 }
