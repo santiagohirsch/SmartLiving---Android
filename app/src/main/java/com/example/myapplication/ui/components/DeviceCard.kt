@@ -113,7 +113,7 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
         content = {
             Box(
                 modifier = Modifier
-                    .background(colorResource(R.color.primary_button))
+                    .background(colorResource(R.color.white))
                     .height(680.dp)
             ) {
                 IconButton(
