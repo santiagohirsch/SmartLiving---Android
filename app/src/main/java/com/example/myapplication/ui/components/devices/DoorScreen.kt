@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,9 +39,11 @@ import com.example.myapplication.util.devicesvm.AcViewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
 import com.example.myapplication.util.devicesvm.DoorViewModel
 
-@Preview
 @Composable
-fun Door(doorViewModel: DoorViewModel = viewModel()){
+fun Door(
+    doorViewModel: DoorViewModel = viewModel(),
+    landscape: Boolean
+){
     val uiState by doorViewModel.uiState.collectAsState()
     var switchOpen by remember {
         mutableStateOf(uiState.state.status == "opened")
@@ -54,73 +57,152 @@ fun Door(doorViewModel: DoorViewModel = viewModel()){
     var lockEnable by remember {
         mutableStateOf(uiState.state.status == "closed")
     }
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Image(
-            painter = if(uiState.state.status == "opened") painterResource(R.drawable.open_door) else if (uiState.state.lock == "locked") painterResource(R.drawable.blocked)  else painterResource(R.drawable.closed) ,
-            contentDescription = null,
-            modifier = Modifier
-                .padding(top = 12.dp, bottom = 6.dp)
-                .clip(RoundedCornerShape(5.dp))
-                .clickable {
-                    if(uiState.state.status == "opened") {
+    if (!landscape) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = if (uiState.state.status == "opened") painterResource(R.drawable.open_door) else if (uiState.state.lock == "locked") painterResource(
+                    R.drawable.blocked
+                ) else painterResource(R.drawable.closed),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(top = 12.dp, bottom = 6.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .clickable {
+                        if (uiState.state.status == "opened") {
+                            doorViewModel.close(doorViewModel.id.toString())
+                            switchOpen = false
+                            lockEnable = !lockEnable
+                        } else if (uiState.state.lock != "locked") {
+                            doorViewModel.open(doorViewModel.id.toString())
+                            switchOpen = true
+                            lockEnable = !lockEnable
+                        }
+                    }
+                    .size(350.dp),
+                contentScale = ContentScale.Crop
+            )
+            Text(text = "Cerrar/Abrir", fontSize = 24.sp)
+            Switch(
+                checked = switchOpen,
+                onCheckedChange = { switchOn_ ->
+                    switchOpen = switchOn_
+                    lockEnable = !switchOn_
+                    if (uiState.state.status == "opened") {
                         doorViewModel.close(doorViewModel.id.toString())
-                        switchOpen = false
-                        lockEnable = !lockEnable
-                    }
-                    else if(uiState.state.lock != "locked") {
+                    } else {
                         doorViewModel.open(doorViewModel.id.toString())
-                        switchOpen = true
-                        lockEnable = !lockEnable
                     }
-                }
-                .size(350.dp),
-            contentScale = ContentScale.Crop
-        )
-        Text(text = "Cerrar/Abrir", fontSize = 24.sp)
-        Switch(
-            checked = switchOpen,
-            onCheckedChange = { switchOn_ ->
-                switchOpen = switchOn_
-                lockEnable = !switchOn_
-                if(uiState.state.status == "opened") {
-                    doorViewModel.close(doorViewModel.id.toString())
-                }
-                else {
-                    doorViewModel.open(doorViewModel.id.toString())
-                }
-            },
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.Green,
-                checkedTrackColor = Color.Gray
-            ),
-            enabled = openEnable,
-            modifier = Modifier.scale(2.2f)
-        )
-        Spacer(modifier = Modifier.height(25.dp))
-        Text(text = "Desbloquear/Bloquear", fontSize = 24.sp)
-        Switch(
-            checked = switchLock,
-            onCheckedChange = { switchOn_ ->
-                switchLock = switchOn_
-                openEnable = !switchOn_
-                if(uiState.state.lock == "locked") {
-                    doorViewModel.unlock(doorViewModel.id.toString())
-                }
-                else {
-                    doorViewModel.lock(doorViewModel.id.toString())
-                }
-            },
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.Green,
-                checkedTrackColor = Color.Gray
-            ),
-            enabled = lockEnable,
-            modifier = Modifier.scale(2.2f)
-        )
+                },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.Green,
+                    checkedTrackColor = Color.Gray
+                ),
+                enabled = openEnable,
+                modifier = Modifier.scale(2.2f)
+            )
+            Spacer(modifier = Modifier.height(25.dp))
+            Text(text = "Desbloquear/Bloquear", fontSize = 24.sp)
+            Switch(
+                checked = switchLock,
+                onCheckedChange = { switchOn_ ->
+                    switchLock = switchOn_
+                    openEnable = !switchOn_
+                    if (uiState.state.lock == "locked") {
+                        doorViewModel.unlock(doorViewModel.id.toString())
+                    } else {
+                        doorViewModel.lock(doorViewModel.id.toString())
+                    }
+                },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.Green,
+                    checkedTrackColor = Color.Gray
+                ),
+                enabled = lockEnable,
+                modifier = Modifier.scale(2.2f)
+            )
+        }
+    }
+    else{
+        Row(
+            modifier = Modifier.fillMaxSize().padding(start = 30.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxHeight()
+            ) {
+                Text(text = "Cerrar/Abrir", fontSize = 24.sp)
+                Switch(
+                    checked = switchOpen,
+                    onCheckedChange = { switchOn_ ->
+                        switchOpen = switchOn_
+                        lockEnable = !switchOn_
+                        if(uiState.state.status == "opened") {
+                            doorViewModel.close(doorViewModel.id.toString())
+                        }
+                        else {
+                            doorViewModel.open(doorViewModel.id.toString())
+                        }
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = Color.Green,
+                        checkedTrackColor = Color.Gray
+                    ),
+                    enabled = openEnable,
+                    modifier = Modifier.scale(2.2f)
+                )
+            }
+            Image(
+                painter = if(uiState.state.status == "opened") painterResource(R.drawable.open_door) else if (uiState.state.lock == "locked") painterResource(R.drawable.blocked)  else painterResource(R.drawable.closed) ,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(top = 12.dp, bottom = 6.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .clickable {
+                        if (uiState.state.status == "opened") {
+                            doorViewModel.close(doorViewModel.id.toString())
+                            switchOpen = false
+                            lockEnable = !lockEnable
+                        } else if (uiState.state.lock != "locked") {
+                            doorViewModel.open(doorViewModel.id.toString())
+                            switchOpen = true
+                            lockEnable = !lockEnable
+                        }
+                    }
+                    .size(350.dp),
+                contentScale = ContentScale.Crop
+            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxHeight()
+            ){
+                Text(text = "Desbloquear/Bloquear", fontSize = 24.sp)
+                Switch(
+                    checked = switchLock,
+                    onCheckedChange = { switchOn_ ->
+                        switchLock = switchOn_
+                        openEnable = !switchOn_
+                        if (uiState.state.lock == "locked") {
+                            doorViewModel.unlock(doorViewModel.id.toString())
+                        } else {
+                            doorViewModel.lock(doorViewModel.id.toString())
+                        }
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = Color.Green,
+                        checkedTrackColor = Color.Gray
+                    ),
+                    enabled = lockEnable,
+                    modifier = Modifier.scale(2.2f)
+                )
+            }
+        }
     }
 }

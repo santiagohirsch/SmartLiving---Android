@@ -94,7 +94,7 @@ fun DevicesScreen(
                 .padding(all = 16.dp)
                 .padding(bottom = 65.dp)
                 .align(alignment = Alignment.BottomEnd)
-                .size(if(!isPhone) (100.dp) else(50.dp))
+                .size(if (!isPhone) (100.dp) else (50.dp))
             ,
             onClick = { openDialog.value = true },
             containerColor = MaterialTheme.colors.secondary
@@ -198,14 +198,15 @@ fun DevicesScreen(
                                         Text(text = stringResource(R.string.cancel))
                                     }
                                     Spacer(modifier = Modifier.width(15.dp))
+                                    val typeId = deviceTypeToId(selected = selected)
                                     Button(
                                         onClick = {
+                                            viewModel.addNewDevice("value", "lsf78ly0eqrjbz91")
                                             openDialog.value = false
                                             value=""
                                             selected=""
                                             dropDownEnabled = false
                                             nameEnabled = false
-                                            viewModel.addNewDevice("elwey","go46xmbqeomjrsjr" )
                                         },
                                         enabled = dropDownEnabled && nameEnabled
                                     ) {
@@ -243,5 +244,18 @@ fun DevicesScreen(
             }
         }
     }
+
+}
+
+@Composable
+fun deviceTypeToId(selected: String): String {
+    when(selected) {
+        stringResource(R.string.ac_name) -> return "li6cbv5sdlatti0j"
+        stringResource(R.string.door_name) -> return "lsf78ly0eqrjbz91"
+        stringResource(R.string.lamp_name) -> return "go46xmbqeomjrsjr"
+        stringResource(R.string.fridge_name) -> return "rnizejqr2di0okho"
+        stringResource(R.string.vacuum_name) -> return "ofglvd9gqx8yfl3l"
+    }
+    return ""
 }
 

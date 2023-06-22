@@ -28,6 +28,7 @@ fun AppNavGraph(
         fun isTablet(): Boolean {
             val configuration = LocalConfiguration.current
             return if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
                 configuration.screenWidthDp > 900
             } else {
                 configuration.screenWidthDp > 600
