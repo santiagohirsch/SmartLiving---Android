@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -50,6 +51,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.zIndex
 import com.example.myapplication.R
 import com.example.myapplication.data.network.RetrofitClient
+import com.example.myapplication.data.network.models.Device
 import com.example.myapplication.ui.components.DeviceCard
 import com.example.myapplication.util.devicesrep.CurrentDevices
 import com.example.myapplication.util.devicesvm.AcViewModel
@@ -75,6 +77,7 @@ fun DevicesScreen(
         mutableStateOf("")
     }
     val listItems = arrayOf(stringResource(R.string.ac_name), stringResource(R.string.door_name), stringResource(R.string.fridge_name), stringResource(R.string.lamp_name), stringResource(R.string.vacuum_name))
+    val sortOptions = arrayOf("Default", "Nombre", "Tipo")
     val contextForToast = LocalContext.current.applicationContext
     var expanded by remember {
         mutableStateOf(false)
@@ -84,6 +87,10 @@ fun DevicesScreen(
     }
     var nameEnabled = false
     var dropDownEnabled = false
+
+    var sortArray by remember {
+        mutableStateOf("")
+    }
     Box(modifier = Modifier
         .fillMaxSize()
         //.background(MaterialTheme.colors.secondary)
@@ -111,15 +118,61 @@ fun DevicesScreen(
             //verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(R.string.devices_title),
-                fontSize = if(isPhone) 25.sp else 70.sp,
-                color = MaterialTheme.colors.onBackground,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 5.dp, top = 16.dp, bottom = 10.dp)
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.devices_title),
+                    fontSize = if (isPhone) 25.sp else 70.sp,
+                    color = MaterialTheme.colors.onBackground,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(start = 5.dp, top = 16.dp, bottom = 10.dp)
+                )
+                Spacer(modifier = Modifier.weight(1f)) // Add a Spacer with weight to push the dropdown menu to the right
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = {
+                        expanded = !expanded
+                    },
+                    modifier = Modifier.width(150.dp) // Adjust the width of the dropdown menu here
+                ) {
+                    Row(
+                        modifier = Modifier.padding(end = 5.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextField(
+                            value = sortArray,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text(text = "Sort by") },
+                            trailingIcon = {
+                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                            },
+                            modifier = Modifier.padding(end = 5.dp)
+                        )
+                    }
+                    ExposedDropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        sortOptions.forEach { selectedOption ->
+                            DropdownMenuItem(onClick = {
+                                sortArray = selectedOption
+                                Toast.makeText(contextForToast, selectedOption, Toast.LENGTH_SHORT)
+                                    .show()
+                                expanded = false
+                                dropDownEnabled = true
+                            }) {
+                                Text(text = selectedOption)
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
             if (openDialog.value){
                 Dialog(
                     onDismissRequest = {
@@ -231,8 +284,12 @@ fun DevicesScreen(
                 contentPadding = PaddingValues(12.dp),
             ) {
                 viewModel.getAllDevices()
-                items(viewModel.getCurrentDevices().size) { index ->
-                    val device = viewModel.getCurrentDevices()[index]
+                var devices = viewModel.getCurrentDevices()
+                when(sortArray) {
+                    "Nombre" -> devices = viewModel.getCurrentDevices().sortedBy { it.name } as MutableList<Device>
+                    "Tipo" -> devices = viewModel.getCurrentDevices().sortedBy { it.type?.name } as MutableList<Device>
+                }
+                itemsIndexed(devices) { _, device ->
                     when (device.type?.name) {
                         "ac" -> DeviceCard(AcViewModel(device))
                         "refrigerator" -> DeviceCard(RefrigeratorViewModel(device))

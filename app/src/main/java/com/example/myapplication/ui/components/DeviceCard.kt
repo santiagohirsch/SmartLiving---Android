@@ -189,6 +189,42 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit, landscape: Boolea
             }
         )
     }
+
+    if(showConfirmation) {
+        Dialog(onDismissRequest = { showConfirmation = false }) {
+            Box(
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(100.dp)
+                    .background(color = Color.White)
+            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Estas seguro que deseas borrar este dispositivo?")
+                Row() {
+
+                    Button(onClick = { showConfirmation = false
+                    }, modifier = Modifier
+                        .padding(all = 5.dp)
+                    ) {
+                        Text(text = "Cancelar", color = Color.White)
+                    }
+                    Button(onClick = {
+                        showConfirmation = false
+                        device.delete(device.id.toString())
+                        onDismiss()
+                    },
+                        modifier = Modifier
+                            .padding(all = 5.dp)
+                    ) {
+                        Text(text = "Confirmar", color = Color.White)
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Composable
