@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.EventData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -27,12 +28,19 @@ class ServerEventReceiver : BroadcastReceiver() {
         GlobalScope.launch(Dispatchers.IO) {
             val eventList = fetchEvents()
             // Aca decido que hacer con los eventos
+
             eventList?.forEach {
                 Log.d(TAG, "Broadcasting fetch notification intent (${it.deviceId})")
+
                 val intent2 = Intent().apply {
-                    action = MyIntent.SHOW_NOTIFICATION
+                    //if (it.event == "newLock")
+                        action = MyIntent.SHOW_NOTIFICATION
+                    //else
+                        //action = MyIntent.SKIP_NOTIFICATION
                     `package` = MyIntent.PACKAGE
                     putExtra(MyIntent.DEVICE_ID, it.deviceId)
+                    putExtra(MyIntent.EVENT, it.event)
+                    putExtra(MyIntent.ARGS, it.args.toString())
                 }
                 context?.sendOrderedBroadcast(intent2, null)
             }
