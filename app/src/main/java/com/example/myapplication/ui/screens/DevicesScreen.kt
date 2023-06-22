@@ -82,6 +82,9 @@ fun DevicesScreen(
     var expanded by remember {
         mutableStateOf(false)
     }
+    var expandedSort by remember {
+        mutableStateOf(false)
+    }
     var selected by remember {
         mutableStateOf("")
     }
@@ -131,9 +134,9 @@ fun DevicesScreen(
                 )
                 Spacer(modifier = Modifier.weight(1f)) // Add a Spacer with weight to push the dropdown menu to the right
                 ExposedDropdownMenuBox(
-                    expanded = expanded,
+                    expanded = expandedSort,
                     onExpandedChange = {
-                        expanded = !expanded
+                        expandedSort = !expandedSort
                     },
                     modifier = Modifier.width(150.dp) // Adjust the width of the dropdown menu here
                 ) {
@@ -147,21 +150,21 @@ fun DevicesScreen(
                             readOnly = true,
                             label = { Text(text = "Sort by") },
                             trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSort)
                             },
                             modifier = Modifier.padding(end = 5.dp)
                         )
                     }
                     ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
+                        expanded = expandedSort,
+                        onDismissRequest = { expandedSort = false }
                     ) {
                         sortOptions.forEach { selectedOption ->
                             DropdownMenuItem(onClick = {
                                 sortArray = selectedOption
                                 Toast.makeText(contextForToast, selectedOption, Toast.LENGTH_SHORT)
                                     .show()
-                                expanded = false
+                                expandedSort = false
                                 dropDownEnabled = true
                             }) {
                                 Text(text = selectedOption)
