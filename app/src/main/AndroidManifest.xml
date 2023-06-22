@@ -50,8 +50,12 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".EventService"
+        <receiver android:name=".SkipNotificationReceiver"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <receiver
+            android:name=".ServerEventReceiver"
             android:enabled="true"
             android:exported="false"/>
     </application>

@@ -7,7 +7,8 @@ import android.util.Log
 
 class BootCompletedReceiver : BroadcastReceiver(){
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.d(TAG, "Boot completed.")
+        if(intent?.action == Intent.ACTION_BOOT_COMPLETED)
+            Log.d(TAG, "Boot completed.")
     }
 
     companion object {

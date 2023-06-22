@@ -3,6 +3,7 @@ package com.example.myapplication
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
@@ -66,11 +67,23 @@ class MainActivity : ComponentActivity() {
             }
 
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         receiver = SkipNotificationReceiver(DEVICE_ID)
         IntentFilter(MyIntent.SHOW_NOTIFICATION)
             .apply { priority = 1 }
-            .also { registerReceiver(receiver, it) }
+            .also {
+                var flags = 0
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                    flags = Context.RECEIVER_NOT_EXPORTED
+
+                registerReceiver(receiver, it, flags)
+            }
     }
+
     override fun onStop() {
         super.onStop()
 

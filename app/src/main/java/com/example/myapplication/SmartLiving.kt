@@ -1,28 +1,27 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.SystemClock
+import android.util.Log
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.IntentCompat
 
 class SmartLiving : Application() {
 
-    private var eventServiceRunning = false
     override fun onCreate() {
         super.onCreate()
+
         createNotificationChannel()
-        if(!eventServiceRunning) {
-            val intent = Intent(this, EventService::class.java)
-            startService(intent)
-        }
+
+        collectServerEvents()
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.channel_name)
@@ -38,7 +37,30 @@ class SmartLiving : Application() {
         }
     }
 
+    private fun collectServerEvents() {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ServerEventReceiver::class.java)
+
+        var pendingIntent = PendingIntent.getBroadcast(
+            this, 0, intent, PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE)
+        if (pendingIntent != null)
+            alarmManager.cancel(pendingIntent)
+
+        pendingIntent = PendingIntent.getBroadcast(
+            this, 0, intent, PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            SystemClock.currentThreadTimeMillis(),
+            INTERVAL,
+            pendingIntent
+        )
+        Log.d(TAG, "Alarm set every $INTERVAL millis")
+    }
+
     companion object {
+        const val TAG = "SmartLiving"
+        const val INTERVAL: Long = 1000 * 60
         const val CHANNEL_ID = "device"
     }
 }

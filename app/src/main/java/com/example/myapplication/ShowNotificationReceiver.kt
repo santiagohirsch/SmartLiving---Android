@@ -10,10 +10,12 @@ import androidx.core.app.NotificationManagerCompat
 
 class ShowNotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val deviceId: String? = intent.getStringExtra(MyIntent.DEVICE_ID)
-        Log.d(TAG, "Show notification intent received ${deviceId}")
+        if(intent?.action == MyIntent.SHOW_NOTIFICATION) {
+            val deviceId: String? = intent.getStringExtra(MyIntent.DEVICE_ID)
+            Log.d(TAG, "Show notification intent received ${deviceId}")
 
-        showNotification(context, deviceId!!)
+            showNotification(context, deviceId!!)
+        }
     }
 
 
@@ -22,7 +24,7 @@ class ShowNotificationReceiver : BroadcastReceiver() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             putExtra(MyIntent.DEVICE_ID, deviceId)
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         val builder = NotificationCompat.Builder(context, SmartLiving.CHANNEL_ID)
             .setSmallIcon(R.drawable.aspiradora) //TODO CAMBIAR
