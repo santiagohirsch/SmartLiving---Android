@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,12 +32,19 @@ fun RoutineScreen(routineViewModel: RoutineViewModel, onDismiss: () -> Unit){
             fontSize = 40.sp
         )
         Spacer(modifier = Modifier.height(15.dp))
-        uiState.actions.forEach{ action ->
-            Text(
-                text = "${action.device?.name} -> ${action.actionName}",
-                fontSize = 25.sp
-            )
+        LazyColumn(
+            modifier = Modifier.height(190.dp)
+        ) {
+            itemsIndexed(uiState.actions) { _, action ->
+                Text(
+                    text = "${action.device?.name} -> ${action.actionName}",
+                    fontSize = 25.sp
+                )
+            }
         }
+
+
+
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
