@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -41,11 +44,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.example.myapplication.R
+import com.example.myapplication.ui.components.devices.Ac
+import com.example.myapplication.ui.components.devices.Door
+import com.example.myapplication.ui.components.devices.Fridge
+import com.example.myapplication.ui.components.devices.Lamp
+import com.example.myapplication.ui.components.devices.Vacuum
 import com.example.myapplication.ui.theme.SmartLivingTheme
-import com.example.myapplication.util.devicesrep.CurrentDevices
+import com.example.myapplication.util.devicesvm.AcViewModel
 import com.example.myapplication.util.devicesvm.DeviceViewModel
+import com.example.myapplication.util.devicesvm.DoorViewModel
 import com.example.myapplication.util.devicesvm.LampViewModel
+import com.example.myapplication.util.devicesvm.RefrigeratorViewModel
+import com.example.myapplication.util.devicesvm.VacuumViewModel
 
 @Composable
 fun DeviceCard(
@@ -96,78 +108,97 @@ fun DeviceCard(
     }
 
     if (showDialog) {
-        CustomDialog(device = device, onDismiss = {showDialog = false})
+        val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+        CustomDialog(device = device, onDismiss = {showDialog = false}, landscape = landscape)
     }
 }
 
 
 
 @Composable
-fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit) {
-    val currentDevices: CurrentDevices = CurrentDevices()
+fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit, landscape: Boolean) {
     var showConfirmation by remember {
         mutableStateOf(false)
     }
-    Dialog(
-        onDismissRequest = { onDismiss() },
-        content = {
-            Box(
-                modifier = Modifier
-                    .background(colorResource(R.color.white))
-                    .height(680.dp)
-            ) {
-                IconButton(
-                    onClick = {
-                        onDismiss()
-                    }
+    if(!landscape) {
+        Dialog(
+            onDismissRequest = { onDismiss() },
+            content = {
+                Box(
+                    modifier = Modifier
+                        .background(colorResource(R.color.white))
+                        .height(680.dp)
                 ) {
-                    Icon(imageVector = Icons.Outlined.Clear, contentDescription = "")
-                }
-                
-                IconButton(onClick = {
-                    showConfirmation = true
-                                     }, modifier = Modifier.padding(start=265.dp) ) {
-                    Icon(imageVector = Icons.Outlined.Delete, contentDescription = "" ,Modifier.size(30.dp))
-                }
-                currentDevices.ViewDevice(device)
-
-                if(showConfirmation) {
-                    Dialog(onDismissRequest = { showConfirmation = false }) {
-                        Box(
-                            modifier = Modifier
-                                .width(300.dp)
-                                .height(100.dp)
-                                .background(color = Color.White)
-                        )
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(text = "  Estas seguro que deseas borrar este \ndispositivo?")
-                            Row() {
-
-                                Button(onClick = { showConfirmation = false
-                                }, modifier = Modifier
-                                    .padding(all = 5.dp)
-                                ) {
-                                    Text(text = "Cancelar", color = Color.White)
-                                }
-                                Button(onClick = {
-                                    showConfirmation = false
-                                    device.delete(device.id.toString())
-                                    onDismiss()
-                                },
-                                        modifier = Modifier
-                                        .padding(all = 5.dp)
-                                ) {
-                                    Text(text = "Confirmar", color = Color.White)
-                                }
-                            }
+                    IconButton(
+                        onClick = {
+                            onDismiss()
                         }
+                    ) {
+                        Icon(imageVector = Icons.Outlined.Clear, contentDescription = "")
                     }
+                    IconButton(
+                        onClick = {
+                            showConfirmation = true
+                        },
+                        modifier = Modifier.padding(start = 265.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Delete,
+                            contentDescription = "",
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                    ViewDevice(device, landscape)
                 }
             }
+        )
+    }
+    else{
+        Dialog(
+            onDismissRequest = { onDismiss() },
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+            content = {
+                Box(
+                    modifier = Modifier
+                        .background(colorResource(R.color.primary_button))
+                        .width(650.dp)
+                        .fillMaxHeight()
+                ) {
+                    IconButton(
+                        onClick = {
+                            onDismiss()
+                        }
+                    ) {
+                        Icon(imageVector = Icons.Outlined.Clear, contentDescription = "")
+                    }
+                    IconButton(
+                        onClick = {
+                            device.delete(device.id.toString())
+                            onDismiss()
+                        },
+                        modifier = Modifier.padding(start = 605.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Delete,
+                            contentDescription = "",
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                    ViewDevice(device, landscape)
+                }
+            }
+        )
+    }
+}
 
-        }
-    )
+@Composable
+fun ViewDevice(device: DeviceViewModel, landscape: Boolean) {
+    when(device.type) {
+        "ac" -> Ac(acViewModel = device as AcViewModel, landscape = landscape)
+        "lamp" -> Lamp(lampViewModel = device as LampViewModel, landscape = landscape)
+        "refrigerator" -> Fridge(fridgeViewModel = device as RefrigeratorViewModel, landscape = landscape)
+        "door" -> Door(doorViewModel = device as DoorViewModel, landscape = landscape)
+        "vacuum" -> Vacuum(vacuumViewModel = device as VacuumViewModel, landscape = landscape)
+        else -> throw IllegalArgumentException("Unknown device type")
+    }
 }

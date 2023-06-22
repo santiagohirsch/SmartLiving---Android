@@ -21,11 +21,11 @@ class CurrentDevices {
         // Agrega más elementos de DeviceViewModel según tus necesidades
     )*/
 
-
+/*
     @Composable
-    fun ViewDevice(device: DeviceViewModel) {
+    fun ViewDevice(device: DeviceViewModel, landscape: Boolean) {
         when(device.type) {
-            "ac" -> Ac(acViewModel = device as AcViewModel)
+            "ac" -> Ac(acViewModel = device as AcViewModel, landscape)
             "lamp" -> Lamp(lampViewModel = device as LampViewModel)
             "refrigerator" -> Fridge(fridgeViewModel = device as RefrigeratorViewModel)
             "door" -> Door(doorViewModel = device as DoorViewModel)
@@ -33,4 +33,6 @@ class CurrentDevices {
             else -> throw IllegalArgumentException("Unknown device type")
         }
     }
+
+ */
 }

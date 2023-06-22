@@ -1,6 +1,7 @@
 package com.example.myapplication.util.devicesvm
 
 import android.util.Log
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -62,7 +63,7 @@ class DevicesViewModel: ViewModel() {
             runCatching {
                 val apiService =  RetrofitClient.getApiService()
                 val deviceToAdd = DeviceToAdd(
-                    Type2("go46xmbqeomjrsjr"),
+                    Type2("lsf78ly0eqrjbz91"),
                     "elwey",
                     Meta("", "")
                 )

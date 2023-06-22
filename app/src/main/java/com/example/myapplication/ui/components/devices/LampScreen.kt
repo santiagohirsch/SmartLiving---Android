@@ -33,21 +33,25 @@ import com.example.myapplication.util.devicesvm.LampViewModel
 import android.os.Bundle
 import android.widget.Button
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 
 
-@Preview
 @Composable
 fun Lamp(
     modifier: Modifier = Modifier,
-    lampViewModel: LampViewModel = viewModel()
+    lampViewModel: LampViewModel = viewModel(),
+    landscape: Boolean
 ){
     val uiState by lampViewModel.uiState.collectAsState()
     var switchOn by remember {
@@ -56,13 +60,16 @@ fun Lamp(
     var showDialog by remember {
         mutableStateOf(false)
     }
+    if(!landscape) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(bottom = 30.dp)
         ) {
             Image(
-                painter = if (uiState.state.status == "off") painterResource(id = R.drawable.apagada) else painterResource( id = R.drawable.prendida),
+                painter = if (uiState.state.status == "off") painterResource(id = R.drawable.apagada) else painterResource(
+                    id = R.drawable.prendida
+                ),
                 contentDescription = "lamp",
                 modifier = Modifier
                     .size(300.dp)
@@ -90,71 +97,314 @@ fun Lamp(
                 modifier = Modifier
                     .scale(scale = 0.8f),
                 onValueChange = { newVal ->
-                                lampViewModel.setBrightness(lampViewModel.id.toString(),newVal.toInt())
+                    lampViewModel.setBrightness(lampViewModel.id.toString(), newVal.toInt())
                 },
                 /*onValueChangeFinished = {
                 Log.d("MainActivity", "sliderVale = $sliderValue")
             },*/
                 valueRange = 0f..100f
             )
-            Text(text = "Intensidad : "  + uiState.state.brightness.toString(), fontSize = 20.sp)
-            Button(
+            Text(text = "Intensidad : " + uiState.state.brightness.toString(), fontSize = 20.sp)
+            Row(modifier = Modifier.clickable { showDialog = true }) {
+                Text(
+                    text = "Color: ",
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                )
+                Box(
+                    modifier = Modifier
+                        .background(hexStringToColor(uiState.state.color))
+                        .size(48.6.dp)
+                        .border(width = 2.dp, color = Color.Black)
+                )
+            }
+            /*Button(
                 onClick = {
                     showDialog = true
                     //lampViewModel.setColor(lampViewModel.id.toString(),"FEFEFE")
                 }
             ) {
                 Text(text = "Elegir color")
-            }
-            /*Button(onClick = { /*TODO*/ }) {
-            Text(text = "Confirmar brillo")
-        }*/
+            }*/
         }
-    if(showDialog) {
-        Dialog(
-            onDismissRequest = { showDialog = false }
-        ) {
-            Box(
-                modifier = Modifier
-                    .background(color = Color.Black)
-                    .height(212.dp)
-                    .fillMaxWidth()
+        if (showDialog) {
+            Dialog(
+                onDismissRequest = { showDialog = false }
             ) {
-                Column() {
-                    Row {
-                        ColorSquare(color = Color.White,onDismiss = {showDialog = false},lampViewModel = lampViewModel)
-                        ColorSquare(color = Color(0xFFFFF59D),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Amarillo claro
-                        ColorSquare(color = Color(0xFFFFEB3B),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Amarillo
-                        ColorSquare(color = Color(0xFFFFC107),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Amarillo oscuro
-                        ColorSquare(color = Color(0xFFFFA000),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja
-                        ColorSquare(color = Color(0xFFFF5722),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja oscuro
-                    }
-                    Row {
-                        ColorSquare(color = Color(0xFFFFCCBC),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Rosa claro
-                        ColorSquare(color = Color(0xFFFFAB91),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Rosa naranja claro
-                        ColorSquare(color = Color(0xFFFF8A65),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja claro
-                        ColorSquare(color = Color(0xFFFF7043),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja
-                        ColorSquare(color = Color(0xFFFF5722),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja oscuro
-                        ColorSquare(color = Color.Red,onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Rojo brillante
-                    }
-                    Row {
-                        ColorSquare(color = Color(0xFFC8E6C9),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde claro
-                        ColorSquare(color = Color(0xFF4CAF50),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde
-                        ColorSquare(color = Color(0xFF388E3C),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde oscuro
-                        ColorSquare(color = Color(0xFF00796B),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde azulado
-                        ColorSquare(color = Color(0xFF006064),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul verdoso
-                        ColorSquare(color = Color(0xFF004D40),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde azulado oscuro
-                    }
-                    Row {
-                        ColorSquare(color = Color(0xFFB2EBF2),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul claro
-                        ColorSquare(color = Color(0xFF03A9F4),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul
-                        ColorSquare(color = Color(0xFF0277BD),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul oscuro
-                        ColorSquare(color = Color(0xFF01579B),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul profundo
-                        ColorSquare(color = Color(0xFF0D47A1),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul intenso
-                        ColorSquare(color = Color(0xFF1A237E),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul eléctrico
-                    }
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Black)
+                        .height(212.dp)
+                        .fillMaxWidth()
+                ) {
+                    Column() {
+                        Row {
+                            ColorSquare(
+                                color = Color.White,
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            )
+                            ColorSquare(
+                                color = Color(0xFFFFF59D),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Amarillo claro
+                            ColorSquare(
+                                color = Color(0xFFFFEB3B),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Amarillo
+                            ColorSquare(
+                                color = Color(0xFFFFC107),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Amarillo oscuro
+                            ColorSquare(
+                                color = Color(0xFFFFA000),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Naranja
+                            ColorSquare(
+                                color = Color(0xFFFF5722),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Naranja oscuro
+                        }
+                        Row {
+                            ColorSquare(
+                                color = Color(0xFFFFCCBC),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Rosa claro
+                            ColorSquare(
+                                color = Color(0xFFFFAB91),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Rosa naranja claro
+                            ColorSquare(
+                                color = Color(0xFFFF8A65),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Naranja claro
+                            ColorSquare(
+                                color = Color(0xFFFF7043),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Naranja
+                            ColorSquare(
+                                color = Color(0xFFFF5722),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Naranja oscuro
+                            ColorSquare(
+                                color = Color.Red,
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Rojo brillante
+                        }
+                        Row {
+                            ColorSquare(
+                                color = Color(0xFFC8E6C9),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Verde claro
+                            ColorSquare(
+                                color = Color(0xFF4CAF50),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Verde
+                            ColorSquare(
+                                color = Color(0xFF388E3C),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Verde oscuro
+                            ColorSquare(
+                                color = Color(0xFF00796B),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Verde azulado
+                            ColorSquare(
+                                color = Color(0xFF006064),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Azul verdoso
+                            ColorSquare(
+                                color = Color(0xFF004D40),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Verde azulado oscuro
+                        }
+                        Row {
+                            ColorSquare(
+                                color = Color(0xFFB2EBF2),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Azul claro
+                            ColorSquare(
+                                color = Color(0xFF03A9F4),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Azul
+                            ColorSquare(
+                                color = Color(0xFF0277BD),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Azul oscuro
+                            ColorSquare(
+                                color = Color(0xFF01579B),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Azul profundo
+                            ColorSquare(
+                                color = Color(0xFF0D47A1),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Azul intenso
+                            ColorSquare(
+                                color = Color(0xFF1A237E),
+                                onDismiss = { showDialog = false },
+                                lampViewModel = lampViewModel
+                            ) // Azul eléctrico
+                        }
 
 
+                    }
+                }
+            }
+        }
+    }
+    else{
+        Row(
+            modifier = Modifier.fillMaxSize().padding(start = 30.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxHeight().padding(start = 30.dp)
+            ) {
+                Switch(
+                    checked = switchOn,
+                    onCheckedChange = { switchOn_ ->
+                        switchOn = switchOn_
+                        if (switchOn) {
+                            lampViewModel.turnOn(lampViewModel.id.toString())
+                        } else {
+                            lampViewModel.turnOff(lampViewModel.id.toString())
+                        }
+                    },
+                    modifier = Modifier
+                        .scale(scale = 2.2f),
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = Color.Green,
+                        checkedTrackColor = Color.Gray
+                    )
+                )
+            }
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxHeight().padding(start = 20.dp)
+            ) {
+                Image(
+                    painter = if (uiState.state.status == "off") painterResource(id = R.drawable.apagada) else painterResource(
+                        id = R.drawable.prendida
+                    ),
+                    contentDescription = "lamp",
+                    modifier = Modifier
+                        .size(250.dp)
+                        .padding(top = 40.dp)
+                )
+                Slider(
+                    value = uiState.state.brightness.toFloat(),
+                    modifier = Modifier
+                        .scale(scale = 0.8f)
+                        .width(400.dp),
+                    onValueChange = { newVal ->
+                        lampViewModel.setBrightness(lampViewModel.id.toString(), newVal.toInt())
+                    },
+                    /*onValueChangeFinished = {
+                    Log.d("MainActivity", "sliderVale = $sliderValue")
+                },*/
+                    valueRange = 0f..100f
+                )
+                Text(text = "Intensidad : " + uiState.state.brightness.toString(), fontSize = 20.sp)
+            }
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxHeight().padding(end = 20.dp)
+            ) {
+                Row(modifier = Modifier.clickable { showDialog = true }) {
+                    Text(
+                        text = "Color: ",
+                        fontSize = 20.sp,
+                        modifier = Modifier
+                            .padding(top = 10.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .background(hexStringToColor(uiState.state.color))
+                            .size(48.6.dp)
+                            .border(width = 2.dp, color = Color.Black)
+                    )
+                }
+                /*Button(
+                    onClick = {
+                        showDialog = true
+                        //lampViewModel.setColor(lampViewModel.id.toString(),"FEFEFE")
+                    }
+                ) {
+                    Text(text = "Elegir color")
+                }*/
+            }
+        }
+        if(showDialog) {
+            Dialog(
+                onDismissRequest = { showDialog = false }
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Black)
+                        .height(212.dp)
+                        .fillMaxWidth()
+                ) {
+                    Column() {
+                        Row {
+                            ColorSquare(color = Color.White,onDismiss = {showDialog = false},lampViewModel = lampViewModel)
+                            ColorSquare(color = Color(0xFFFFF59D),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Amarillo claro
+                            ColorSquare(color = Color(0xFFFFEB3B),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Amarillo
+                            ColorSquare(color = Color(0xFFFFC107),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Amarillo oscuro
+                            ColorSquare(color = Color(0xFFFFA000),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja
+                            ColorSquare(color = Color(0xFFFF5722),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja oscuro
+                        }
+                        Row {
+                            ColorSquare(color = Color(0xFFFFCCBC),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Rosa claro
+                            ColorSquare(color = Color(0xFFFFAB91),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Rosa naranja claro
+                            ColorSquare(color = Color(0xFFFF8A65),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja claro
+                            ColorSquare(color = Color(0xFFFF7043),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja
+                            ColorSquare(color = Color(0xFFFF5722),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Naranja oscuro
+                            ColorSquare(color = Color.Red,onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Rojo brillante
+                        }
+                        Row {
+                            ColorSquare(color = Color(0xFFC8E6C9),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde claro
+                            ColorSquare(color = Color(0xFF4CAF50),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde
+                            ColorSquare(color = Color(0xFF388E3C),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde oscuro
+                            ColorSquare(color = Color(0xFF00796B),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde azulado
+                            ColorSquare(color = Color(0xFF006064),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul verdoso
+                            ColorSquare(color = Color(0xFF004D40),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Verde azulado oscuro
+                        }
+                        Row {
+                            ColorSquare(color = Color(0xFFB2EBF2),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul claro
+                            ColorSquare(color = Color(0xFF03A9F4),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul
+                            ColorSquare(color = Color(0xFF0277BD),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul oscuro
+                            ColorSquare(color = Color(0xFF01579B),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul profundo
+                            ColorSquare(color = Color(0xFF0D47A1),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul intenso
+                            ColorSquare(color = Color(0xFF1A237E),onDismiss = {showDialog = false},lampViewModel = lampViewModel) // Azul eléctrico
+                        }
+
+
+                    }
                 }
             }
         }
@@ -184,4 +434,11 @@ fun colorToHexString(color: Color): String {
     val green = (color.green * 255).toInt()
     val blue = (color.blue * 255).toInt()
     return String.format("%02X%02X%02X", red, green, blue)
+}
+
+fun hexStringToColor(hexString: String): Color {
+    val red = hexString.substring(0, 2).toInt(16) / 255f
+    val green = hexString.substring(2, 4).toInt(16) / 255f
+    val blue = hexString.substring(4, 6).toInt(16) / 255f
+    return Color(red, green, blue)
 }

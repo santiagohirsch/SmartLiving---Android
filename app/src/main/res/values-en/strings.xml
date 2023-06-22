@@ -19,13 +19,13 @@
     <string name="change_location_msg">Change docking station location</string>
     <string name="return_base_msg">Return to docking station</string>
     <string name="choose_color">Choose color</string>
-    <string name="mode">Mode: </string>
+    <string name="mode">Mode:  </string>
     <string name="temp_freezer">Freezer temp. </string>
     <string name="temp_fridge">Refrigerator temp. </string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
     <string name="change_mode_msg">Change mode</string>
-    <string name="turn_on_or_off">Turn On/\\n Off</string>
+    <string name="turn_on_or_off">Turn\nOn/Off</string>
     <string name="on">On</string>
     <string name="temperature_msg">Temperature: </string>
     <string name="speed_msg">Speed: </string>
