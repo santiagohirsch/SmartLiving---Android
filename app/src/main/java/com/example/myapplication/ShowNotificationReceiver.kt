@@ -4,11 +4,9 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import java.io.Serializable
 
 class ShowNotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -32,8 +30,6 @@ class ShowNotificationReceiver : BroadcastReceiver() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         Log.d(TAG, " ARGS: $args")
-
-        val notifiableEvents = {"lockChanged"}
 
         val builder = customNotificationCompat(context = context, pendingIntent = pendingIntent, event = event, args = args)
 
@@ -60,7 +56,24 @@ class ShowNotificationReceiver : BroadcastReceiver() {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-            else -> builder.setSmallIcon(R.drawable.aspiradora).setContentTitle("PASS_Title").setContentText("PASS_text").setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent).setAutoCancel(true)
+
+            "modeChanged" -> {
+                val contentText =
+                    if (args.contains("\"newMode\":\"party\"")) {"Modo 'Party'"}
+                else {
+                    if (args.contains("\"newMode\":\"vacation\"")){"Modo 'Vacation'"}
+                        else {"Modo 'default'"}
+                }
+                builder
+                .setSmallIcon(R.drawable.puerta)
+                .setContentTitle("Heladera")
+                .setContentText(contentText)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+            }
+
+            else -> builder.setSmallIcon(R.drawable.logo).setContentTitle("SmartLiving").setContentText("Notification ...").setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent).setAutoCancel(true)
         }
 
         return builder
