@@ -29,7 +29,7 @@ interface ApiService {
     suspend fun getDevice(@Path("id")id: String): Response<DeviceResult>
 
     @POST("/api/devices")
-    suspend fun addNewDevice(@Body device: DeviceToAdd) : Response<Device>
+    suspend fun addNewDevice(@Body device: DeviceToAdd) : Response<DeviceResult>
 
     @GET("/api/routines")
     suspend fun getRoutines() : Response<RoutineList>
