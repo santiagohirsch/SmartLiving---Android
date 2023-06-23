@@ -175,7 +175,7 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit, landscape: Boolea
                         onClick = {
                             showConfirmation = true
                         },
-                        modifier = Modifier.padding(end = 5.dp)
+                        modifier = Modifier.padding(start = 605.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Delete,
