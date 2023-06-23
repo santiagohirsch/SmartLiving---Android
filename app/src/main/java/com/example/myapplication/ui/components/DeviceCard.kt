@@ -160,7 +160,7 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit, landscape: Boolea
             content = {
                 Box(
                     modifier = Modifier
-                        .background(colorResource(R.color.primary_button))
+                        .background(colorResource(R.color.white))
                         .width(650.dp)
                         .fillMaxHeight()
                 ) {
@@ -173,8 +173,7 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit, landscape: Boolea
                     }
                     IconButton(
                         onClick = {
-                            device.delete(device.id.toString())
-                            onDismiss()
+                            showConfirmation = true
                         },
                         modifier = Modifier.padding(start = 605.dp)
                     ) {
