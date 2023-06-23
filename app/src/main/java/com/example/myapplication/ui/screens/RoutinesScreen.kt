@@ -63,7 +63,7 @@ fun RoutinesScreen(viewModel: RoutinesViewModel) {
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(colorResource(R.color.secondary_button)),
+                    .background(MaterialTheme.colors.primary),
                 columns = GridCells.Adaptive(140.dp),//Fixed(2),
                 contentPadding = PaddingValues(12.dp),
             ) {

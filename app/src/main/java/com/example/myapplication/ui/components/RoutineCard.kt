@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,14 +15,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,7 +49,8 @@ import com.example.myapplication.util.devicesvm.RoutineViewModel
 @Composable
 fun RoutineCard(routine : RoutineViewModel){
     var showDialog by remember { mutableStateOf(false) }
-
+    var showConfirmation by remember { mutableStateOf(false) }
+    val uiState by routine.uiState.collectAsState()
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -99,12 +106,60 @@ fun RoutineCard(routine : RoutineViewModel){
                             showDialog = false
                         }
                     ) {
-                        Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
+                        Icon(imageVector = Icons.Outlined.Clear, contentDescription = "")
+                    }
+                    IconButton(
+                        onClick = {
+                            showConfirmation = true
+                        },
+                        modifier = Modifier.padding(start = 270.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Delete,
+                            contentDescription = "",
+                            modifier = Modifier.size(30.dp)
+                        )
                     }
                     RoutineScreen(routineViewModel = routine, onDismiss = { showDialog = false })
                 }
             }
         )
+    }
+
+    if(showConfirmation) {
+        Dialog(onDismissRequest = { showConfirmation = false }) {
+            Box(
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(100.dp)
+                    .background(color = Color.White)
+            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Estas seguro que deseas borrar este dispositivo?")
+                Row() {
+
+                    Button(onClick = { showConfirmation = false
+                    }, modifier = Modifier
+                        .padding(all = 5.dp)
+                    ) {
+                        Text(text = "Cancelar", color = Color.White)
+                    }
+                    Button(onClick = {
+                        showConfirmation = false
+                        routine.deleteRoutine(uiState.id.toString())
+                        showDialog = false
+                    },
+                        modifier = Modifier
+                            .padding(all = 5.dp)
+                    ) {
+                        Text(text = "Confirmar", color = Color.White)
+                    }
+                }
+            }
+        }
     }
 
 }

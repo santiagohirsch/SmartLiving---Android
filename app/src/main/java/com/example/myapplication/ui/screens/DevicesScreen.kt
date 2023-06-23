@@ -130,7 +130,7 @@ fun DevicesScreen(
                     fontSize = if (isPhone) 25.sp else 70.sp,
                     color = MaterialTheme.colors.onBackground,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(start = 5.dp, top = 16.dp, bottom = 10.dp)
+                    modifier = Modifier.padding(start = 25.dp, top = 16.dp, bottom = 10.dp)
                 )
                 Spacer(modifier = Modifier.weight(1f)) // Add a Spacer with weight to push the dropdown menu to the right
                 ExposedDropdownMenuBox(
@@ -257,7 +257,7 @@ fun DevicesScreen(
                                     val typeId = deviceTypeToId(selected = selected)
                                     Button(
                                         onClick = {
-                                            viewModel.addNewDevice("value", "lsf78ly0eqrjbz91")
+                                            viewModel.addNewDevice(value.toString(), typeId.toString())
                                             openDialog.value = false
                                             value=""
                                             selected=""
