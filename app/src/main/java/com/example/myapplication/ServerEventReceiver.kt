@@ -4,13 +4,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.EventData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -28,28 +26,32 @@ class ServerEventReceiver : BroadcastReceiver() {
         GlobalScope.launch(Dispatchers.IO) {
             val eventList = fetchEvents()
             // Aca decido que hacer con los eventos
+            val notifiableEvents = arrayOf("lockChanged", "modeChanged") // falta evento de aspiradora, que no nos lo genera la API!!!
 
+            var eventsTotal = 0;
             eventList?.forEach {
-                Log.d(TAG, "Broadcasting fetch notification intent (${it.deviceId})")
+                Log.d(TAG, "Broadcasting fetch notification intent (${it.deviceId}) (${it.event}) (${it.args})")
 
-                val intent2 = Intent().apply {
-                    //if (it.event == "newLock")
+                if(notifiableEvents.contains(it.event)) {
+                    val intent2 = Intent().apply {
                         action = MyIntent.SHOW_NOTIFICATION
-                    //else
-                        //action = MyIntent.SKIP_NOTIFICATION
-                    `package` = MyIntent.PACKAGE
-                    putExtra(MyIntent.DEVICE_ID, it.deviceId)
-                    putExtra(MyIntent.EVENT, it.event)
-                    putExtra(MyIntent.ARGS, it.args.toString())
+                        `package` = MyIntent.PACKAGE
+                        putExtra(MyIntent.DEVICE_ID, it.deviceId)
+                        putExtra(MyIntent.EVENT, it.event)
+                        putExtra(MyIntent.ARGS, it.args.toString())
+                    }
+                    context?.sendOrderedBroadcast(intent2, null)
+                    eventsTotal += 1
                 }
-                context?.sendOrderedBroadcast(intent2, null)
+            }
+            if (eventsTotal == 0) {
+                Log.d(TAG, "Skipping notification broadcast window. $eventsTotal to show")
+                abortBroadcast()
             }
         }
     }
 
-
     private fun fetchEvents(): List<EventData>? {
-        //${BuildConfig.API_BASE_URL}
         val url = "${BuildConfig.API_BASE_URL}api/devices/events"
 
         val connection = (URL(url).openConnection() as HttpURLConnection).also {
