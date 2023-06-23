@@ -63,9 +63,9 @@ class DevicesViewModel: ViewModel() {
             runCatching {
                 val apiService =  RetrofitClient.getApiService()
                 val deviceToAdd = DeviceToAdd(
-                    Type2("lsf78ly0eqrjbz91"),
-                    "elwey",
-                    Meta("", "")
+                    Type2(id),
+                    name,
+                    Meta()
                 )
                 apiService.addNewDevice(deviceToAdd)
             }.onSuccess { //response ->

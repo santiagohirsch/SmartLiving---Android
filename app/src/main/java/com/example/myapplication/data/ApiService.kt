@@ -45,4 +45,7 @@ interface ApiService {
 
     @PUT("/api/routines/{routineId}/execute")
     suspend fun executeRoutine(@Path("routineId")routineId: String)
+
+    @DELETE("/api/routines/{routineId}")
+    suspend fun deleteRoutine(@Path("routineId")routineId: String)
 }

@@ -11,6 +11,6 @@ data class Type2(
 )
 
 data class Meta(
-    val key: String,
-    val value: String
+    val key: String = "",
+    val value: String = ""
 )

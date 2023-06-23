@@ -36,4 +36,15 @@ open class RoutineViewModel(routine: Routine) : ViewModel() {
 
     }
 
+    fun deleteRoutine(routineId: String) {
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch {
+            runCatching {
+                val apiService = RetrofitClient.getApiService()
+                apiService.deleteRoutine(routineId)
+            }
+        }
+
+    }
+
 }
