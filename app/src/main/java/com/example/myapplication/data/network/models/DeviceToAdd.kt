@@ -1,9 +1,9 @@
 package com.example.myapplication.data.network.models
 
 data class DeviceToAdd(
-    val type: Type2,
+    val meta: Meta,
     val name: String,
-    val meta: Meta
+    val type: Type2
 )
 
 data class Type2(
