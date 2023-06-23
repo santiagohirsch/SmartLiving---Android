@@ -33,13 +33,50 @@
     <string name="choose_speed">Elegir velocidad</string>
     <string name="blade_swing_msg">Desplazamiento de las aspas</string>
     <string name="temp" translatable="false">Temp</string>
-    <string name="supported_msg">Dispositivos soportados:</string>
-    <string name="devicesTitle">Dispositivos</string>
-    <string name="channel_name">Devices</string>
-    <string name="channel_description">Canal de notificaciones, donde recibiras los avisos mas importantes sobre tus dispositivos</string>
-    <string name="show_notification">Probando notificaciones!</string>
-    <string name="notification_title">Titulo Prueba</string>
-    <string name="notification_text">Prueba</string>
-    <string name="notification_text2">Prueba 2</string>
+    <string name="supported_msg" translatable="false">Dispositivos soportados:</string>
+    <string name="devicesTitle" translatable="false">Dispositivos</string>
+    <string name="channel_name" translatable="false">Devices</string>
+    <string name="channel_description" translatable="false">Canal de notificaciones, donde recibiras los avisos mas importantes sobre tus dispositivos</string>
+    <string name="show_notification" translatable="false">Probando notificaciones!</string>
+    <string name="notification_title" translatable="false">Titulo Prueba</string>
+    <string name="notification_text" translatable="false">Prueba</string>
+    <string name="notification_text2" translatable="false">Prueba 2</string>
+    <string name="select_mode_cool">Seleccionar modo frio</string>
+    <string name="select_mode_heat">Seleccionar modo calor</string>
+    <string name="select_mode_fan">Seleccionar modo ventilación</string>
+    <string name="speed_auto">Velocidad automática</string>
+    <string name="speed_low">Velocidad baja</string>
+    <string name="speed_medium">Velocidad media</string>
+    <string name="speed_high">Velocidad alta</string>
+    <string name="speed_max">Velocidad máxima</string>
+    <string name="vert_swing">Desplazamiento vertical:</string>
+    <string name="horiz_swing">Desplazamiento horizontal:</string>
+    <string name="vert_swing_msg">Aspas verticales</string>
+    <string name="swing_auto">Desplazamiento automatico</string>
+    <string name="swing_22">Desplazamiento 22º</string>
+    <string name="swing_45">Desplazamiento 45º</string>
+    <string name="swing_67">Desplazamiento 67º</string>
+    <string name="swing_90">Desplazamiento 90º</string>
+    <string name="horiz_swing_msg">Aspas horizontales</string>
+    <string name="swing_n90">Desplazamiento -90º</string>
+    <string name="swing_n45">Desplazamiento -45º</string>
+    <string name="swing_0">Desplazamiento 0º</string>
+    <string name="close_open">Cerrar/Abrir</string>
+    <string name="block_unblock">Desbloquear/Bloquear</string>
+    <string name="select_mode_def">Seleccionar modo default</string>
+    <string name="select_mode_vacation">Seleccionar modo vacaciones</string>
+    <string name="select_mode_party">Seleccionar modo fiesta</string>
+    <string name="brightness">Intensidad:</string>
+    <string name="color" translatable="false">Color:</string>
+    <string name="vacuum">Aspirar</string>
+    <string name="mop">Trapear</string>
+    <string name="delete_confir">Estas seguro que quieres borrar este dispositivo?</string>
+    <string name="delete_confir_2">Estas seguro que quieres borrar esta rutina?</string>
+    <string name="routine_exec_msg">Rutina ejecutada</string>
+    <string name="exec">Ejecutar</string>
+    <string name="sort_by">Ordenar por</string>
+    <string name="default_msg" translatable="false">Default</string>
+    <string name="name">Nombre</string>
+    <string name="type">Tipo</string>
 
 </resources>

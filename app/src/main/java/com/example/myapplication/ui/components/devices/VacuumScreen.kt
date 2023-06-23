@@ -72,7 +72,7 @@ fun Vacuum(
                 ),
             ) {
                 Text(
-                    text = "Encender/\n  Apagar",
+                    text = stringResource(R.string.turn_on_or_off),
                     color = Color.White
                 )
             }
@@ -129,13 +129,13 @@ fun Vacuum(
                                 vacuumViewModel.setMode(vacuumViewModel.id.toString(), "vacuum")
                                 selectMode = false
                             }) {
-                                Text(text = "Aspirar")
+                                Text(text = stringResource(R.string.vacuum))
                             }
                             Button(onClick = {
                                 vacuumViewModel.setMode(vacuumViewModel.id.toString(), "mop")
                                 selectMode = false
                             }) {
-                                Text(text = "Trapear")
+                                Text(text = stringResource(R.string.mop))
                             }
                         }
                     }
@@ -168,7 +168,7 @@ fun Vacuum(
                 ),
             ) {
                 Text(
-                    text = "Encender/\n  Apagar",
+                    text = stringResource(R.string.turn_on_or_off),
                     color = Color.White
                 )
             }
@@ -229,13 +229,13 @@ fun Vacuum(
                             vacuumViewModel.setMode(vacuumViewModel.id.toString(), "vacuum")
                             selectMode = false
                         }) {
-                            Text(text = "Aspirar")
+                            Text(text = stringResource(R.string.vacuum))
                         }
                         Button(onClick = {
                             vacuumViewModel.setMode(vacuumViewModel.id.toString(), "mop")
                             selectMode = false
                         }) {
-                            Text(text = "Trapear")
+                            Text(text = stringResource(R.string.mop))
                         }
                     }
                 }

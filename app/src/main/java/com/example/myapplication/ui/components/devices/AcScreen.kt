@@ -233,19 +233,19 @@ fun Ac(
                                 acViewModel.setMode(acViewModel.id.toString(), "cool")
                                 selectMode = false
                             }) {
-                                Text(text = "Seleccionar modo frio")
+                                Text(text = stringResource(R.string.select_mode_cool))
                             }
                             Button(onClick = {
                                 acViewModel.setMode(acViewModel.id.toString(), "heat")
                                 selectMode = false
                             }) {
-                                Text(text = "Seleccionar modo calor")
+                                Text(text = stringResource(R.string.select_mode_cool))
                             }
                             Button(onClick = {
                                 acViewModel.setMode(acViewModel.id.toString(), "fan")
                                 selectMode = false
                             }) {
-                                Text(text = "Seleccionar modo ventilacion")
+                                Text(text = stringResource(R.string.select_mode_fan))
                             }
                         }
                     }
@@ -277,42 +277,42 @@ fun Ac(
                                 acViewModel.setFanSpeed(acViewModel.id.toString(), "auto")
                                 selectSpeed = false
                             }) {
-                                Text(text = "Velocidad automatica")
+                                Text(text = stringResource(R.string.speed_auto))
                             }
                             Button(onClick = {
                                 acViewModel.setFanSpeed(acViewModel.id.toString(), "25")
                                 selectSpeed = false
                             }) {
-                                Text(text = "Velocidad baja")
+                                Text(text = stringResource(R.string.speed_low))
                             }
                             Button(onClick = {
                                 acViewModel.setFanSpeed(acViewModel.id.toString(), "50")
                                 selectSpeed = false
                             }) {
-                                Text(text = "Velocidad media")
+                                Text(text = stringResource(R.string.speed_medium))
                             }
                             Button(onClick = {
                                 acViewModel.setFanSpeed(acViewModel.id.toString(), "75")
                                 selectSpeed = false
                             }) {
-                                Text(text = "Velocidad alta")
+                                Text(text = stringResource(R.string.speed_high))
                             }
                             Button(onClick = {
                                 acViewModel.setFanSpeed(acViewModel.id.toString(), "100")
                                 selectSpeed = false
                             }) {
-                                Text(text = "Velocidad maxima")
+                                Text(text = stringResource(R.string.speed_max))
                             }
                         }
                     }
                 }
             }
             Text(
-                text = "Vertical swing: " + uiState.state.verticalSwing,
+                text = stringResource(R.string.vert_swing) + uiState.state.verticalSwing,
                 fontSize = 20.sp
             )
             Text(
-                text = "Horizontal swing: " + uiState.state.horizontalSwing,
+                text = stringResource(R.string.horiz_swing) + uiState.state.horizontalSwing,
                 fontSize = 20.sp
             )
             Button(
@@ -339,7 +339,7 @@ fun Ac(
                             Button(onClick = {
                                 selectVerticalSwing = true
                             }) {
-                                Text(text = "Aspas verticales")
+                                Text(text = stringResource(R.string.vert_swing_msg))
                             }
                             if (selectVerticalSwing) {
                                 Dialog(onDismissRequest = {
@@ -365,7 +365,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento automatico")
+                                                Text(text = stringResource(R.string.swing_auto))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -375,7 +375,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 22º")
+                                                Text(text = stringResource(R.string.swing_22))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -385,7 +385,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 45º")
+                                                Text(text = stringResource(R.string.swing_45))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -395,7 +395,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 67º")
+                                                Text(text = stringResource(R.string.swing_67))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -405,7 +405,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 90º")
+                                                Text(text = stringResource(R.string.swing_90))
                                             }
                                         }
                                     }
@@ -414,7 +414,7 @@ fun Ac(
                             Button(onClick = {
                                 selectHorizontalSwing = true
                             }) {
-                                Text(text = "Aspas horizontales")
+                                Text(text = stringResource(R.string.horiz_swing_msg))
                             }
                             if (selectHorizontalSwing) {
                                 Dialog(onDismissRequest = {
@@ -440,7 +440,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento automatico")
+                                                Text(text = stringResource(R.string.swing_auto))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -450,7 +450,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento -90º")
+                                                Text(text = stringResource(R.string.swing_n90))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -460,7 +460,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento -45º")
+                                                Text(text = stringResource(R.string.swing_n45))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -470,7 +470,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 0º")
+                                                Text(text = stringResource(R.string.swing_0))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -480,7 +480,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 45º")
+                                                Text(text = stringResource(R.string.swing_45))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -490,7 +490,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 90º")
+                                                Text(text = stringResource(R.string.swing_90))
                                             }
                                         }
                                     }
@@ -588,19 +588,19 @@ fun Ac(
                                     acViewModel.setMode(acViewModel.id.toString(), "cool")
                                     selectMode = false
                                 }) {
-                                    Text(text = "Seleccionar modo frio")
+                                    Text(text = stringResource(R.string.select_mode_cool))
                                 }
                                 Button(onClick = {
                                     acViewModel.setMode(acViewModel.id.toString(), "heat")
                                     selectMode = false
                                 }) {
-                                    Text(text = "Seleccionar modo calor")
+                                    Text(text = stringResource(R.string.select_mode_heat))
                                 }
                                 Button(onClick = {
                                     acViewModel.setMode(acViewModel.id.toString(), "fan")
                                     selectMode = false
                                 }) {
-                                    Text(text = "Seleccionar modo ventilacion")
+                                    Text(text = stringResource(R.string.select_mode_fan))
                                 }
                             }
                         }
@@ -632,31 +632,31 @@ fun Ac(
                                     acViewModel.setFanSpeed(acViewModel.id.toString(), "auto")
                                     selectSpeed = false
                                 }) {
-                                    Text(text = "Velocidad automatica")
+                                    Text(text = stringResource(R.string.speed_auto))
                                 }
                                 Button(onClick = {
                                     acViewModel.setFanSpeed(acViewModel.id.toString(), "25")
                                     selectSpeed = false
                                 }) {
-                                    Text(text = "Velocidad baja")
+                                    Text(text = stringResource(R.string.speed_low))
                                 }
                                 Button(onClick = {
                                     acViewModel.setFanSpeed(acViewModel.id.toString(), "50")
                                     selectSpeed = false
                                 }) {
-                                    Text(text = "Velocidad media")
+                                    Text(text = stringResource(R.string.speed_medium))
                                 }
                                 Button(onClick = {
                                     acViewModel.setFanSpeed(acViewModel.id.toString(), "75")
                                     selectSpeed = false
                                 }) {
-                                    Text(text = "Velocidad alta")
+                                    Text(text = stringResource(R.string.speed_high))
                                 }
                                 Button(onClick = {
                                     acViewModel.setFanSpeed(acViewModel.id.toString(), "100")
                                     selectSpeed = false
                                 }) {
-                                    Text(text = "Velocidad maxima")
+                                    Text(text = stringResource(R.string.speed_max))
                                 }
                             }
                         }
@@ -797,10 +797,10 @@ fun Ac(
                 modifier = Modifier.fillMaxHeight()
             ) {
                 Text(
-                    text = "Vertical swing: " + uiState.state.verticalSwing
+                    text = stringResource(R.string.vert_swing) + uiState.state.verticalSwing
                 )
                 Text(
-                    text = "Horizontal swing: " + uiState.state.horizontalSwing
+                    text = stringResource(R.string.vert_swing) + uiState.state.horizontalSwing
                 )
                 Button(
                     onClick = {
@@ -857,7 +857,7 @@ fun Ac(
                             Button(onClick = {
                                 selectVerticalSwing = true
                             }) {
-                                Text(text = "Aspas verticales")
+                                Text(text = stringResource(R.string.vert_swing_msg))
                             }
                             if (selectVerticalSwing) {
                                 Dialog(onDismissRequest = {
@@ -883,7 +883,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento automatico")
+                                                Text(text = stringResource(R.string.swing_auto))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -893,7 +893,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 22º")
+                                                Text(text = stringResource(R.string.swing_22))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -903,7 +903,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 45º")
+                                                Text(text = stringResource(R.string.swing_45))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -913,7 +913,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 67º")
+                                                Text(text = stringResource(R.string.swing_67))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setVerticalSwing(
@@ -923,7 +923,7 @@ fun Ac(
                                                 selectVerticalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 90º")
+                                                Text(text = stringResource(R.string.swing_90))
                                             }
                                         }
                                     }
@@ -932,7 +932,7 @@ fun Ac(
                             Button(onClick = {
                                 selectHorizontalSwing = true
                             }) {
-                                Text(text = "Aspas horizontales")
+                                Text(text = stringResource(R.string.horiz_swing_msg))
                             }
                             if (selectHorizontalSwing) {
                                 Dialog(onDismissRequest = {
@@ -958,7 +958,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento automatico")
+                                                Text(text = stringResource(R.string.swing_auto))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -968,7 +968,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento -90º")
+                                                Text(text = stringResource(R.string.swing_n90))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -978,7 +978,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento -45º")
+                                                Text(text = stringResource(R.string.swing_n45))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -988,7 +988,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 0º")
+                                                Text(text = stringResource(R.string.swing_0))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -998,7 +998,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 45º")
+                                                Text(text = stringResource(R.string.swing_45))
                                             }
                                             Button(onClick = {
                                                 acViewModel.setHorizontalSwing(
@@ -1008,7 +1008,7 @@ fun Ac(
                                                 selectHorizontalSwing = false
                                                 selectSwing = false
                                             }) {
-                                                Text(text = "Desplazamiento 90º")
+                                                Text(text = stringResource(R.string.swing_90))
                                             }
                                         }
                                     }

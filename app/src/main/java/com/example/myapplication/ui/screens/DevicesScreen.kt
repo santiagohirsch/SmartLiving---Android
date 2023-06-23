@@ -69,7 +69,8 @@ fun DevicesScreen(
     viewModel: DevicesViewModel,
     isPhone: Boolean = true
 ) {
-    
+    val name = stringResource(R.string.name)
+    val type = stringResource(R.string.type)
     val openDialog = remember {
         mutableStateOf(false)
     }
@@ -77,7 +78,7 @@ fun DevicesScreen(
         mutableStateOf("")
     }
     val listItems = arrayOf(stringResource(R.string.ac_name), stringResource(R.string.door_name), stringResource(R.string.fridge_name), stringResource(R.string.lamp_name), stringResource(R.string.vacuum_name))
-    val sortOptions = arrayOf("Default", "Nombre", "Tipo")
+    val sortOptions = arrayOf(stringResource(R.string.default_msg), stringResource(R.string.name), stringResource(R.string.type))
     val contextForToast = LocalContext.current.applicationContext
     var expanded by remember {
         mutableStateOf(false)
@@ -148,7 +149,7 @@ fun DevicesScreen(
                             value = sortArray,
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text(text = "Sort by") },
+                            label = { Text(text = stringResource(R.string.sort_by)) },
                             trailingIcon = {
                                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSort)
                             },
@@ -286,11 +287,12 @@ fun DevicesScreen(
                 columns = GridCells.Adaptive(140.dp),//Fixed(2),
                 contentPadding = PaddingValues(12.dp),
             ) {
+
                 viewModel.getAllDevices()
                 var devices = viewModel.getCurrentDevices()
                 when(sortArray) {
-                    "Nombre" -> devices = viewModel.getCurrentDevices().sortedBy { it.name } as MutableList<Device>
-                    "Tipo" -> devices = viewModel.getCurrentDevices().sortedBy { it.type?.name } as MutableList<Device>
+                    name -> devices = viewModel.getCurrentDevices().sortedBy { it.name } as MutableList<Device>
+                    type -> devices = viewModel.getCurrentDevices().sortedBy { it.type?.name } as MutableList<Device>
                 }
                 itemsIndexed(devices) { _, device ->
                     when (device.type?.name) {

@@ -39,6 +39,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -201,14 +202,14 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit, landscape: Boolea
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Estas seguro que deseas borrar este dispositivo?")
+                Text(text = stringResource(R.string.delete_confir))
                 Row() {
 
                     Button(onClick = { showConfirmation = false
                     }, modifier = Modifier
                         .padding(all = 5.dp)
                     ) {
-                        Text(text = "Cancelar", color = Color.White)
+                        Text(text = stringResource(R.string.cancel), color = Color.White)
                     }
                     Button(onClick = {
                         showConfirmation = false
@@ -218,7 +219,7 @@ fun CustomDialog(device: DeviceViewModel,onDismiss: ()-> Unit, landscape: Boolea
                         modifier = Modifier
                             .padding(all = 5.dp)
                     ) {
-                        Text(text = "Confirmar", color = Color.White)
+                        Text(text = stringResource(R.string.confirm), color = Color.White)
                     }
                 }
             }

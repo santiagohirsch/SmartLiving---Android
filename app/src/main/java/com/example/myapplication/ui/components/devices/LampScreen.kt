@@ -104,10 +104,10 @@ fun Lamp(
             },*/
                 valueRange = 0f..100f
             )
-            Text(text = "Intensidad : " + uiState.state.brightness.toString(), fontSize = 20.sp)
+            Text(text = stringResource(R.string.brightness) + uiState.state.brightness.toString(), fontSize = 20.sp)
             Row(modifier = Modifier.clickable { showDialog = true }) {
                 Text(
-                    text = "Color: ",
+                    text = stringResource(R.string.color),
                     fontSize = 20.sp,
                     modifier = Modifier
                         .padding(top = 10.dp)
@@ -328,7 +328,7 @@ fun Lamp(
                 },*/
                     valueRange = 0f..100f
                 )
-                Text(text = "Intensidad : " + uiState.state.brightness.toString(), fontSize = 20.sp)
+                Text(text = stringResource(R.string.brightness) + uiState.state.brightness.toString(), fontSize = 20.sp)
             }
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -337,7 +337,7 @@ fun Lamp(
             ) {
                 Row(modifier = Modifier.clickable { showDialog = true }) {
                     Text(
-                        text = "Color: ",
+                        text = stringResource(R.string.color),
                         fontSize = 20.sp,
                         modifier = Modifier
                             .padding(top = 10.dp)

@@ -17,8 +17,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
 import com.example.myapplication.util.devicesvm.RoutineViewModel
 
 @Composable
@@ -61,7 +63,7 @@ fun RoutineScreen(routineViewModel: RoutineViewModel, onDismiss: () -> Unit){
                 .width(130.dp),
         ) {
             Text(
-                text = "Ejecutar",
+                text = stringResource(R.string.exec),
                 fontSize = 20.sp
             )
         }

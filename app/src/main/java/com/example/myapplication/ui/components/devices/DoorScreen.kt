@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,7 +86,7 @@ fun Door(
                     .size(350.dp),
                 contentScale = ContentScale.Crop
             )
-            Text(text = "Cerrar/Abrir", fontSize = 24.sp)
+            Text(text = stringResource(R.string.close_open), fontSize = 24.sp)
             Switch(
                 checked = switchOpen,
                 onCheckedChange = { switchOn_ ->
@@ -105,7 +106,7 @@ fun Door(
                 modifier = Modifier.scale(2.2f)
             )
             Spacer(modifier = Modifier.height(25.dp))
-            Text(text = "Desbloquear/Bloquear", fontSize = 24.sp)
+            Text(text = stringResource(R.string.block_unblock), fontSize = 24.sp)
             Switch(
                 checked = switchLock,
                 onCheckedChange = { switchOn_ ->
@@ -137,7 +138,7 @@ fun Door(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxHeight()
             ) {
-                Text(text = "Cerrar/Abrir", fontSize = 24.sp)
+                Text(text = stringResource(R.string.close_open), fontSize = 24.sp)
                 Switch(
                     checked = switchOpen,
                     onCheckedChange = { switchOn_ ->
@@ -183,7 +184,7 @@ fun Door(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxHeight()
             ){
-                Text(text = "Desbloquear/Bloquear", fontSize = 24.sp)
+                Text(text = stringResource(R.string.block_unblock), fontSize = 24.sp)
                 Switch(
                     checked = switchLock,
                     onCheckedChange = { switchOn_ ->

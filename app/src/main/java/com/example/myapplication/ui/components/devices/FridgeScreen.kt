@@ -161,7 +161,7 @@ fun Fridge(
                                         )
                                         changeMode = false
                                     }) {
-                                        Text(text = "Seleccionar modo default", color = Color.White)
+                                        Text(text = stringResource(R.string.select_mode_def), color = Color.White)
                                     }
                                     Button(onClick = {
                                         fridgeViewModel.setMode(
@@ -171,7 +171,7 @@ fun Fridge(
                                         changeMode = false
                                     }) {
                                         Text(
-                                            text = "Seleccionar modo vacaciones",
+                                            text = stringResource(R.string.select_mode_vacation),
                                             color = Color.White
                                         )
                                     }
@@ -182,7 +182,7 @@ fun Fridge(
                                         )
                                         changeMode = false
                                     }) {
-                                        Text(text = "Seleccionar modo fiesta", color = Color.White)
+                                        Text(text = stringResource(R.string.select_mode_party), color = Color.White)
                                     }
                                 }
                             }
@@ -430,7 +430,7 @@ fun Fridge(
                                             changeMode = false
                                         }) {
                                             Text(
-                                                text = "Seleccionar modo default",
+                                                text = stringResource(R.string.select_mode_def),
                                                 color = Color.White
                                             )
                                         }
@@ -442,7 +442,7 @@ fun Fridge(
                                             changeMode = false
                                         }) {
                                             Text(
-                                                text = "Seleccionar modo vacaciones",
+                                                text = stringResource(R.string.select_mode_vacation),
                                                 color = Color.White
                                             )
                                         }
@@ -454,7 +454,7 @@ fun Fridge(
                                             changeMode = false
                                         }) {
                                             Text(
-                                                text = "Seleccionar modo fiesta",
+                                                text = stringResource(R.string.select_mode_party),
                                                 color = Color.White
                                             )
                                         }
